@@ -7,26 +7,39 @@
  <title>Объявления</title>
 </head>
 <body>
- <h3>Пользователи</h3>
+ <h3>Объявления</h3>
 <a href="<c:url value="/add"/>">Добавить</a>
  
- <table>
+ <table border=1 cellspacing=0>
  <thead>
  <tr>
-     <td>Логин</td>
-     <td>Имя</td>
-     <td>E-mail</td>
-     <td>Дата рождения</td>
-     <td>Действия</td>
+     <th>Заголовок</th>
+     <th>Производитель</th>
+     <th>Модель</th>
+     <th>Год выпуска</th>
+     <th>Объем двигателя, см3</th>
+     <th>Пробег, км</th>
+     <th>Описание</th>
+     <th>Телефон</th>
+     <th>E-mail</th>
+     <th>Дата размещения</th>
+     <th>Конец размещения</th>
    </tr>
  </thead>
-   <c:forEach items="${users}" var="user">
+   <c:forEach items="${ads}" var="ad">
    <tr>
-     <td>${user.login}</td>
-     <td><c:out value="${user.name}" escapeXml="true"/></td>
-     <td><a href="mailto:${user.email}">${user.email}</a></td>
-     <td><fmt:formatDate value="${user.birthDate}" pattern="dd-MM-yyyy"/></td>
-     <td><a href="<c:url value="/edit/${user.id}"/>">Редактировать</a></td>
+     <td>${ad.title}</td>
+     <td><c:out value="${ad.manufacturerId}" escapeXml="true"/></td>
+     <td>${ad.modelId}</td>
+     <td>${ad.year}</td>
+     <td>${ad.capacity}</td>
+     <td>${ad.mileage}</td>
+     <td>${ad.description}</td>
+     <td>${ad.phone}</td>
+     <td><a href="mailto:${ad.email}">${ad.email}</a></td>
+     <td><fmt:formatDate value="${ad.startDate}" pattern="dd-MM-yyyy"/></td>
+     <td><fmt:formatDate value="${ad.endDate}" pattern="dd-MM-yyyy"/></td>
+     <td><a href="<c:url value="/edit/${ad.id}"/>">Редактировать</a></td>
    </tr>
    </c:forEach>
  </table>
