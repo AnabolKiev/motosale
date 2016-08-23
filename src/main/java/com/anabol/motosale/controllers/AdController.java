@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
-import com.anabol.motosale.dao.AdDao;
+import com.anabol.motosale.dao.AdDaoMem;
 import com.anabol.motosale.model.Ad;
 
 /** 
@@ -24,7 +24,7 @@ import com.anabol.motosale.model.Ad;
  */
 @Controller 
 public class AdController {
-	private AdDao adDao = new AdDao();
+	private AdDaoMem adDao = new AdDaoMem();
 
 	@InitBinder
 	public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
