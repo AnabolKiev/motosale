@@ -16,11 +16,6 @@ public class AdDaoJDBC implements AdDao{
 	 private static final String url = "jdbc:mysql://localhost:3306/ms";
 	 private static final String user = "root";
 	 private static final String password = "root";
-	 
-	 // JDBC variables for opening and managing connection
-	 //private static Connection con;
-	 //private static Statement stmt;
-	 //private static ResultSet rs;
 	 Connection connection = null;
 	 
      public Connection getConnection(){
