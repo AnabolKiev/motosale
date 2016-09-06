@@ -2,6 +2,7 @@ package com.anabol.motosale.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -17,14 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 import com.anabol.motosale.dao.AdDaoMem;
+import com.anabol.motosale.dao.AdDaoJDBC;
 import com.anabol.motosale.model.Ad;
 
-/** 
- * Контроллер для работы с объявлениями
- */
-@Controller 
+@Controller
 public class AdController {
-	private AdDaoMem adDao = new AdDaoMem();
+//	private AdDaoMem adDao = new AdDaoMem();
+	private AdDaoJDBC adDao = new AdDaoJDBC();
 
 	@InitBinder
 	public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
@@ -33,7 +33,7 @@ public class AdController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
-	public String addUser(Model model) {
+	public String addAd(Model model) {
 		Ad ad = new Ad();
 		model.addAttribute("ad", ad);
 		return "/WEB-INF/jsp/addEdit.jsp";
@@ -41,22 +41,22 @@ public class AdController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String showEditAd(@PathVariable("id") Long id, Model model) {
+		adDao.getConnection();
 		model.addAttribute("ad", adDao.findAdById(id));
+		adDao.closeConnection();
 		return "/WEB-INF/jsp/addEdit.jsp";
 	}
-	
-/*	@ModelAttribute("user")
-	public User newUser() {
-	    return new User();
-	}*/
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView saveAdPost(@ModelAttribute Ad ad, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return new ModelAndView("/WEB-INF/jsp/error.jsp", "bindRes", bindingResult);
 		}
+		adDao.getConnection();
 		adDao.saveAd(ad);
-		return new ModelAndView("/WEB-INF/jsp/index.jsp", "ads", adDao.getAllAds());
+		List<Ad> ads = adDao.getAllAds();
+		adDao.closeConnection();
+		return new ModelAndView("/WEB-INF/jsp/index.jsp", "ads", ads);
 	}
 
 }

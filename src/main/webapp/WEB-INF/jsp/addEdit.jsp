@@ -4,8 +4,8 @@
 <html>
 <head>
  <title>
- <c:if test="${empty user.id}"> Добавление пользователя</c:if>
- <c:if test="${not empty user.id}"> Редактирование пользователя </c:if>
+ <c:if test="${empty ad.id}"> Добавление объявления</c:if>
+ <c:if test="${not empty ad.id}"> Редактирование объявления</c:if>
  </title>
 </head>
 <body>

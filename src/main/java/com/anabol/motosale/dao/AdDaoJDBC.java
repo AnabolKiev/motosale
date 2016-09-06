@@ -62,8 +62,8 @@ public class AdDaoJDBC implements AdDao{
 			 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ms.ad WHERE id = ?");
 			 preparedStatement.setLong(1, id);
              ResultSet resultSet = preparedStatement.executeQuery();
-             preparedStatement.close();
-		        if (resultSet.first()){
+             //preparedStatement.close();
+		        while (resultSet.next()){
 		        	ad = new Ad();
 		            ad.setId(Long.parseLong(resultSet.getString("id")));
 		            ad.setTitle(resultSet.getString("title")); 

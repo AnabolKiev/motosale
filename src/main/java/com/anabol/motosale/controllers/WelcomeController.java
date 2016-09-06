@@ -10,9 +10,7 @@ import com.anabol.motosale.dao.AdDaoJDBC;
 import com.anabol.motosale.model.Ad;
 import java.util.*;
 
-/**
- *  онтроллер дл€ главной страницы приложени€.
- */
+
 @Controller
 public class WelcomeController {
 //	private AdDaoMem adDao = new AdDaoMem();
@@ -23,7 +21,7 @@ public class WelcomeController {
 		adDao.getConnection();
 		List<Ad> ads = adDao.getAllAds();
 		adDao.closeConnection();
-//    	model.addAttribute("ads", ads);
+    	model.addAttribute("ads", ads);
 		return "/WEB-INF/jsp/index.jsp";
 	}
 

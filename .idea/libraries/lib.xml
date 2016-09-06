@@ -11,6 +11,7 @@
       <root url="jar://$PROJECT_DIR$/target/motosale/WEB-INF/lib/spring-context-4.2.4.RELEASE.jar!/" />
       <root url="jar://$PROJECT_DIR$/target/motosale/WEB-INF/lib/jstl-1.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/target/motosale/WEB-INF/lib/spring-web-4.2.4.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../mysql-connector-java-5.1.39-bin.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
