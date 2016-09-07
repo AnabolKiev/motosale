@@ -20,7 +20,7 @@ public class WelcomeController {
 	public String index(Model model) {
 		adDao.getConnection();
 		List<Ad> ads = adDao.getAllAds();
-		adDao.closeConnection();
+//		adDao.closeConnection();
     	model.addAttribute("ads", ads);
 		return "/WEB-INF/jsp/index.jsp";
 	}

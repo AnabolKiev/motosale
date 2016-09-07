@@ -43,19 +43,33 @@ public class AdController {
 	public String showEditAd(@PathVariable("id") Long id, Model model) {
 		adDao.getConnection();
 		model.addAttribute("ad", adDao.findAdById(id));
-		adDao.closeConnection();
+//		adDao.closeConnection();
 		return "/WEB-INF/jsp/addEdit.jsp";
 	}
-	
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String deleteAd(@PathVariable("id") Long id, Model model) {
+        adDao.getConnection();
+        adDao.deleteById(id);
+        List<Ad> ads = adDao.getAllAds();
+//		adDao.closeConnection();
+        model.addAttribute("ads", ads);
+        return "/WEB-INF/jsp/index.jsp";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView saveAdPost(@ModelAttribute Ad ad, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return new ModelAndView("/WEB-INF/jsp/error.jsp", "bindRes", bindingResult);
 		}
 		adDao.getConnection();
-		adDao.saveAd(ad);
+        if (ad.getId() == null) {
+            adDao.insertAd(ad);
+        } else {
+            adDao.updateAd(ad);
+        }
 		List<Ad> ads = adDao.getAllAds();
-		adDao.closeConnection();
+//		adDao.closeConnection();
 		return new ModelAndView("/WEB-INF/jsp/index.jsp", "ads", ads);
 	}
 

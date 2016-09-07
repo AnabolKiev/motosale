@@ -40,6 +40,7 @@
      <td><fmt:formatDate value="${ad.startDate}" pattern="dd-MM-yyyy"/></td>
      <td><fmt:formatDate value="${ad.endDate}" pattern="dd-MM-yyyy"/></td>
      <td><a href="<c:url value="/edit/${ad.id}"/>">Редактировать</a></td>
+     <td><a href="<c:url value="/delete/${ad.id}"/>">Удалить</a></td>
    </tr>
    </c:forEach>
  </table>
