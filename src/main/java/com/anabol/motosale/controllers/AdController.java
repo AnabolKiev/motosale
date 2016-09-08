@@ -41,7 +41,7 @@ public class AdController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String showEditAd(@PathVariable("id") Long id, Model model) {
-		adDao.getConnection();
+//		adDao.getConnection();
 		model.addAttribute("ad", adDao.findAdById(id));
 //		adDao.closeConnection();
 		return "/WEB-INF/jsp/addEdit.jsp";
@@ -49,8 +49,8 @@ public class AdController {
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteAd(@PathVariable("id") Long id, Model model) {
-        adDao.getConnection();
-        adDao.deleteById(id);
+    //    adDao.getConnection();
+//        adDao.deleteById(id);
         List<Ad> ads = adDao.getAllAds();
 //		adDao.closeConnection();
         model.addAttribute("ads", ads);
@@ -62,7 +62,7 @@ public class AdController {
 		if (bindingResult.hasErrors()) {
 			return new ModelAndView("/WEB-INF/jsp/error.jsp", "bindRes", bindingResult);
 		}
-		adDao.getConnection();
+//		adDao.getConnection();
         if (ad.getId() == null) {
             adDao.insertAd(ad);
         } else {

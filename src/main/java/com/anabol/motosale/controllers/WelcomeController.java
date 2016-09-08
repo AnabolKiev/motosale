@@ -18,7 +18,7 @@ public class WelcomeController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
-		adDao.getConnection();
+//		adDao.getConnection();
 		List<Ad> ads = adDao.getAllAds();
 //		adDao.closeConnection();
     	model.addAttribute("ads", ads);

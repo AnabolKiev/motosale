@@ -35,6 +35,7 @@ public class AdDaoJDBC implements AdDao{
         try {
             if (connection != null) {
                 connection.close();
+                connection = null;
             }
         } catch (Exception e) {
             //do nothing
@@ -44,6 +45,7 @@ public class AdDaoJDBC implements AdDao{
     public List<Ad> getAllAds() {
 		 List<Ad> ads = new ArrayList<Ad>();
 		 	try {
+                connection = getConnection();
 		 		Statement statement = connection.createStatement();
 		        ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
 		        Ad ad = null;
@@ -57,13 +59,16 @@ public class AdDaoJDBC implements AdDao{
 		        statement.close();
 		     } catch (SQLException e) {
 		    	 e.printStackTrace();
-		     } 	 
+            } finally {
+                closeConnection();
+            }
 		 return ads;
 	 }
 	 
 	 public Ad findAdById(Long id) {
 		 Ad ad = null;
 		 try {
+             connection = getConnection();
 			 PreparedStatement preparedStatement = connection.prepareStatement(SQL_FIND_BY_ID);
 			 preparedStatement.setLong(1, id);
              ResultSet resultSet = preparedStatement.executeQuery();
@@ -76,7 +81,9 @@ public class AdDaoJDBC implements AdDao{
 		        resultSet.close();
 		     } catch (SQLException e) {
 		    	 e.printStackTrace();
-		     }
+         } finally {
+             closeConnection();
+         }
 		 return ad;
 	 }
 	 
@@ -85,6 +92,7 @@ public class AdDaoJDBC implements AdDao{
              ad.setId(sequence.getAndIncrement());
          }
 	    try {
+            connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT);
             preparedStatement.setLong(1, ad.getId());
             preparedStatement.setString(2,  ad.getTitle());
@@ -93,11 +101,14 @@ public class AdDaoJDBC implements AdDao{
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
 	 }
 
     public void updateAd(Ad ad) {
         try {
+            connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_UPDATE);
             preparedStatement.setString(1,  ad.getTitle());
             preparedStatement.setLong(2, ad.getId());
@@ -106,11 +117,15 @@ public class AdDaoJDBC implements AdDao{
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
     }
 
     public void deleteById(Long id) {
+//        Connection connection2 = null;
         try {
+            connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -118,6 +133,8 @@ public class AdDaoJDBC implements AdDao{
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } finally {
+            closeConnection();
         }
     }
 
