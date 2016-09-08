@@ -11,7 +11,6 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 
 public class AdDaoJDBC implements AdDao{
-	 private AtomicLong sequence = new AtomicLong(1);
 	 // JDBC URL, username and password of MySQL server
 	 private static final String url = "jdbc:mysql://localhost:3306/ms";
 	 private static final String user = "root";
@@ -21,7 +20,7 @@ public class AdDaoJDBC implements AdDao{
      public Connection getConnection(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            if(connection == null)
+//            if(connection == null)
                 connection = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -35,7 +34,6 @@ public class AdDaoJDBC implements AdDao{
         try {
             if (connection != null) {
                 connection.close();
-                connection = null;
             }
         } catch (Exception e) {
             //do nothing
@@ -56,7 +54,7 @@ public class AdDaoJDBC implements AdDao{
 		            ads.add(ad);
 		        }
 		        resultSet.close();
-		        statement.close();
+		   //     statement.close();
 		     } catch (SQLException e) {
 		    	 e.printStackTrace();
             } finally {
@@ -75,8 +73,8 @@ public class AdDaoJDBC implements AdDao{
              //preparedStatement.close();
 		        while (resultSet.next()){
 		        	ad = new Ad();
-		            ad.setId(Long.parseLong(resultSet.getString("id")));
-		            ad.setTitle(resultSet.getString("title")); 
+		            ad.setId(resultSet.getLong("id"));
+		            ad.setTitle(resultSet.getString("title"));
 		        }
 		        resultSet.close();
 		     } catch (SQLException e) {
@@ -88,16 +86,12 @@ public class AdDaoJDBC implements AdDao{
 	 }
 	 
 	 public void insertAd(Ad ad) {
-         if (ad.getId() == null) {
-             ad.setId(sequence.getAndIncrement());
-         }
 	    try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_INSERT);
-            preparedStatement.setLong(1, ad.getId());
-            preparedStatement.setString(2,  ad.getTitle());
+            preparedStatement.setString(1,  ad.getTitle());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+         //   preparedStatement.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -113,7 +107,7 @@ public class AdDaoJDBC implements AdDao{
             preparedStatement.setString(1,  ad.getTitle());
             preparedStatement.setLong(2, ad.getId());
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+         //   preparedStatement.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -123,13 +117,12 @@ public class AdDaoJDBC implements AdDao{
     }
 
     public void deleteById(Long id) {
-//        Connection connection2 = null;
         try {
             connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_DELETE);
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-            preparedStatement.close();
+         //   preparedStatement.close();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

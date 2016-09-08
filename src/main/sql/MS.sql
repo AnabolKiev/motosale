@@ -5,7 +5,7 @@ create schema ms;
 drop table if exists ms.ad;
 
 create table ms.ad (
-	id int primary key,
+	id int primary key not null auto_increment,
     title varchar(255),
     description varchar(2048),
     manufacturerId int,
