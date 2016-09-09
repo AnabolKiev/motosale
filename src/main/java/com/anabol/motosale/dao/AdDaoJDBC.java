@@ -12,11 +12,21 @@ import java.sql.PreparedStatement;
 
 public class AdDaoJDBC implements AdDao{
 	 // JDBC URL, username and password of MySQL server
-	 private static final String url = "jdbc:mysql://localhost:3306/ms";
-	 private static final String user = "root";
-	 private static final String password = "root";
+	 private /*static final*/ String url;// = "jdbc:mysql://localhost:3306/ms";
+	 private /*static final*/ String user;// = "root";
+	 private /*static final*/ String password;// = "root";
 	 Connection connection = null;
-	 
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    public void setUser(String user) {
+        this.user = user;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
      public Connection getConnection(){
         try {
             Class.forName("com.mysql.jdbc.Driver");

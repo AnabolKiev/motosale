@@ -48,23 +48,21 @@ public class AdController {
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteAd(@PathVariable("id") Long id, Model model) {
         adDao.deleteById(id);
-        List<Ad> ads = adDao.getAllAds();
-        model.addAttribute("ads", ads);
-        return "/WEB-INF/jsp/index.jsp";
+        return "redirect:/";
 	}
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-	public ModelAndView saveAdPost(@ModelAttribute Ad ad, BindingResult bindingResult) {
+	public String saveAdPost(@ModelAttribute Ad ad, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
-			return new ModelAndView("/WEB-INF/jsp/error.jsp", "bindRes", bindingResult);
+            model.addAttribute("bindRes", bindingResult);
+            return "/WEB-INF/jsp/error.jsp";
 		}
         if (ad.getId() == null) {
             adDao.insertAd(ad);
         } else {
             adDao.updateAd(ad);
         }
-		List<Ad> ads = adDao.getAllAds();
-		return new ModelAndView("/WEB-INF/jsp/index.jsp", "ads", ads);
+        return "redirect:/";
 	}
 
 }
