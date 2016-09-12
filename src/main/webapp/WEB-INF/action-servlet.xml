@@ -9,18 +9,6 @@
  http://www.springframework.org/schema/context/spring-context-3.0.xsd
  http://www.springframework.org/schema/mvc 
  http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-	<context:component-scan base-package="com.anabol.motosale.controllers" />
-	<mvc:annotation-driven/>
-    <context:property-placeholder location="jdbc.properties"/>
-    <bean class="com.anabol.motosale.dao.AdDaoJDBC">
-        <property name="url">
-            <value>${jdbc.url}</value>
-        </property>
-        <property name="user">
-            <value>${jdbc.user}</value>
-        </property>
-        <property name="password">
-            <value>${jdbc.password}</value>
-        </property>
-    </bean>
+    <context:component-scan base-package="com.anabol.motosale.controllers" />
+    <mvc:annotation-driven/>
 </beans>

@@ -2,7 +2,6 @@ package com.anabol.motosale.dao;
 
 import com.anabol.motosale.model.Ad;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicLong;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,9 +11,9 @@ import java.sql.PreparedStatement;
 
 public class AdDaoJDBC implements AdDao{
 	 // JDBC URL, username and password of MySQL server
-	 private /*static final*/ String url;// = "jdbc:mysql://localhost:3306/ms";
-	 private /*static final*/ String user;// = "root";
-	 private /*static final*/ String password;// = "root";
+     private /*static final*/ String url = "jdbc:mysql://localhost:3306/ms";
+	 private /*static final*/ String user = "root";
+	 private /*static final*/ String password = "root";
 	 Connection connection = null;
 
     public void setUrl(String url) {

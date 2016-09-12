@@ -15,10 +15,7 @@
       <configuration process_explicitly_annotated="false">
         <fileset id="fileset" name="Spring Application Context" removed="false">
           <file>file://$MODULE_DIR$/webapp/WEB-INF/action-servlet.xml</file>
-        </fileset>
-        <fileset id="fileset2" name="Spring Application Context (2)" removed="false">
-          <dependency>fileset</dependency>
-          <file>file://$MODULE_DIR$/resources/spring-context.xml</file>
+          <file>file://$MODULE_DIR$/webapp/WEB-INF/spring-context.xml</file>
         </fileset>
       </configuration>
     </facet>
