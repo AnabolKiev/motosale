@@ -11,9 +11,9 @@ import java.sql.PreparedStatement;
 
 public class AdDaoJDBC implements AdDao{
 	 // JDBC URL, username and password of MySQL server
-     private /*static final*/ String url = "jdbc:mysql://localhost:3306/ms";
-	 private /*static final*/ String user = "root";
-	 private /*static final*/ String password = "root";
+     private static String url;
+	 private static String user;
+	 private static String password;
 	 Connection connection = null;
 
     public void setUrl(String url) {

@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
-//import com.anabol.motosale.dao.AdDaoMem;
 import com.anabol.motosale.dao.AdDaoJDBC;
 import com.anabol.motosale.model.Ad;
 
 @Controller
 public class AdController {
-//	private AdDaoMem adDao = new AdDaoMem();
 	private AdDaoJDBC adDao = new AdDaoJDBC();
 
 	@InitBinder
