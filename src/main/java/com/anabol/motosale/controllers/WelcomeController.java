@@ -9,14 +9,13 @@ import com.anabol.motosale.dao.AdDaoJDBC;
 import com.anabol.motosale.model.Ad;
 import java.util.*;
 
-
 @Controller
 public class WelcomeController {
 	private AdDaoJDBC adDao = new AdDaoJDBC();
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
-		List<Ad> ads = adDao.getAllAds();
+		List<Ad> ads = adDao.getInstance().getAllAds();
     	model.addAttribute("ads", ads);
 		return "/WEB-INF/jsp/index.jsp";
 	}
