@@ -2,7 +2,6 @@ package com.anabol.motosale.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -13,16 +12,13 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.ModelAndView;
-import com.anabol.motosale.dao.AdDaoJDBC;
+import com.anabol.motosale.dao.AdDaoJNDI;
 import com.anabol.motosale.model.Ad;
 
 @Controller
 public class AdController {
-	private AdDaoJDBC adDao = new AdDaoJDBC();
 
 	@InitBinder
 	public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
@@ -39,13 +35,13 @@ public class AdController {
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String showEditAd(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("ad", adDao.findAdById(id));
+		model.addAttribute("ad", AdDaoJNDI.getInstance().findAdById(id));
 		return "/WEB-INF/jsp/addEdit.jsp";
 	}
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteAd(@PathVariable("id") Long id, Model model) {
-        adDao.deleteById(id);
+		AdDaoJNDI.getInstance().deleteById(id);
         return "redirect:/";
 	}
 
@@ -56,9 +52,9 @@ public class AdController {
             return "/WEB-INF/jsp/error.jsp";
 		}
         if (ad.getId() == null) {
-            adDao.insertAd(ad);
+			AdDaoJNDI.getInstance().insertAd(ad);
         } else {
-            adDao.updateAd(ad);
+			AdDaoJNDI.getInstance().updateAd(ad);
         }
         return "redirect:/";
 	}
