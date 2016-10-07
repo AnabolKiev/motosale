@@ -12,6 +12,15 @@
     <context:component-scan base-package="com.anabol.motosale.controllers" />
     <mvc:annotation-driven/>
 	<context:property-placeholder location="WEB-INF/jdbc.properties"/>
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+        <property name="prefix">
+            <value>/WEB-INF/jsp/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
 	<bean class="com.anabol.motosale.dao.AdDaoJDBC">
 		<property name="url">
 			<value>${jdbc.url}</value>

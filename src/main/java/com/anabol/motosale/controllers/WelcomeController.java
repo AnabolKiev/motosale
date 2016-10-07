@@ -10,12 +10,13 @@ import java.util.*;
 
 @Controller
 public class WelcomeController {
+    private AdDaoJNDI dao = AdDaoJNDI.getInstance();
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
-		List<Ad> ads = AdDaoJNDI.getInstance().getAllAds();
+		List<Ad> ads = dao.getAllAds();
     	model.addAttribute("ads", ads);
-		return "/WEB-INF/jsp/index.jsp";
+		return "index";
 	}
 
 }

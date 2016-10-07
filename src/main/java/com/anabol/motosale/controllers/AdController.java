@@ -19,6 +19,7 @@ import com.anabol.motosale.model.Ad;
 
 @Controller
 public class AdController {
+    private AdDaoJNDI dao = AdDaoJNDI.getInstance();
 
 	@InitBinder
 	public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
@@ -30,18 +31,18 @@ public class AdController {
 	public String addAd(Model model) {
 		Ad ad = new Ad();
 		model.addAttribute("ad", ad);
-		return "/WEB-INF/jsp/addEdit.jsp";
+		return "addEdit";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String showEditAd(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("ad", AdDaoJNDI.getInstance().findAdById(id));
-		return "/WEB-INF/jsp/addEdit.jsp";
+		model.addAttribute("ad", dao.findAdById(id));
+		return "addEdit";
 	}
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteAd(@PathVariable("id") Long id, Model model) {
-		AdDaoJNDI.getInstance().deleteById(id);
+		dao.deleteById(id);
         return "redirect:/";
 	}
 
@@ -49,12 +50,12 @@ public class AdController {
 	public String saveAdPost(@ModelAttribute Ad ad, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
             model.addAttribute("bindRes", bindingResult);
-            return "/WEB-INF/jsp/error.jsp";
+            return "error";
 		}
         if (ad.getId() == null) {
-			AdDaoJNDI.getInstance().insertAd(ad);
+			dao.insertAd(ad);
         } else {
-			AdDaoJNDI.getInstance().updateAd(ad);
+			dao.updateAd(ad);
         }
         return "redirect:/";
 	}
