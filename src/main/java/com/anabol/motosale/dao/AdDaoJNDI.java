@@ -1,7 +1,6 @@
 package com.anabol.motosale.dao;
 
 import com.anabol.motosale.model.Ad;
-
 import java.util.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,10 +11,12 @@ import javax.sql.DataSource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import org.springframework.stereotype.Repository;
 
+@Repository(value = "adDao")
 public class AdDaoJNDI implements AdDao{
      private static Connection con;
-     private static AdDaoJNDI instance;
+     private static AdDaoJNDI instance = getInstance();
      private static DataSource dataSource;
 
      private AdDaoJNDI () {

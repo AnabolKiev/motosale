@@ -3,7 +3,6 @@ package com.anabol.motosale.controllers;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.anabol.motosale.dao.AdDaoJNDI;
+import com.anabol.motosale.dao.AdDao;
 import com.anabol.motosale.model.Ad;
+
+import javax.annotation.Resource;
 
 @Controller
 public class AdController {
-    private AdDaoJNDI dao = AdDaoJNDI.getInstance();
+
+	@Resource(name = "adDao")
+	private AdDao dao;
 
 	@InitBinder
 	public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {

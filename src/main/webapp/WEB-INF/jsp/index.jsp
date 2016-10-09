@@ -11,7 +11,7 @@
 <a href="<c:url value="/add"/>">Добавить</a>
  
  <table border=1 cellspacing=0>
- <thead>
+ <thead style="background:lightgrey">
  <tr>
      <th>Заголовок</th>
      <th>Производитель</th>
@@ -24,6 +24,7 @@
      <th>E-mail</th>
      <th>Дата размещения</th>
      <th>Конец размещения</th>
+     <th></th><th></th>
    </tr>
  </thead>
    <c:forEach items="${ads}" var="ad">
