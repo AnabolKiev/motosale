@@ -2,9 +2,6 @@ package com.anabol.motosale.model;
 
 import java.util.Date;
 
-/**
- * Ёкземпл€р класса модели представл€ет собой одно объ€вление
- */
 public class Ad {
  private Long id;
  private String title;
