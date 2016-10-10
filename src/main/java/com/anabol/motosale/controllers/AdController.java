@@ -3,6 +3,8 @@ package com.anabol.motosale.controllers;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +23,8 @@ import javax.annotation.Resource;
 @Controller
 public class AdController {
 
-	@Resource(name = "adDao")
+	@Autowired
+	@Resource(name = "adDaoImpl")
 	private AdDao dao;
 
 	@InitBinder

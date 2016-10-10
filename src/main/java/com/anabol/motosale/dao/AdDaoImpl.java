@@ -8,32 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import javax.sql.DataSource;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AdDaoJNDI implements AdDao{
+public class AdDaoImpl implements AdDao{
      private static Connection con;
-     private static AdDaoJNDI instance = getInstance();
-     private static DataSource dataSource;
-
-     private AdDaoJNDI () {
-    }
-
-      public static synchronized AdDaoJNDI getInstance() {
-        if (instance == null) {
-            try {
-                instance = new AdDaoJNDI();
-                Context ctx = new InitialContext();
-                instance.dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/AdsDS");
-            } catch (NamingException e) {
-                e.printStackTrace();
-            }
-        }
-        return instance;
-     }
+     @Autowired
+     private DataSource dataSource;
 
      public Connection getConnection(){
         try {

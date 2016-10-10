@@ -2,6 +2,7 @@ package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.AdDao;
 import com.anabol.motosale.model.Ad;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +13,8 @@ import java.util.List;
 @Controller
 public class WelcomeController {
 
-	@Resource(name = "adDao")
+	@Autowired
+	@Resource(name = "adDaoImpl")
     private AdDao dao;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

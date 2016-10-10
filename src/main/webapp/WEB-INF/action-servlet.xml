@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
  	xmlns:mvc="http://www.springframework.org/schema/mvc"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
 	xsi:schemaLocation="
 	http://www.springframework.org/schema/beans
- http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
- http://www.springframework.org/schema/context
- http://www.springframework.org/schema/context/spring-context-3.0.xsd
- http://www.springframework.org/schema/mvc 
- http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-    <context:component-scan base-package="com.anabol.motosale.controllers"/>
-	<context:component-scan base-package="com.anabol.motosale.dao"/>
+ 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ 	http://www.springframework.org/schema/context
+ 	http://www.springframework.org/schema/context/spring-context-3.0.xsd
+ 	http://www.springframework.org/schema/mvc
+ 	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+ 	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+    <context:component-scan base-package="com.anabol.motosale"/>
     <mvc:annotation-driven/>
 	<context:property-placeholder location="WEB-INF/jdbc.properties"/>
     <bean id="viewResolver"
@@ -33,4 +33,5 @@
 			<value>${jdbc.password}</value>
 		</property>
 	</bean>
+	<jee:jndi-lookup expected-type="javax.sql.DataSource" id="dbDataSource" jndi-name="jdbc/AdsDS"/>
 </beans>
