@@ -10,12 +10,36 @@ import java.sql.PreparedStatement;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.hibernate.SessionFactory;
+import org.hibernate.Session;
+import org.hibernate.cfg.Configuration;
 
 @Repository
 public class AdDaoImpl implements AdDao{
      private Connection con;
      @Autowired
      private DataSource dataSource;
+     private SessionFactory sessionFactory;// = buildSessionFactory();
+
+     private static SessionFactory buildSessionFactory() {
+         try {
+             // Create the SessionFactory from hibernate.cfg.xml
+             return new Configuration().configure().buildSessionFactory();
+         } catch (Throwable ex) {
+             // Make sure you log the exception, as it might be swallowed
+             System.err.println("Initial SessionFactory creation failed." + ex);
+             throw new ExceptionInInitializerError(ex);
+         }
+     }
+
+     public SessionFactory getSessionFactory() {
+         return sessionFactory;
+     }
+
+     public void shutdown() {
+          // Close caches and connection pools
+          getSessionFactory().close();
+     }
 
      public Connection getConnection(){
         try {
@@ -55,7 +79,7 @@ public class AdDaoImpl implements AdDao{
 		     } catch (SQLException e) {
 		    	 e.printStackTrace();
             } finally {
-                closeConnection();
+//                closeConnection();
             }
 		 return ads;
 	 }
@@ -84,16 +108,29 @@ public class AdDaoImpl implements AdDao{
 	 
 	 public void insertAd(Ad ad) {
 	    try {
-            con = getConnection();
+ /*           con = getConnection();
             PreparedStatement preparedStatement = con.prepareStatement(SQL_INSERT);
             preparedStatement.setString(1,  ad.getTitle());
             preparedStatement.executeUpdate();
             preparedStatement.close();
-        } catch (SQLException e) {
+ */
+
+            Session session = this.getSessionFactory().openSession();
+            session.beginTransaction();
+
+/*            DBUser user = new DBUser();
+            user.setUserId(100);
+            user.setUsername("superman");
+            user.setCreatedBy("system");
+            user.setCreatedDate(new Date());
+*/
+            session.save(ad);
+            session.getTransaction().commit();
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
-            closeConnection();
+            //closeConnection();
         }
 	 }
 
