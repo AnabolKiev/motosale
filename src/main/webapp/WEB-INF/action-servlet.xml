@@ -22,7 +22,7 @@
             <value>.jsp</value>
         </property>
     </bean>
-	<bean class="com.anabol.motosale.dao.AdDaoJDBC">
+	<bean class="com.anabol.motosale.dao.AdDaoJdbc">
 		<property name="url">
 			<value>${jdbc.url}</value>
 		</property>

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-public class AdDaoJDBC implements AdDao{
+public class AdDaoJdbc implements AdDao{
 	 // JDBC URL, username and password of MySQL server
      private static String url;
 	 private static String user;

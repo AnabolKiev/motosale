@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class AdDaoImpl implements AdDao{
-     private static Connection con;
+     private Connection con;
      @Autowired
      private DataSource dataSource;
 
@@ -40,7 +40,7 @@ public class AdDaoImpl implements AdDao{
     public List<Ad> getAllAds() {
 		 List<Ad> ads = new ArrayList<Ad>();
 		 	try {
-                con = getConnection();
+                con = dataSource.getConnection();
 		 		Statement statement = con.createStatement();
 		        ResultSet resultSet = statement.executeQuery(SQL_FIND_ALL);
 		        Ad ad = null;

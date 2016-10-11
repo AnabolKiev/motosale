@@ -14,18 +14,18 @@ import javax.naming.NamingException;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class AdDaoJNDI implements AdDao{
+public class AdDaoJndi implements AdDao{
      private static Connection con;
-     private static AdDaoJNDI instance = getInstance();
+     private static AdDaoJndi instance = getInstance();
      private static DataSource dataSource;
 
-     private AdDaoJNDI () {
+     private AdDaoJndi () {
     }
 
-      public static synchronized AdDaoJNDI getInstance() {
+      public static synchronized AdDaoJndi getInstance() {
         if (instance == null) {
             try {
-                instance = new AdDaoJNDI();
+                instance = new AdDaoJndi();
                 Context ctx = new InitialContext();
                 instance.dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/AdsDS");
             } catch (NamingException e) {
