@@ -7,19 +7,13 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>motosale Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<repositories>
-		<repository>
-			<id>JBoss repository</id>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-		</repository>
-	</repositories>
-	<properties>
+    <properties>
 		<jdk.version>1.6</jdk.version>
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<jstl.version>1.2</jstl.version>
 		<servletapi.version>2.5</servletapi.version>
 		<mysqlconn.version>5.1.39</mysqlconn.version>
-		<hibernate.version>3.6.3.Final</hibernate.version>
+		<hibernate.version>5.2.3.Final</hibernate.version>
 	</properties>
 	<dependencies>
 		<dependency>
