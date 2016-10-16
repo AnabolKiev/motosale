@@ -1,31 +1,40 @@
 package com.anabol.motosale.model;
 
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "AD")
+@Table(name = "Ad")
 public class Ad {
- private Long id;
- private String title;
- private String description;
- private int manufacturerId;
- private int modelId;
- private int year;
- private int capacity;
- private int mileage;
- private String phone;
- private String email;
- private Date startDate;
- private Date endDate;
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "ID", unique = true, nullable = false, precision = 5, scale = 0)
+    private Long id;
+    @Column(name = "TITLE", nullable = true, length = 255)
+    private String title;
+    @Column(name = "DESCRIPTION", nullable = true, length = 2048)
+    private String description;
+    @Column(name = "MANUFACTURERID", nullable = true)
+    private Integer manufacturerId;
+    @Column(name = "MODELID", nullable = true)
+    private Integer modelId;
+    @Column(name = "PRODUCEYEAR", nullable = true)
+    private Integer produceYear;
+    @Column(name = "CAPACITY", nullable = true)
+    private Integer capacity;
+    @Column(name = "MILEAGE", nullable = true)
+    private Integer mileage;
+    @Column(name = "PHONE", nullable = true, length = 15)
+    private String phone;
+    @Column(name = "EMAIL", nullable = true, length = 30)
+    private String email;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "STARTDATE", nullable = true, length = 7)
+    private Date startDate;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "ENDDATE", nullable = true, length = 7)
+    private Date endDate;
 
-@Id
-@Column(name = "ID", unique = true, nullable = false, precision = 5, scale = 0)
 public Long getId() {
 	return id;
 }
@@ -42,43 +51,43 @@ public void setDescription(String description) {
 	this.description = description;
 }
 
-public int getManufacturerId() {
+public Integer getManufacturerId() {
 	return manufacturerId;
 }
 
-public void setManufacturerId(int manufacturerId) {
+public void setManufacturerId(Integer manufacturerId) {
 	this.manufacturerId = manufacturerId;
 }
 
-public int getModelId() {
+public Integer getModelId() {
 	return modelId;
 }
 
-public void setModelId(int modelId) {
+public void setModelId(Integer modelId) {
 	this.modelId = modelId;
 }
 
-public int getYear() {
-	return year;
+public Integer getProduceYear() {
+	return produceYear;
 }
 
-public void setYear(int year) {
-	this.year = year;
+public void setProduceYear(Integer year) {
+	this.produceYear = year;
 }
 
-public int getCapacity() {
+public Integer getCapacity() {
 	return capacity;
 }
 
-public void setCapacity(int capacity) {
+public void setCapacity(Integer capacity) {
 	this.capacity = capacity;
 }
 
-public int getMileage() {
+public Integer getMileage() {
 	return mileage;
 }
 
-public void setMileage(int mileage) {
+public void setMileage(Integer mileage) {
 	this.mileage = mileage;
 }
 
@@ -90,8 +99,6 @@ public void setPhone(String phone) {
 	this.phone = phone;
 }
 
-@Temporal(TemporalType.DATE)
-@Column(name = "STARTDATE", nullable = true, length = 7)
 public Date getStartDate() {
 	return startDate;
 }
@@ -100,8 +107,6 @@ public void setStartDate(Date startDate) {
 	this.startDate = startDate;
 }
 
-@Temporal(TemporalType.DATE)
-@Column(name = "ENDDATE", nullable = true, length = 7)
 public Date getEndDate() {
 	return endDate;
 }
@@ -110,7 +115,6 @@ public void setEndDate(Date endDate) {
 	this.endDate = endDate;
 }
 
-@Column(name = "TITLE", nullable = false, length = 255)
 public String getTitle() {
 	return title;
 }
@@ -127,25 +131,25 @@ public void setEmail(String email) {
 	this.email = email;
 }
 
-public Ad(String title, String description, int manufacturerId, int modelId, int year, int capacity,
+/*public Ad(String title, String description, int manufacturerId, int modelId, int year, int capacity,
 		int mileage, String phone, String email, Date startDate, Date endDate) {
 	super();
 	this.title = title;
 	this.description = description;
 	this.manufacturerId = manufacturerId;
 	this.modelId = modelId;
-	this.year = year;
+	this.produceYear = year;
 	this.capacity = capacity;
 	this.mileage = mileage;
 	this.phone = phone;
 	this.email = email;
 	this.startDate = startDate;
 	this.endDate = endDate;
-}
-
+}*/
+/*
 public Ad() {
 	super();
 	// TODO Auto-generated constructor stub
 }
- 
+ */
 }

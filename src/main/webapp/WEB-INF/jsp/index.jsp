@@ -32,7 +32,7 @@
      <td>${ad.title}</td>
      <td><c:out value="${ad.manufacturerId}" escapeXml="true"/></td>
      <td>${ad.modelId}</td>
-     <td>${ad.year}</td>
+     <td>${ad.produceYear}</td>
      <td>${ad.capacity}</td>
      <td>${ad.mileage}</td>
      <td>${ad.description}</td>

@@ -26,7 +26,7 @@
    </tr>
    <tr>
      <td>Год выпуска</td>
-     <td><form:input path="year"/></td>
+     <td><form:input path="produceYear"/></td>
    </tr>
    <tr>
      <td>Объем двигателя, см3</td>

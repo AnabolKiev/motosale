@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -20,6 +21,7 @@ import com.anabol.motosale.model.Ad;
 import javax.annotation.Resource;
 
 @Controller
+@Transactional
 public class AdController {
 
 	@Resource(name = "adDaoImpl")

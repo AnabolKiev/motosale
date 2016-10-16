@@ -1,9 +1,7 @@
 drop schema if exists ms;
-
 create schema ms;
 
 drop table if exists ms.ad;
-
 create table ms.ad (
 	id int primary key not null auto_increment,
     title varchar(255),
@@ -18,3 +16,9 @@ create table ms.ad (
     startDate date,
     endDate date
  );
+
+drop table if exists ms.manufacturer;
+create table ms.manufacturer (
+  id int primary key not null auto_increment,
+  name varchar(30)
+);
