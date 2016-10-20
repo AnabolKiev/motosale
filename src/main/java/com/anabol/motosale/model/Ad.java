@@ -14,8 +14,9 @@ public class Ad {
     private String title;
     @Column(name = "DESCRIPTION", nullable = true, length = 2048)
     private String description;
-    @Column(name = "MANUFACTURERID", nullable = true)
-    private Integer manufacturerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MANUFACTURERID", nullable = false)
+    private Manufacturer manufacturer;
     @Column(name = "MODELID", nullable = true)
     private Integer modelId;
     @Column(name = "PRODUCEYEAR", nullable = true)
@@ -51,12 +52,12 @@ public void setDescription(String description) {
 	this.description = description;
 }
 
-public Integer getManufacturerId() {
-	return manufacturerId;
+public Manufacturer getManufacturer() {
+	return manufacturer;
 }
 
-public void setManufacturerId(Integer manufacturerId) {
-	this.manufacturerId = manufacturerId;
+public void setManufacturer(Manufacturer manufacturer) {
+	this.manufacturer = manufacturer;
 }
 
 public Integer getModelId() {

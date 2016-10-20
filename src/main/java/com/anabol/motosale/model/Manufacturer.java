@@ -1,6 +1,8 @@
 package com.anabol.motosale.model;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,8 @@ public class Manufacturer {
     private Long id;
     @Column(name = "NAME", nullable = false, length = 30)
     private String name;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturer")
+    private Set<Ad> ads = new HashSet<Ad>(0);
 
     public Long getId() {
         return id;
@@ -27,5 +31,13 @@ public class Manufacturer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Ad> getAds() {
+        return this.ads;
+    }
+
+    public void setAds(Set<Ad> ads) {
+        this.ads = ads;
     }
 }

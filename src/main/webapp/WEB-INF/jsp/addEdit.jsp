@@ -18,7 +18,11 @@
    </tr>
    <tr>
      <td>Производитель</td>
-     <td><form:input path="manufacturerId"/></td>
+     <td>
+       <form:select path="manufacturer">
+         <form:options items="${ad.manufacturer}" id="id" itemValue="name"></form:options>
+       </form:select>
+     </td>
    </tr>
    <tr>
      <td>Модель</td>

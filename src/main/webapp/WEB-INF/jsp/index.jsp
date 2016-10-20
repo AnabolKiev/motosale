@@ -30,7 +30,7 @@
    <c:forEach items="${ads}" var="ad">
    <tr>
      <td>${ad.title}</td>
-     <td><c:out value="${ad.manufacturerId}" escapeXml="true"/></td>
+     <td><c:out value="${ad.manufacturer.name}" escapeXml="true"/></td>
      <td>${ad.modelId}</td>
      <td>${ad.produceYear}</td>
      <td>${ad.capacity}</td>
@@ -45,5 +45,6 @@
    </tr>
    </c:forEach>
  </table>
+ <c:if test="${empty ads}">No records found</c:if>
 </body>
 </html>

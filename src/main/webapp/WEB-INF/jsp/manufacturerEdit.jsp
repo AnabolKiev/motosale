@@ -20,22 +20,25 @@
     </table>
 </form:form>
 <br>
-<table border=1 cellspacing=0>
-    <thead style="background:lightgrey">
-    <tr>
-        <th>ID</th>
-        <th>Производитель</th>
-        <th></th><th></th>
-    </tr>
-    </thead>
-    <c:forEach items="${manufacturers}" var="man">
+<c:if test="${not empty manufacturers}">
+    <table border=1 cellspacing=0>
+        <thead style="background:lightgrey">
         <tr>
-            <td>${man.id}</td>
-            <td>${man.name}</td>
-            <td><a href="<c:url value="/manufacturer/edit/${man.id}"/>">Редактировать</a></td>
-            <td><a href="<c:url value="/manufacturer/delete/${man.id}"/>">Удалить</a></td>
+            <th>ID</th>
+            <th>Производитель</th>
+            <th></th><th></th>
         </tr>
-    </c:forEach>
-</table>
+        </thead>
+        <c:forEach items="${manufacturers}" var="man">
+            <tr>
+                <td>${man.id}</td>
+                <td>${man.name}</td>
+                <td><a href="<c:url value="/manufacturer/edit/${man.id}"/>">Редактировать</a></td>
+                <td><a href="<c:url value="/manufacturer/delete/${man.id}"/>">Удалить</a></td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
+<c:if test="${empty manufacturers}">No records found</c:if>
 </body>
 </html>

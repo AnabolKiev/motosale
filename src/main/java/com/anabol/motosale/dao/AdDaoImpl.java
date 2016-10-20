@@ -34,7 +34,7 @@ public class AdDaoImpl implements AdDao{
         Ad existingAd = findAdById(ad.getId());
         existingAd.setTitle(ad.getTitle());
         existingAd.setDescription(ad.getDescription());
-        existingAd.setManufacturerId(ad.getManufacturerId());
+        existingAd.setManufacturer(ad.getManufacturer());
         existingAd.setModelId(ad.getModelId());
         existingAd.setProduceYear(ad.getProduceYear());
         existingAd.setCapacity(ad.getCapacity());
