@@ -14,7 +14,7 @@ public class Ad {
     private String title;
     @Column(name = "DESCRIPTION", nullable = true, length = 2048)
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MANUFACTURERID", nullable = false)
     private Manufacturer manufacturer;
     @Column(name = "MODELID", nullable = true)

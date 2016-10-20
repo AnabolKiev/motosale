@@ -1,6 +1,8 @@
 package com.anabol.motosale.dao;
 
 import com.anabol.motosale.model.Ad;
+import org.springframework.stereotype.Repository;
+
 import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
+@Repository
 public class AdDaoJdbc implements AdDao{
 	 // JDBC URL, username and password of MySQL server
      private static String url;
