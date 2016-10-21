@@ -20,7 +20,8 @@
      <td>Производитель</td>
      <td>
        <form:select path="manufacturer">
-         <form:options items="${ad.manufacturer}" id="id" itemValue="name"></form:options>
+         <form:option value="NONE" label="--- Select ---"/>
+         <form:options items="${manufacturers}" itemValue="id" itemLabel="name"></form:options>
        </form:select>
      </td>
    </tr>

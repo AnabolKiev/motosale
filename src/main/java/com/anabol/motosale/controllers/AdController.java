@@ -2,6 +2,7 @@ package com.anabol.motosale.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import com.anabol.motosale.dao.AdDao;
 import com.anabol.motosale.model.Ad;
+import com.anabol.motosale.dao.ManufacturerDao;
+import com.anabol.motosale.model.Manufacturer;
 
 import javax.annotation.Resource;
 
@@ -26,6 +29,8 @@ public class AdController {
 
 	@Resource(name = "adDaoImpl")
 	private AdDao dao;
+	@Resource(name = "manufacturerDaoImpl")
+	private ManufacturerDao manufacturerDao;
 
 	@InitBinder
 	public final void initBinderUsuariosFormValidator(final WebDataBinder binder, final Locale locale) {
@@ -35,14 +40,15 @@ public class AdController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addAd(Model model) {
-		Ad ad = new Ad();
-		model.addAttribute("ad", ad);
+		model.addAttribute("ad", new Ad());
+		model.addAttribute("manufacturers", manufacturerDao.getAllManufacturers());
 		return "addEdit";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String showEditAd(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("ad", dao.findAdById(id));
+		model.addAttribute("manufacturers", manufacturerDao.getAllManufacturers());
 		return "addEdit";
 	}
 

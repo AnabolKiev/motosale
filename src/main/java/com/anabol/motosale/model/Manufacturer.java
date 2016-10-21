@@ -14,7 +14,7 @@ public class Manufacturer {
     private Long id;
     @Column(name = "NAME", nullable = false, length = 30)
     private String name;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "manufacturer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturer")
     private Set<Ad> ads = new HashSet<Ad>(0);
 
     public Long getId() {
