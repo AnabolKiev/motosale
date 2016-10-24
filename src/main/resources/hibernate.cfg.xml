@@ -13,6 +13,7 @@
         <property name="show_sql">true</property>
         <mapping class="com.anabol.motosale.model.Ad"></mapping>
         <mapping class="com.anabol.motosale.model.Manufacturer"></mapping>
+        <mapping class="com.anabol.motosale.model.Parser"></mapping>
     </session-factory>
 </hibernate-configuration>
 
