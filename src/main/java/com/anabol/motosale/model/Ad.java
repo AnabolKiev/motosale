@@ -132,25 +132,4 @@ public void setEmail(String email) {
 	this.email = email;
 }
 
-/*public Ad(String title, String description, int manufacturerId, int modelId, int year, int capacity,
-		int mileage, String phone, String email, Date startDate, Date endDate) {
-	super();
-	this.title = title;
-	this.description = description;
-	this.manufacturerId = manufacturerId;
-	this.modelId = modelId;
-	this.produceYear = year;
-	this.capacity = capacity;
-	this.mileage = mileage;
-	this.phone = phone;
-	this.email = email;
-	this.startDate = startDate;
-	this.endDate = endDate;
-}*/
-/*
-public Ad() {
-	super();
-	// TODO Auto-generated constructor stub
-}
- */
 }
