@@ -2,54 +2,38 @@ package com.anabol.motosale.dao;
 
 import com.anabol.motosale.model.Ad;
 import java.util.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.hibernate.SessionFactory;
-import org.hibernate.Session;
-
 import javax.persistence.*;
 
 @Repository
 public class AdDaoImpl implements AdDao{
-//    @Autowired
-//    private SessionFactory sessionFactory;
-//    private EntityManagerFactory emf;
-
-//    @PersistenceUnit
-//    public void setEntityManagerFactory(EntityManagerFactory emf) {
-//        this.emf = emf;
-//    }
 
     @PersistenceUnit(unitName = "MotoSaleJPA")
     private EntityManagerFactory emf;
 
     public List<Ad> getAllAds() {
-      //   Session session = sessionFactory.getCurrentSession();
-      //   List<Ad> ads = session.createQuery("FROM Ad").list();
-        EntityManager em = emf.createEntityManager();
-        List<Ad> ads = em.createQuery("FROM Ad").getResultList();
+            EntityManager em = emf.createEntityManager();
+            List<Ad> ads = em.createQuery("FROM Ad").getResultList();
         return ads;
 	 }
 	 
 	 public Ad findAdById(Long id) {
-   //      Session session = sessionFactory.getCurrentSession();
-   //      Ad ad = (Ad)session.get(Ad.class, id);
            EntityManager em = emf.createEntityManager();
            Ad ad = em.find(Ad.class, id);
          return ad;
 	 }
 	 
 	 public void insertAd(Ad ad) {
- //        Session session = sessionFactory.getCurrentSession();
- //        session.save(ad);
          EntityManager em = emf.createEntityManager();
+         em.getTransaction().begin();
          em.persist(ad);
+         em.getTransaction().commit();
          em.close();
 	 }
 
     public void updateAd(Ad ad) {
-//        Session session = sessionFactory.getCurrentSession();
-        Ad existingAd = findAdById(ad.getId());
+        EntityManager em = emf.createEntityManager();
+        Ad existingAd = em.getReference(Ad.class, ad.getId());
         existingAd.setTitle(ad.getTitle());
         existingAd.setDescription(ad.getDescription());
         existingAd.setManufacturer(ad.getManufacturer());
@@ -61,19 +45,16 @@ public class AdDaoImpl implements AdDao{
         existingAd.setEmail(ad.getEmail());
         existingAd.setStartDate(ad.getStartDate());
         existingAd.setEndDate(ad.getEndDate());
-//        session.save(existingAd);
-        EntityManager em = emf.createEntityManager();
-        em.refresh(existingAd);
+        em.getTransaction().begin();
+        em.merge(existingAd);
+        em.getTransaction().commit();
         em.close();
     }
 
     public void deleteById(Long id) {
- //       Session session = sessionFactory.getCurrentSession();
- //       session.delete(findAdById(id));
-        Ad ad = findAdById(id);
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.remove(ad);
+        em.remove(em.getReference(Ad.class, id));
         em.getTransaction().commit();
         em.close();
     }

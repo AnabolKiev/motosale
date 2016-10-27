@@ -2,43 +2,53 @@ package com.anabol.motosale.dao;
 
 import com.anabol.motosale.model.Manufacturer;
 import java.util.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.hibernate.SessionFactory;
-import org.hibernate.Session;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 @Repository
 public class ManufacturerDaoImpl implements ManufacturerDao{
-    @Autowired
-    private SessionFactory sessionFactory;
+
+    @PersistenceUnit(unitName = "MotoSaleJPA")
+    private EntityManagerFactory emf;
 
     public List<Manufacturer> getAllManufacturers() {
-        Session session = sessionFactory.getCurrentSession();
-        List<Manufacturer> manufacturers = session.createQuery("FROM Manufacturer ").list();
+            EntityManager em = emf.createEntityManager();
+            List<Manufacturer> manufacturers = em.createQuery("FROM Manufacturer").getResultList();
         return manufacturers;
     }
 
     public Manufacturer findManufacturerById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        Manufacturer manufacturer = (Manufacturer)session.get(Manufacturer.class, id);
+            EntityManager em = emf.createEntityManager();
+            Manufacturer manufacturer = em.find(Manufacturer.class, id);
         return manufacturer;
     }
 
     public void insertManufacturer(Manufacturer manufacturer) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(manufacturer);
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(manufacturer);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void updateManufacturer(Manufacturer manufacturer) {
-        Session session = sessionFactory.getCurrentSession();
-        Manufacturer existingManufacturer = findManufacturerById(manufacturer.getId());
+        EntityManager em = emf.createEntityManager();
+        Manufacturer existingManufacturer = em.getReference(Manufacturer.class, manufacturer.getId());
         existingManufacturer.setName(manufacturer.getName());
-        session.save(existingManufacturer);
+        em.getTransaction().begin();
+        em.merge(existingManufacturer);
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void deleteById(Long id) {
-        Session session = sessionFactory.getCurrentSession();
-        session.delete(findManufacturerById(id));
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.remove(em.getReference(Manufacturer.class, id));
+        em.getTransaction().commit();
+        em.close();
     }
 
 
