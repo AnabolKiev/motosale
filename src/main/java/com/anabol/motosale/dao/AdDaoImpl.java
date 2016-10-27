@@ -7,10 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.hibernate.SessionFactory;
 import org.hibernate.Session;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.*;
 
 @Repository
 public class AdDaoImpl implements AdDao{
@@ -23,27 +20,31 @@ public class AdDaoImpl implements AdDao{
 //        this.emf = emf;
 //    }
 
-    @PersistenceContext(name = "MotoSale-JPA")
-    private EntityManager entityManager;
+    @PersistenceUnit(unitName = "MotoSaleJPA")
+    private EntityManagerFactory emf;
 
     public List<Ad> getAllAds() {
       //   Session session = sessionFactory.getCurrentSession();
       //   List<Ad> ads = session.createQuery("FROM Ad").list();
-          List<Ad> ads = entityManager.createQuery("FROM Ad").getResultList();
+        EntityManager em = emf.createEntityManager();
+        List<Ad> ads = em.createQuery("FROM Ad").getResultList();
         return ads;
 	 }
 	 
 	 public Ad findAdById(Long id) {
    //      Session session = sessionFactory.getCurrentSession();
    //      Ad ad = (Ad)session.get(Ad.class, id);
-           Ad ad = entityManager.find(Ad.class, id);
+           EntityManager em = emf.createEntityManager();
+           Ad ad = em.find(Ad.class, id);
          return ad;
 	 }
 	 
 	 public void insertAd(Ad ad) {
  //        Session session = sessionFactory.getCurrentSession();
  //        session.save(ad);
-         entityManager.persist(ad);
+         EntityManager em = emf.createEntityManager();
+         em.persist(ad);
+         em.close();
 	 }
 
     public void updateAd(Ad ad) {
@@ -61,12 +62,19 @@ public class AdDaoImpl implements AdDao{
         existingAd.setStartDate(ad.getStartDate());
         existingAd.setEndDate(ad.getEndDate());
 //        session.save(existingAd);
-        entityManager.persist(existingAd);
+        EntityManager em = emf.createEntityManager();
+        em.refresh(existingAd);
+        em.close();
     }
 
     public void deleteById(Long id) {
  //       Session session = sessionFactory.getCurrentSession();
  //       session.delete(findAdById(id));
-          entityManager.detach(findAdById(id));
+        Ad ad = findAdById(id);
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.remove(ad);
+        em.getTransaction().commit();
+        em.close();
     }
 }
