@@ -6,25 +6,29 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceUnit;
 
 @Repository
-public class ManufacturerDaoImpl implements ManufacturerDao{
+public class ManufacturerDaoJpaHibernate implements ManufacturerDao{
 
-    @Autowired
-    ManufacturerRepository manufacturerRepository;
+    @PersistenceContext(unitName = "MotoSaleJPA")
+    private EntityManager em;
 
     public List<Manufacturer> getAllManufacturers() {
-            List<Manufacturer> manufacturers = (List<Manufacturer>) manufacturerRepository.findAll();
+            List<Manufacturer> manufacturers = em.createQuery("FROM Manufacturer").getResultList();
         return manufacturers;
     }
 
     public Manufacturer findManufacturerById(Long id) {
-            Manufacturer manufacturer = manufacturerRepository.findOne(id);
+            Manufacturer manufacturer = em.find(Manufacturer.class, id);
         return manufacturer;
     }
 
     public void insertManufacturer(Manufacturer manufacturer) {
-        manufacturerRepository.save(manufacturer);
+        em.persist(manufacturer);
     }
 
     public void updateManufacturer(Manufacturer manufacturer) {
@@ -33,7 +37,15 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
     }
 
     public void deleteById(Long id) {
-        manufacturerRepository.delete(id);
+        em.remove(findManufacturerById(id));
     }
+
+
+
+
+
+
+
+
 
 }

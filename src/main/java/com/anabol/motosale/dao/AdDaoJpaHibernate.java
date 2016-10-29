@@ -1,30 +1,28 @@
 package com.anabol.motosale.dao;
 
-import com.anabol.motosale.dao.repository.AdRepository;
 import com.anabol.motosale.model.Ad;
 import java.util.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import javax.persistence.*;
 
 @Repository
-public class AdDaoImpl implements AdDao{
+public class AdDaoJpaHibernate implements AdDao{
 
-    @Autowired
-    AdRepository adRepository;
+    @PersistenceContext(unitName = "MotoSaleJPA")
+    private EntityManager em;
 
     public List<Ad> getAllAds() {
-            List<Ad> ads = (List<Ad>) adRepository.findAll();
+            List<Ad> ads = em.createQuery("FROM Ad").getResultList();
         return ads;
 	 }
 	 
 	 public Ad findAdById(Long id) {
-           Ad ad = adRepository.findOne(id);
+           Ad ad = em.find(Ad.class, id);
          return ad;
 	 }
 	 
 	 public void insertAd(Ad ad) {
-         adRepository.save(ad);
+         em.persist(ad);
 	 }
 
     public void updateAd(Ad ad) {
@@ -43,6 +41,6 @@ public class AdDaoImpl implements AdDao{
     }
 
     public void deleteById(Long id) {
-        adRepository.delete(id);
+        em.remove(findAdById(id));
     }
 }

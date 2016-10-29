@@ -19,7 +19,6 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 	<jee:jndi-lookup expected-type="javax.sql.DataSource" id="dbDataSource" jndi-name="jdbc/AdsDS"/>
-	<jpa:repositories base-package="com.anabol.motosale.dao.repository"/>
 <!--	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 	    <property name="dataSource" ref="dbDataSource"/>
         <property name="packagesToScan" value="com.anabol.motosale.model"/>
@@ -33,4 +32,5 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean>
+	<jpa:repositories base-package="com.anabol.motosale.dao.repository"/>
 </beans>
