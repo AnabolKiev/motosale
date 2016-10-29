@@ -1,6 +1,9 @@
 package com.anabol.motosale.controllers;
 
 import java.util.List;
+
+import com.anabol.motosale.dao.repository.ManufacturerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -19,10 +22,14 @@ public class ManufacturerController {
 
     @Resource(name = "manufacturerDaoImpl")
     private ManufacturerDao dao;
+//     @Autowired
+//     private ManufacturerRepository manufacturerRepository;
+
 
     @RequestMapping(value = "/manufacturer", method = RequestMethod.GET)
     public String indexManufacturer(Model model) {
         List<Manufacturer> manufacturers = dao.getAllManufacturers();
+//        List<Manufacturer> manufacturers = (List<Manufacturer>) manufacturerRepository.findAll();
         model.addAttribute("manufacturers", manufacturers);
         model.addAttribute("manufacturer", new Manufacturer());
         return "manufacturerEdit";
@@ -31,15 +38,18 @@ public class ManufacturerController {
     @RequestMapping(value = "/manufacturer/delete/{id}", method = RequestMethod.GET)
     public String deleteManufacturer(@PathVariable("id") Long id, Model model) {
         dao.deleteById(id);
+//          manufacturerRepository.delete(id);
         return "redirect:/manufacturer/";
     }
 
     @RequestMapping(value = "/manufacturer/edit/{id}", method = RequestMethod.GET)
     public String updateManufacturer(@PathVariable("id") Long id, Model model) {
         List<Manufacturer> manufacturers = dao.getAllManufacturers();
+//        List<Manufacturer> manufacturers = (List<Manufacturer>) manufacturerRepository.findAll();
         model.addAttribute("manufacturers", manufacturers);
         Manufacturer manufacturer = new Manufacturer();
         model.addAttribute("manufacturer", dao.findManufacturerById(id));
+//        model.addAttribute("manufacturer", manufacturerRepository.findOne(id));
         return "manufacturerEdit";
     }
     @RequestMapping(value = "/manufacturer/", method = RequestMethod.POST)
@@ -50,8 +60,10 @@ public class ManufacturerController {
         }
         if (manufacturer.getId() == null) {
             dao.insertManufacturer(manufacturer);
+//              manufacturerRepository.save(manufacturer);
         } else {
             dao.updateManufacturer(manufacturer);
+//              manufacturerRepository.delete(manufacturer);
         }
         return "redirect:/manufacturer/";
     }

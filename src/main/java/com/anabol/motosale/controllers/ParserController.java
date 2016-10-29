@@ -1,7 +1,5 @@
 package com.anabol.motosale.controllers;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -15,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.anabol.motosale.model.Parser;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.*;
 import java.net.*;
 import java.util.HashMap;
@@ -25,8 +26,8 @@ import java.util.HashSet;
 public class ParserController {
     private String startUrl = "http://www.motorcyclespecs.co.za/Manufacturer.htm";
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    @PersistenceContext(unitName = "MotoSaleJPA")
+    private EntityManager em;
 
     public String getHTML(String urlToRead) {
         URL url;
