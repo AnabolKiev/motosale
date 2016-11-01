@@ -13,13 +13,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.anabol.motosale.model.Parser;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.*;
 import java.net.*;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.slf4j.*;
 
 @Controller
 @Transactional
@@ -29,7 +32,7 @@ public class ParserController {
     @PersistenceContext(unitName = "MotoSaleJPA")
     private EntityManager em;
 
-    public String getHTML(String urlToRead) {
+/*    public String getHTML(String urlToRead) {
         URL url;
         HttpURLConnection conn;
         BufferedReader rd;
@@ -48,9 +51,9 @@ public class ParserController {
             e.printStackTrace();
         }
         return result;
-    }
+    }*/
 
-    public HashMap<String, String> parseByJsoup(String urlToRead, String selector) throws IOException {
+    public HashMap<String, String> parseLinks(String urlToRead, String selector) throws IOException {
         HashMap<String, String> result = new HashMap();
         Document doc = Jsoup.connect(urlToRead).get();
         Elements links = doc.select(selector);
@@ -77,26 +80,33 @@ public class ParserController {
 //        Session session = sessionFactory.getCurrentSession();
 //        session.save(parser);
 
-        HashMap<String, String> manufacturerSet = new HashMap<String, String>();
-        HashMap<String, HashSet> hondaSet = new HashMap<String, HashSet>();
-        HashSet hSet = new HashSet();
+        Map<String, String> manufacturerSet = new HashMap<String, String>();
+        Map<String, HashSet> manufacturerLinkSet = new HashMap<String, HashSet>();
+        HashSet<String> hSet = new HashSet();
+        HashSet<String> modelLinks = new HashSet();
+        HashSet<String> modelAttr = new HashSet();
         String tempStr = "";
         int i = 1;
         try {
-            manufacturerSet = parseByJsoup(startUrl, "td#table24 p + p a[href]");
-//tempStr = manufacturerSet.get("Honda");
-//           hondaSet.put("Honda", parseByJsoup(manufacturerSet.get("Honda"), "p b a[href]").entrySet());
-            hSet = (HashSet) parseByJsoup(manufacturerSet.get("Honda"), "p b a[href]").entrySet();
-//            for(String key: hondaSet.keySet()) {
-//                tempStr = tempStr + i + ". " + key + " - " + hondaSet.get(key) + "<br>";
-//                i++;
+//            manufacturerSet = parseLinks(startUrl, "td#table24 p + p a[href]");
+//            tempStr = manufacturerSet.get("Honda");
+//            tempStr = "http://www.motorcyclespecs.co.za/bikes/Honda%20.htm";
+//            hSet.addAll(parseLinks(tempStr, "p b a[href]").values());
+
+//            for(String tmpUrl: hSet) {
+//                modelLinks.addAll(parseLinks(tmpUrl, "div table td a[href]").values());
 //            }
+
+
+            tempStr = "http://www.motorcyclespecs.co.za/model/Honda/honda_cb600f%2005.htm";
+            modelAttr.addAll(parseLinks(tempStr, "div font table tr").values());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        model.addAttribute("bindRes",hSet);
+        model.addAttribute("bindRes",modelAttr);
         return "error";
     }
 }
