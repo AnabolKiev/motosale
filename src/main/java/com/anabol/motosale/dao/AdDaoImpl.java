@@ -14,7 +14,11 @@ public class AdDaoImpl implements AdDao{
     AdRepository adRepository;
 
     public List<Ad> getAllAds() {
-            List<Ad> ads = (List<Ad>) adRepository.findAll();
+        List<Ad> ads = new ArrayList<Ad>();
+        Iterator<Ad> i = adRepository.findAll().iterator();
+        while (i.hasNext()) {
+          ads.add(i.next());
+        }
         return ads;
 	 }
 	 
@@ -28,7 +32,7 @@ public class AdDaoImpl implements AdDao{
 	 }
 
     public void updateAd(Ad ad) {
-        Ad existingAd = findAdById(ad.getId());
+/*        Ad existingAd = findAdById(ad.getId());
         existingAd.setTitle(ad.getTitle());
         existingAd.setDescription(ad.getDescription());
         existingAd.setManufacturer(ad.getManufacturer());
@@ -39,7 +43,8 @@ public class AdDaoImpl implements AdDao{
         existingAd.setPhone(ad.getPhone());
         existingAd.setEmail(ad.getEmail());
         existingAd.setStartDate(ad.getStartDate());
-        existingAd.setEndDate(ad.getEndDate());
+        existingAd.setEndDate(ad.getEndDate());*/
+        adRepository.save(ad);
     }
 
     public void deleteById(Long id) {

@@ -18,7 +18,7 @@ public class ManufacturerDaoJpaHibernate implements ManufacturerDao{
     private EntityManager em;
 
     public List<Manufacturer> getAllManufacturers() {
-            List<Manufacturer> manufacturers = em.createQuery("FROM Manufacturer").getResultList();
+            List<Manufacturer> manufacturers = em.createQuery("FROM Manufacturer", Manufacturer.class).getResultList();
         return manufacturers;
     }
 
@@ -32,8 +32,7 @@ public class ManufacturerDaoJpaHibernate implements ManufacturerDao{
     }
 
     public void updateManufacturer(Manufacturer manufacturer) {
-        Manufacturer existingManufacturer = findManufacturerById(manufacturer.getId());
-        existingManufacturer.setName(manufacturer.getName());
+        em.merge(manufacturer);
     }
 
     public void deleteById(Long id) {

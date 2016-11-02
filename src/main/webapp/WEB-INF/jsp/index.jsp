@@ -9,6 +9,7 @@
 <body>
  <h3>Объявления</h3>
 <a href="<c:url value="/add"/>">Добавить</a>
+<a href="<c:url value="/manufacturer"/>">Производители и модели</a>
  
  <table border=1 cellspacing=0>
  <thead style="background:lightgrey">

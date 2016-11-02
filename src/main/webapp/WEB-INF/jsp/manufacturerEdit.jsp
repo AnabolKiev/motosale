@@ -8,6 +8,7 @@
     <title>Производители и модели</title>
 </head>
 <body>
+<a href="<c:url value="/"/>">Объявления</a>
 <h3>Производители и модели</h3>
 <form:form method="POST" action="/manufacturer/" commandName="manufacturer">
     <form:hidden path="id"/>

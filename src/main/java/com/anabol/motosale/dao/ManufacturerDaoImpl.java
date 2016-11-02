@@ -14,7 +14,11 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
     ManufacturerRepository manufacturerRepository;
 
     public List<Manufacturer> getAllManufacturers() {
-            List<Manufacturer> manufacturers = (List<Manufacturer>) manufacturerRepository.findAll();
+        List<Manufacturer> manufacturers = new ArrayList<Manufacturer>();
+        Iterator<Manufacturer> i = manufacturerRepository.findAll().iterator();
+        while (i.hasNext()) {
+            manufacturers.add(i.next());
+        }
         return manufacturers;
     }
 
@@ -28,8 +32,7 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
     }
 
     public void updateManufacturer(Manufacturer manufacturer) {
-        Manufacturer existingManufacturer = findManufacturerById(manufacturer.getId());
-        existingManufacturer.setName(manufacturer.getName());
+        manufacturerRepository.save(manufacturer);
     }
 
     public void deleteById(Long id) {
