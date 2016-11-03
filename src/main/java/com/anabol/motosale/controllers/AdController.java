@@ -2,11 +2,8 @@ package com.anabol.motosale.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import com.anabol.motosale.dao.repository.AdRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.anabol.motosale.dao.AdDao;
 import com.anabol.motosale.model.Ad;
 import com.anabol.motosale.dao.ManufacturerDao;
-import com.anabol.motosale.model.Manufacturer;
 
 import javax.annotation.Resource;
 

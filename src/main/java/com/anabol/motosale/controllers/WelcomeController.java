@@ -1,9 +1,7 @@
 package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.AdDao;
-import com.anabol.motosale.dao.repository.AdRepository;
 import com.anabol.motosale.model.Ad;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 import java.util.List;
-import javax.persistence.EntityManager;
 
 @Controller
 @Transactional

@@ -8,7 +8,7 @@
     <title>Test parser</title>
 </head>
 <body>
-<form:form method="POST" action="/parser" commandName="parser">
+<form:form method="POST" action="/parser" commandName="models">
     <table>
         <tr>
             <td>URL</td>
