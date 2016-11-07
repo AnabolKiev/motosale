@@ -32,18 +32,6 @@ public class AdDaoImpl implements AdDao{
 	 }
 
     public void updateAd(Ad ad) {
-/*        Ad existingAd = findAdById(ad.getId());
-        existingAd.setTitle(ad.getTitle());
-        existingAd.setDescription(ad.getDescription());
-        existingAd.setManufacturer(ad.getManufacturer());
-        existingAd.setModelId(ad.getModelId());
-        existingAd.setProduceYear(ad.getProduceYear());
-        existingAd.setCapacity(ad.getCapacity());
-        existingAd.setMileage(ad.getMileage());
-        existingAd.setPhone(ad.getPhone());
-        existingAd.setEmail(ad.getEmail());
-        existingAd.setStartDate(ad.getStartDate());
-        existingAd.setEndDate(ad.getEndDate());*/
         adRepository.save(ad);
     }
 

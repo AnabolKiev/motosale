@@ -21,6 +21,8 @@ public class ParserDaoImpl implements ParserDao {
     @Autowired
     ModelAttributeRepository modelAttributeRepository;
 
+    private HashMap<String, String> manufacturers = new HashMap<String, String>();
+
     public HashMap<String, String> parseLinks(String urlToRead, String selector) {
         HashMap<String, String> result = new HashMap();
         Document doc = null;
@@ -35,4 +37,22 @@ public class ParserDaoImpl implements ParserDao {
         }
         return result;
     }
+
+    public void saveManufacturerMap(HashMap<String, String> models) {
+        manufacturers.putAll(models);
+    }
+
+    public HashMap<String, String> getManufacturerMap() {
+        return manufacturers;
+    }
+
+    public HashMap<String, String> getModelMap() {
+        HashMap<String,String> modelList = new HashMap<String, String>();
+        Iterator<ModelList> i = modelListRepository.findAll().iterator();
+        while (i.hasNext()) {
+            modelList.put(i.next().getUrl(), i.next().getManufacturer());
+        }
+        return modelList;
+    }
+
 }

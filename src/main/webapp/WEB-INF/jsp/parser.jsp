@@ -8,17 +8,60 @@
     <title>Test parser</title>
 </head>
 <body>
-<form:form method="POST" action="/parser" commandName="models">
-    <table>
-        <tr>
-            <td>URL</td>
-            <td><form:input path="url"/></td>
-        </tr>
-        <tr>
-            <td colspan="2"><input type="submit" value="Получить"/></td>
-        </tr>
-    </table>
-</form:form>
-
+<h3>Производители и модели</h3>
+<br>
+<body>
+<table>
+    <tr>
+        <td>
+          <form:form method="GET" action="/parser/getManufacturerList" commandName="getManufacturerList">
+          <input type="submit" value="Получить список производителей"/>
+          </form:form>
+          <c:if test="${not empty manufacturerList}">
+            <table border=1 cellspacing=0>
+            <thead style="background:lightgrey">
+            <tr>
+                <th>Производитель</th>
+                <th>URL</th>
+                <th></th>
+            </tr>
+            </thead>
+            <c:forEach items="${manufacturerList}" var="entry">
+                <tr>
+                    <td>${entry.key}</td>
+                    <td>${entry.value}</td>
+                    <td>
+                        <input type="submit" value="Загрузить модели"/>
+                    </td>
+                </tr>
+            </c:forEach>
+            </table>
+          </c:if>
+          <c:if test="${empty manufacturerList}">No records found</c:if>
+        </td>
+        <td>
+            База
+            <table>
+                <c:if test="${not empty modelList}">
+                    <table border=1 cellspacing=0>
+                        <thead style="background:lightgrey">
+                        <tr>
+                            <th>Производитель</th>
+                            <th>URL</th>
+                        </tr>
+                        </thead>
+                        <c:forEach items="${modelList}" var="entry">
+                            <tr>
+                                <td>${entry.key}</td>
+                                <td>${entry.value}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                </c:if>
+                <c:if test="${empty modelList}">No records found</c:if>
+            </table>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

@@ -25,8 +25,15 @@ public class ParserController {
 
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public String parse(Model model) {
-        model.addAttribute("models", new ModelList());
+        model.addAttribute("manufacturerList", dao.getManufacturerMap());
+        model.addAttribute("modelList", dao.getModelMap());
         return "parser";
+    }
+
+    @RequestMapping(value = "/parser/getManufacturerList", method = RequestMethod.GET)
+    public String getManufacrurerList(Model model) {
+        dao.saveManufacturerMap(dao.parseLinks(startUrl, "td#table24 p + p a[href]"));
+        return "redirect:/parser";
     }
 
     @RequestMapping(value = "/parser", method = RequestMethod.POST)
