@@ -15,7 +15,7 @@
     <tr>
         <td>
           <form:form method="GET" action="/parser/getManufacturerList" commandName="getManufacturerList">
-          <input type="submit" value="Получить список производителей"/>
+            <input type="submit" value="Получить список производителей"/>
           </form:form>
           <c:if test="${not empty manufacturerList}">
             <table border=1 cellspacing=0>
@@ -31,7 +31,10 @@
                     <td>${entry.key}</td>
                     <td>${entry.value}</td>
                     <td>
-                        <input type="submit" value="Загрузить модели"/>
+                        <form:form method="GET" action="/parser/getModelList">
+                            <input type="hidden" name="manufacturer" value="${entry.key}"/>
+                            <input type="submit" value="Загрузить модели"/>
+                        </form:form>
                     </td>
                 </tr>
             </c:forEach>

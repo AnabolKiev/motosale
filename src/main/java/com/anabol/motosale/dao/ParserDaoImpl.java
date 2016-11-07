@@ -3,6 +3,7 @@ package com.anabol.motosale.dao;
 import com.anabol.motosale.dao.repository.ModelAttributeRepository;
 import com.anabol.motosale.dao.repository.ModelListRepository;
 import com.anabol.motosale.model.ModelList;
+import com.sun.javafx.sg.prism.NGShape;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -38,21 +39,34 @@ public class ParserDaoImpl implements ParserDao {
         return result;
     }
 
-    public void saveManufacturerMap(HashMap<String, String> models) {
-        manufacturers.putAll(models);
+    public void saveManufacturerList(HashMap<String, String> manufacturerList) {
+        manufacturers.putAll(manufacturerList);
     }
 
-    public HashMap<String, String> getManufacturerMap() {
+    public HashMap<String, String> getManufacturerList() {
         return manufacturers;
     }
 
-    public HashMap<String, String> getModelMap() {
+    public String getManufacturerUrl(String manufacturer) {
+        return manufacturers.get(manufacturer);
+    }
+
+    public HashMap<String, String> getModelList() {
         HashMap<String,String> modelList = new HashMap<String, String>();
         Iterator<ModelList> i = modelListRepository.findAll().iterator();
         while (i.hasNext()) {
             modelList.put(i.next().getUrl(), i.next().getManufacturer());
         }
         return modelList;
+    }
+
+    public void saveModelList(String manufacturer, HashMap<String, String> modelList) {
+        for(String modelUrl: modelList.values() ) {
+            ModelList model = new ModelList();
+            model.setUrl(modelUrl);
+            model.setManufacturer(manufacturer);
+            modelListRepository.save(model);
+        }
     }
 
 }

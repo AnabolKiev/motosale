@@ -6,9 +6,13 @@ import java.util.*;
 public interface ParserDao {
     public HashMap<String, String> parseLinks(String urlToRead, String selector);
 
-    public void saveManufacturerMap(HashMap<String, String> models);
+    public void saveManufacturerList(HashMap<String, String> manufacturerList);
 
-    public HashMap<String, String> getManufacturerMap();
+    public HashMap<String, String> getManufacturerList();
 
-    public HashMap<String, String> getModelMap();
+    public String getManufacturerUrl(String manufacturer);
+
+    public HashMap<String, String> getModelList();
+
+    public void saveModelList(String manufacturer, HashMap<String, String> modelList);
 }

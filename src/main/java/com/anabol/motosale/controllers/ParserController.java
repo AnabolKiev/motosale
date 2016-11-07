@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -25,14 +23,26 @@ public class ParserController {
 
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public String parse(Model model) {
-        model.addAttribute("manufacturerList", dao.getManufacturerMap());
-        model.addAttribute("modelList", dao.getModelMap());
+        model.addAttribute("manufacturerList", dao.getManufacturerList());
+        model.addAttribute("modelList", dao.getModelList());
         return "parser";
     }
 
     @RequestMapping(value = "/parser/getManufacturerList", method = RequestMethod.GET)
     public String getManufacrurerList(Model model) {
-        dao.saveManufacturerMap(dao.parseLinks(startUrl, "td#table24 p + p a[href]"));
+        dao.saveManufacturerList(dao.parseLinks(startUrl, "td#table24 p + p a[href]"));
+        return "redirect:/parser";
+    }
+
+    @RequestMapping(value = "/parser/getModelList", method = RequestMethod.GET)
+    public String getModelListByManufacturer(@RequestParam("manufacturer") String manufacturer, Model model) {
+        String url = dao.getManufacturerUrl(manufacturer);
+        HashMap<String, String> hm = dao.parseLinks(url, "p b a[href]");
+        HashMap<String, String> models = new HashMap<String, String>();
+        for (String temp: hm.keySet()) {
+            models = dao.parseLinks(hm.get(temp), "div table td a[href]");
+            dao.saveModelList(manufacturer, models);
+        }
         return "redirect:/parser";
     }
 
