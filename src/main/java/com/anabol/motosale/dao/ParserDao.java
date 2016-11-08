@@ -4,15 +4,16 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 public interface ParserDao {
-    public HashMap<String, String> parseLinks(String urlToRead, String selector);
 
-    public void saveManufacturerList(HashMap<String, String> manufacturerList);
+    public void uploadManufacturers(String url);
 
-    public HashMap<String, String> getManufacturerList();
+    public TreeMap<String, String> getManufacturers();
 
-    public String getManufacturerUrl(String manufacturer);
+    public String getUrlByManufacturer(String manufacturer);
 
-    public HashMap<String, String> getModelList();
+    public void uploadModelPages(String manufacturer);
 
-    public void saveModelList(String manufacturer, HashMap<String, String> modelList);
+    public HashMap<String, String> getModels();
+
+    public void saveModels(String manufacturer, HashMap<String, String> modelList);
 }
