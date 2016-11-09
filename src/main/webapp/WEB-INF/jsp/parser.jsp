@@ -17,6 +17,7 @@
     <tr>
         <td>Главные страницы производителей</td>
         <td>Страницы производителей</td>
+        <td>Аттрибуты модели</td>
     </tr>
     <tr>
         <td valign="top">
@@ -26,7 +27,7 @@
             <tr>
                 <th></th>
                 <th>Производитель</th>
-                <th>URL</th>
+<!--                <th>URL</th>  -->
                 <th></th>
             </tr>
             </thead>
@@ -34,7 +35,7 @@
                 <tr>
                     <td>${loop.count}</td>
                     <td>${entry.key}</td>
-                    <td>${entry.value}</td>
+<!--                    <td>${entry.value}</td>  -->
                     <td>
                         <form:form method="GET" action="/parser/getModelPages">
                             <input type="hidden" name="manufacturer" value="${entry.key}"/>
@@ -48,7 +49,6 @@
           <c:if test="${empty manufacturerList}">No records found</c:if>
         </td>
         <td valign="top">
-            <table>
                 <c:if test="${not empty modelList}">
                     <table border=1 cellspacing=0>
                         <thead style="background:lightgrey">
@@ -66,16 +66,43 @@
                                 <td>${entry.value}</td>
                                 <td>
                                     <form:form method="GET" action="/parser/getModel">
-                                        <input type="hidden" name="pageUrl" value="${entry.key}"/>
+                                        <input type="hidden" name="pageUrl" value="${entry.value}"/>
                                         <input type="submit" value="Загрузить модель"/>
                                     </form:form>
                                 </td>
                             </tr>
                         </c:forEach>
-                    </table>
+                     </table>
                 </c:if>
                 <c:if test="${empty modelList}">No records found</c:if>
-            </table>
+        </td>
+        <td valign="top">
+            <c:if test="${not empty bikeModel}">
+                <table border=1 cellspacing=0>
+                    <thead style="background:lightgrey">
+                    <tr>
+                        <th></th>
+                        <th>Аттрибут</th>
+                        <th>Значение</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <c:forEach items="${bikeModel}" var="entry" varStatus="loop">
+                        <tr>
+                            <td>${loop.count}</td>
+                            <td>${entry.key}</td>
+                            <td>${entry.value}</td>
+                            <td>
+                                <form:form method="GET" action="/parser/getModelPages">
+                                    <input type="hidden" name="manufacturer" value="${entry.value}"/>
+                                    <input type="submit" value="Сохранить"/>
+                                </form:form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+            </c:if>
+            <c:if test="${empty bikeModel}">No records found</c:if>
         </td>
     </tr>
 </table>

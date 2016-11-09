@@ -3,6 +3,7 @@ package com.anabol.motosale.dao;
 import com.anabol.motosale.dao.repository.ModelAttributeRepository;
 import com.anabol.motosale.dao.repository.ModelListRepository;
 import com.anabol.motosale.model.ModelList;
+import com.mysql.jdbc.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Repository
 public class ParserDaoJsoup implements ParserDao {
@@ -21,13 +23,19 @@ public class ParserDaoJsoup implements ParserDao {
     @Autowired
     ModelAttributeRepository modelAttributeRepository;
 
+    private static Logger log = Logger.getLogger(ParserDaoJsoup.class.getName());
+
     private TreeMap<String, String> manufacturers = new TreeMap<String, String>();
     private HashMap<String, String> pages = new HashMap<String, String>();
     private HashMap<String, String> models = new HashMap<String, String>();
+    private HashMap<String, String> modelAttr = new HashMap<String, String>();
 
     private static String manufacturerSelector = "td#table24 p + p a[href]";
     private static String modelPagesSelector = "p b a[href]";
     private static String modelSelector = "div table td a[href]";
+    private static String AttrRowSelector = "table#table35 tr";
+    private static String AttrNameSelector = "td[width=460]";
+    private static String AttrValueSelector = "td[width=1388]";
 
     private HashMap<String, String> parseLinks(String urlToRead, String selector) {
         HashMap<String, String> result = new HashMap();
@@ -38,8 +46,28 @@ public class ParserDaoJsoup implements ParserDao {
             e.printStackTrace();
         }
         Elements links = doc.select(selector);
-        for (Element src: links) {
-            result.put(src.text(), src.attr("abs:href"));
+        for (Element link: links) {
+            result.put(link.text(), link.attr("abs:href"));
+        }
+        return result;
+    }
+
+    private HashMap<String, String> parseAttributes(String urlToRead, String selectorName, String selectorValue) {
+        HashMap<String, String> result = new HashMap();
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(urlToRead).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Elements rows = doc.select(AttrRowSelector);
+        for (Element row: rows) {
+            String attrName = row.select(selectorName).first().text();
+            String attrValue = row.select(selectorValue).first().text();
+            log.info(attrName + "---" + attrValue);
+            if (!StringUtils.isNullOrEmpty(attrName) && !StringUtils.isNullOrEmpty(attrValue)) {
+                result.put(attrName, attrValue);
+            }
         }
         return result;
     }
@@ -83,5 +111,17 @@ public class ParserDaoJsoup implements ParserDao {
             models.put(modelUrl, manufacturer);
          }
     }
+
+    public HashMap<String, String> getModelAttr() {
+        return modelAttr;
+    }
+
+    public void uploadModelAttr(String url) {
+        modelAttr.clear();
+        log.info(url);
+        modelAttr.putAll(parseAttributes(url, AttrNameSelector, AttrValueSelector));
+    }
+
+
 
 }

@@ -16,4 +16,8 @@ public interface ParserDao {
     public HashMap<String, String> getModels();
 
     public void saveModels(String manufacturer, HashMap<String, String> modelList);
+
+    public HashMap<String, String> getModelAttr();
+
+    public void uploadModelAttr(String url);
 }
