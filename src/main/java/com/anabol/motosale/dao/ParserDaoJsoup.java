@@ -33,7 +33,7 @@ public class ParserDaoJsoup implements ParserDao {
     private static String manufacturerSelector = "td#table24 a[href]";
     private static String modelPagesSelector = "p a[href][target=_self]";
     private static String modelSelector = "a[href*=model]";
-    private static String AttrRowSelector = "table#table35 tr";
+    private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)) tr";
     private static String AttrNameSelector = "td[width=460]";
     private static String AttrValueSelector = "td[width=1388]";
 
@@ -90,10 +90,11 @@ public class ParserDaoJsoup implements ParserDao {
     public void uploadModelPages(String manufacturer) {
         String url = getUrlByManufacturer(manufacturer);
         log.info(manufacturer + "---" + url);
-        for (String pageUrl: parseLinks(url, modelPagesSelector).values()) {
+        pages.put(url, manufacturer); // adding manufacturer start URL for case of 1 page
+        for (String pageUrl: parseLinks(url, modelPagesSelector).values()) // parse main manufacturer page and save other pages
             pages.put(pageUrl, manufacturer);
+        for (String pageUrl: pages.keySet()) // parse pages and save models URLs
             models.putAll(parseLinks(pageUrl, modelSelector));
-        }
     }
 
     public HashMap<String, String> getModels() {
