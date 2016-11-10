@@ -34,8 +34,8 @@ public class ParserDaoJsoup implements ParserDao {
     private static String modelPagesSelector = "p a[href][target=_self]";
     private static String modelSelector = "a[href*=model]";
     private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)) tr";
-    private static String AttrNameSelector = "td[width=460]";
-    private static String AttrValueSelector = "td[width=1388]";
+    private static String AttrNameSelector = "td:eq(0)";
+    private static String AttrValueSelector = "td:eq(1)";
 
     private HashMap<String, String> parseLinks(String urlToRead, String selector) {
         HashMap<String, String> result = new HashMap();
@@ -47,8 +47,8 @@ public class ParserDaoJsoup implements ParserDao {
         }
         Elements links = doc.select(selector);
         for (Element link: links) {
-            log.info(link.text() + "---" + link.attr("abs:href"));
-            if (!StringUtils.isNullOrEmpty(link.text())) {
+            if (!StringUtils.isNullOrEmpty(link.text().trim().replace("\u00a0",""))) {
+                log.info("Put" + link.text() + "---" + link.attr("abs:href"));
                 result.put(link.text(), link.attr("abs:href"));
             }
         }
@@ -89,6 +89,8 @@ public class ParserDaoJsoup implements ParserDao {
 
     public void uploadModelPages(String manufacturer) {
         String url = getUrlByManufacturer(manufacturer);
+        pages.clear();
+        models.clear();
         log.info(manufacturer + "---" + url);
         pages.put(url, manufacturer); // adding manufacturer start URL for case of 1 page
         for (String pageUrl: parseLinks(url, modelPagesSelector).values()) // parse main manufacturer page and save other pages
