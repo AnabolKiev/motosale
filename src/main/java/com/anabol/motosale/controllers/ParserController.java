@@ -33,11 +33,24 @@ public class ParserController {
         return "redirect:/parser";
     }
 
-    @RequestMapping(value = "/parser/getModelPages", method = RequestMethod.GET)
-    public String getModelListByManufacturer(@RequestParam("manufacturer") String manufacturer, Model model) {
-        dao.uploadModelPages(manufacturer);
+    @RequestMapping(value = "/parser/clearManufacturerList", method = RequestMethod.GET)
+    public String clearManufacrurerList(Model model) {
+        dao.clearManufacturers();
         return "redirect:/parser";
     }
+
+    @RequestMapping(value = "/parser/getModelPages", method = RequestMethod.GET)
+    public String getModelListByManufacturer(@RequestParam("manufacturerUrl") String manufacturerUrl, Model model) {
+        dao.uploadModels(manufacturerUrl);
+        return "redirect:/parser";
+    }
+
+    @RequestMapping(value = "/parser/clearModelList", method = RequestMethod.GET)
+    public String clearModelList(Model model) {
+        dao.clearModels();
+        return "redirect:/parser";
+    }
+
 
     @RequestMapping(value = "/parser/getModel", method = RequestMethod.GET)
     public String getModelAttrByUrl(@RequestParam("pageUrl") String url, Model model) {

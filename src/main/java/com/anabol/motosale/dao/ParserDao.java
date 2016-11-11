@@ -9,9 +9,11 @@ public interface ParserDao {
 
     public TreeMap<String, String> getManufacturers();
 
-    public String getUrlByManufacturer(String manufacturer);
+    public void clearManufacturers();
 
-    public void uploadModelPages(String manufacturer);
+    public void uploadModels(String manufacturer);
+
+    public void clearModels();
 
     public HashMap<String, String> getModels();
 

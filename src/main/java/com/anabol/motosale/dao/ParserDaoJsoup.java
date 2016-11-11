@@ -31,7 +31,7 @@ public class ParserDaoJsoup implements ParserDao {
     private HashMap<String, String> modelAttr = new HashMap<String, String>();
 
     private static String manufacturerSelector = "td#table24 a[href]";
-    private static String modelPagesSelector = "p a[href][target=_self]";
+    private static String modelPagesSelector = "table table p a[href$=htm][target=_self]";
     private static String modelSelector = "a[href*=model]";
     private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)) tr";
     private static String AttrNameSelector = "td:eq(0)";
@@ -48,8 +48,8 @@ public class ParserDaoJsoup implements ParserDao {
         Elements links = doc.select(selector);
         for (Element link: links) {
             if (!StringUtils.isNullOrEmpty(link.text().trim().replace("\u00a0",""))) {
-                log.info("Put" + link.text() + "---" + link.attr("abs:href"));
-                result.put(link.text(), link.attr("abs:href"));
+                log.info("Key(URL): " + link.attr("abs:href") + " --- Value: " + link.text());
+                result.put(link.attr("abs:href"), link.text());
             }
         }
         return result;
@@ -67,8 +67,8 @@ public class ParserDaoJsoup implements ParserDao {
         for (Element row: rows) {
             String attrName = row.select(selectorName).first().text();
             String attrValue = row.select(selectorValue).first().text();
-            log.info(attrName + "---" + attrValue);
             if (!StringUtils.isNullOrEmpty(attrName) && !StringUtils.isNullOrEmpty(attrValue)) {
+                log.info("Name: " + attrName + " --- Value: " + attrValue);
                 result.put(attrName, attrValue);
             }
         }
@@ -83,20 +83,29 @@ public class ParserDaoJsoup implements ParserDao {
         return manufacturers;
     }
 
-    public String getUrlByManufacturer(String manufacturer) {
-        return manufacturers.get(manufacturer);
+    public void clearManufacturers() {
+        manufacturers.clear();
     }
 
-    public void uploadModelPages(String manufacturer) {
-        String url = getUrlByManufacturer(manufacturer);
+/*    public String getUrlByManufacturer(String manufacturer) {
+        return manufacturers.get(manufacturer);
+    }*/
+
+    public void uploadModels(String manufacturerUrl) {
+        String manufacturer = manufacturers.get(manufacturerUrl);
+        log.info("Adding to pages: " + manufacturerUrl);
+        pages.put(manufacturerUrl, manufacturer); // adding manufacturer start URL for case of 1 page
+        for (String pageUrl: parseLinks(manufacturerUrl, modelPagesSelector).keySet()) // parse main manufacturer page and save other pages
+            pages.put(pageUrl, manufacturer);
+        log.info("Pages count: " + pages.size());
+        for (String pageUrl: pages.keySet()) // parse pages and save models URLs
+        {   log.info("Search for models on page: " + pageUrl);
+            models.putAll(parseLinks(pageUrl, modelSelector));}
+    }
+
+    public void clearModels() {
         pages.clear();
         models.clear();
-        log.info(manufacturer + "---" + url);
-        pages.put(url, manufacturer); // adding manufacturer start URL for case of 1 page
-        for (String pageUrl: parseLinks(url, modelPagesSelector).values()) // parse main manufacturer page and save other pages
-            pages.put(pageUrl, manufacturer);
-        for (String pageUrl: pages.keySet()) // parse pages and save models URLs
-            models.putAll(parseLinks(pageUrl, modelSelector));
     }
 
     public HashMap<String, String> getModels() {

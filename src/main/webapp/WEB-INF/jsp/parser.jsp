@@ -10,14 +10,39 @@
 <body>
 <h3>Производители и модели</h3>
 <br>
-<form:form method="GET" action="/parser/getManufacturerList" commandName="getManufacturerList">
-    <input type="submit" value="Получить список производителей"/>
-</form:form>
 <table>
     <tr>
         <td>Главные страницы производителей</td>
         <td>Страницы производителей</td>
         <td>Аттрибуты модели</td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <form:form method="GET" action="/parser/getManufacturerList" commandName="getManufacturerList">
+                            <input type="submit" value="Получить"/>
+                        </form:form>
+                    </td>
+                    <td>
+                        <form:form method="GET" action="/parser/clearManufacturerList" commandName="clearManufacturerList">
+                            <input type="submit" value="Очистить"/>
+                        </form:form>
+                    </td>
+                    <td>
+                        <form:form method="GET" action="/parser/getModelPages">
+                            <input type="submit" value="Загрузить страницы"/>
+                        </form:form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <form:form method="GET" action="/parser/clearModelList" commandName="clearModelList">
+                <input type="submit" value="Очистить"/>
+            </form:form>
+        </td>
     </tr>
     <tr>
         <td valign="top">
@@ -28,19 +53,27 @@
                 <th></th>
                 <th>Производитель</th>
 <!--                <th>URL</th>  -->
+                <th>Стр.</th>
+                <th>Мод.</th>
+                <th></th>
                 <th></th>
             </tr>
             </thead>
             <c:forEach items="${manufacturerList}" var="entry" varStatus="loop">
                 <tr>
                     <td>${loop.count}</td>
-                    <td>${entry.key}</td>
-<!--                    <td>${entry.value}</td>  -->
+                    <td>${entry.value}</td>
+                    <td></td>
+                    <td></td>
+<!--                    <td>${entry.key}</td>  -->
                     <td>
-                        <form:form method="GET" action="/parser/getModelPages">
-                            <input type="hidden" name="manufacturer" value="${entry.key}"/>
-                            <input type="submit" value="Загрузить страницы"/>
-                        </form:form>
+                        <form method="GET" action="/parser/getModelPages">
+                            <input type="hidden" name="manufacturerUrl" value="${entry.key}"/>
+                            <input type="submit" value="Загрузить"/>
+                        </form>
+                    </td>
+                    <td>
+                        <input type="checkbox" value="0"/>
                     </td>
                 </tr>
             </c:forEach>
@@ -65,10 +98,10 @@
                                 <td>${entry.key}</td>
                                 <td>${entry.value}</td>
                                 <td>
-                                    <form:form method="GET" action="/parser/getModel">
-                                        <input type="hidden" name="pageUrl" value="${entry.value}"/>
+                                    <form method="GET" action="/parser/getModel">
+                                        <input type="hidden" name="pageUrl" value="${entry.key}"/>
                                         <input type="submit" value="Загрузить модель"/>
-                                    </form:form>
+                                    </form>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -93,10 +126,10 @@
                             <td>${entry.key}</td>
                             <td>${entry.value}</td>
                             <td>
-                                <form:form method="GET" action="/parser/getModelPages">
+                                <form method="GET" action="/parser/getModelPages">
                                     <input type="hidden" name="manufacturer" value="${entry.value}"/>
                                     <input type="submit" value="Сохранить"/>
-                                </form:form>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
