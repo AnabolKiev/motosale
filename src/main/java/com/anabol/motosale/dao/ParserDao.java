@@ -1,25 +1,29 @@
 package com.anabol.motosale.dao;
 
+import com.anabol.motosale.model.ManufacturerDownload;
+import com.anabol.motosale.model.ModelAttribute;
 import org.springframework.stereotype.Repository;
 import java.util.*;
 
 public interface ParserDao {
 
-    public void uploadManufacturers(String url);
+    public void downloadManufacturers();
 
-    public TreeMap<String, String> getManufacturers();
+    public Map<String, ManufacturerDownload> getManufacturers();
 
     public void clearManufacturers();
 
-    public void uploadModels(String manufacturer);
+    public void downloadModels(String manufacturer);
 
     public void clearModels();
 
-    public HashMap<String, String> getModels();
+    public Map<String, ModelAttribute> getModels();
 
-    public void saveModels(String manufacturer, HashMap<String, String> modelList);
+    public void saveModelAttr();
 
-    public HashMap<String, String> getModelAttr();
+    public List<ModelAttribute> getModelAttr();
 
-    public void uploadModelAttr(String url);
+    public void downloadModelAttr(String url);
+
+    public void clearModelAttr();
 }

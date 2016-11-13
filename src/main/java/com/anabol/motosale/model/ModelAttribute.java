@@ -9,8 +9,14 @@ public class ModelAttribute {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "ID", unique = true, nullable = false, precision = 5, scale = 0)
     private Long id;
-    @Column(name = "URL", nullable = false)
+    @Column(name = "URL", unique = true, nullable = false)
     private String url;
+    @Column(name = "MANUFACTURER")
+    private String manufacturer;
+    @Column(name = "MODELNAME")
+    private String modelName;
+    @Column(name = "MODELYEAR")
+    private String modelYear;
     @Column(name = "ATTRNAME")
     private String attrName;
     @Column(name = "ATTRVALUE")
@@ -46,6 +52,30 @@ public class ModelAttribute {
 
     public void setAttrValue(String attrValue) {
         this.attrValue = attrValue;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
+    }
+
+    public String getModelName() {
+        return modelName;
+    }
+
+    public void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    public String getModelYear() {
+        return modelYear;
+    }
+
+    public void setModelYear(String modelYear) {
+        this.modelYear = modelYear;
     }
 }
 

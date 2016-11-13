@@ -2,10 +2,10 @@
 <Context path="/motosale">
     <Resource
             driverClassName="com.mysql.jdbc.Driver"
-            maxActive="4"
+            maxTotal="4"
             maxIdle="2"
-            maxWait="5000"
-            removeAbandoned="true"
+            maxWaitMillis="5000"
+            removeAbandonedOnBorrow="true"
             name="jdbc/AdsDS"
             username="root"
             password="root"

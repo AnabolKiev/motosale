@@ -34,7 +34,9 @@ drop table if exists ms.modelAttribute;
 create table ms.modelAttribute (
   id int primary key not null auto_increment,
   url varchar(255) not null,
+  manufacturer varchar(30),
+  modelName varchar(100),
+  modelYear varchar(10),
   attrName varchar(255),
-  attrValue varchar(255),
-  FOREIGN KEY (url) REFERENCES ms.modelList(url) ON DELETE CASCADE
+  attrValue varchar(255)
 );

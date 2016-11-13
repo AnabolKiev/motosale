@@ -21,27 +21,43 @@
             <table>
                 <tr>
                     <td>
-                        <form:form method="GET" action="/parser/getManufacturerList" commandName="getManufacturerList">
+                        <form method="GET" action="/parser/getManufacturerList" commandName="getManufacturerList">
                             <input type="submit" value="Получить"/>
-                        </form:form>
+                        </form>
                     </td>
                     <td>
-                        <form:form method="GET" action="/parser/clearManufacturerList" commandName="clearManufacturerList">
+                        <form method="GET" action="/parser/clearManufacturerList" commandName="clearManufacturerList">
                             <input type="submit" value="Очистить"/>
-                        </form:form>
+                        </form>
                     </td>
                     <td>
-                        <form:form method="GET" action="/parser/getModelPages">
+                        <form method="POST" action="/parser/getModelPages">
                             <input type="submit" value="Загрузить страницы"/>
-                        </form:form>
+                        </form>
                     </td>
                 </tr>
             </table>
         </td>
         <td>
-            <form:form method="GET" action="/parser/clearModelList" commandName="clearModelList">
+            <form method="GET" action="/parser/clearModelList" commandName="clearModelList">
                 <input type="submit" value="Очистить"/>
-            </form:form>
+            </form>
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <form method="GET" action="/parser/saveModelAttr" commandName="saveModelAttr">
+                            <input type="submit" value="Сохранить"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="GET" action="/parser/clearModelAttr" commandName="clearModelAttr">
+                            <input type="submit" value="Очистить"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     <tr>
@@ -50,22 +66,21 @@
             <table border=1 cellspacing=0>
             <thead style="background:lightgrey">
             <tr>
-                <th></th>
+                <th>#</th>
                 <th>Производитель</th>
-<!--                <th>URL</th>  -->
                 <th>Стр.</th>
                 <th>Мод.</th>
                 <th></th>
                 <th></th>
             </tr>
             </thead>
-            <c:forEach items="${manufacturerList}" var="entry" varStatus="loop">
+            <form:form id="form1" action="/parser/getModelPages" commandName="manufacturerList" method="POST">
+                <c:forEach items="${manufacturerList}" var="entry" varStatus="loop">
                 <tr>
                     <td>${loop.count}</td>
-                    <td>${entry.value}</td>
-                    <td></td>
-                    <td></td>
-<!--                    <td>${entry.key}</td>  -->
+                    <td>${entry.value.name}</td>
+                    <td>${entry.value.pagesCount}</td>
+                    <td>${entry.value.modelsCount}</td>
                     <td>
                         <form method="GET" action="/parser/getModelPages">
                             <input type="hidden" name="manufacturerUrl" value="${entry.key}"/>
@@ -73,10 +88,11 @@
                         </form>
                     </td>
                     <td>
-                        <input type="checkbox" value="0"/>
+                        <input type="checkbox" value="isChecked"/>
                     </td>
                 </tr>
-            </c:forEach>
+                </c:forEach>
+            </form:form>
             </table>
           </c:if>
           <c:if test="${empty manufacturerList}">No records found</c:if>
@@ -86,7 +102,7 @@
                     <table border=1 cellspacing=0>
                         <thead style="background:lightgrey">
                         <tr>
-                            <th></th>
+                            <th>#</th>
                             <th>Модель</th>
                             <th>URL</th>
                             <th></th>
@@ -95,8 +111,8 @@
                         <c:forEach items="${modelList}" var="entry" varStatus="loop">
                             <tr>
                                 <td>${loop.count}</td>
+                                <td>${entry.value.modelName}</td>
                                 <td>${entry.key}</td>
-                                <td>${entry.value}</td>
                                 <td>
                                     <form method="GET" action="/parser/getModel">
                                         <input type="hidden" name="pageUrl" value="${entry.key}"/>
@@ -114,23 +130,16 @@
                 <table border=1 cellspacing=0>
                     <thead style="background:lightgrey">
                     <tr>
-                        <th></th>
+                        <th>#</th>
                         <th>Аттрибут</th>
                         <th>Значение</th>
-                        <th></th>
                     </tr>
                     </thead>
                     <c:forEach items="${bikeModel}" var="entry" varStatus="loop">
                         <tr>
                             <td>${loop.count}</td>
-                            <td>${entry.key}</td>
-                            <td>${entry.value}</td>
-                            <td>
-                                <form method="GET" action="/parser/getModelPages">
-                                    <input type="hidden" name="manufacturer" value="${entry.value}"/>
-                                    <input type="submit" value="Сохранить"/>
-                                </form>
-                            </td>
+                            <td>${entry.attrName}</td>
+                            <td>${entry.attrValue}</td>
                         </tr>
                     </c:forEach>
                 </table>
