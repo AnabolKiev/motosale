@@ -51,18 +51,22 @@ public class ParserController {
     }
 
     @RequestMapping(value = "/parser/getModelPages", method = RequestMethod.POST)
-    public String getModelListByCheckbox(@ModelAttribute TreeMap<String, ManufacturerDownload> manufacturerList, BindingResult bindingResult, Model model) {
+    public String getModelListByCheckbox(@ModelAttribute("manufacturerList") TreeMap<String, ManufacturerDownload> manufacturerList, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("bindRes", bindingResult);
             return "error";
-        };
+        } else {
+            model.addAttribute("bindRes", manufacturerList);
+            return "error";
+        }
+/*        log.info("inside");
         for (String manufacturerUrl: manufacturerList.keySet()) {
-            log.info("inside");
+            log.info("inside - 2");
             if (manufacturerList.get(manufacturerUrl).isChecked()) {
                 dao.downloadModels(manufacturerUrl);
             }
         }
-        return "redirect:/parser";
+        return "redirect:/parser";*/
     }
 
     @RequestMapping(value = "/parser/clearModelList", method = RequestMethod.GET)

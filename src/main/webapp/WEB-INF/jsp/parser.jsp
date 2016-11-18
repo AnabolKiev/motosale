@@ -31,10 +31,10 @@
                         </form>
                     </td>
                     <td>
-                        <form method="POST" action="/parser/getModelPages">
-                            <input type="submit" value="Загрузить страницы"/>
-                        </form>
-                    </td>
+<!--                        <form method="POST" action="/parser/getModelPages">
+-->                            <input type="submit" value="Загрузить страницы" form="manufacturerForm"/>
+<!--                        </form>
+-->                    </td>
                 </tr>
             </table>
         </td>
@@ -63,6 +63,8 @@
     <tr>
         <td valign="top">
             <c:if test="${not empty manufacturerList}">
+<!--            <form id="manufacturerForm" action="/parser/getModelPages" method="POST" > -->
+            <form:form id="manufacturerForm" action="/parser/getModelPages" method="post" modelAttribute="manufacturerList">
             <table border=1 cellspacing=0>
             <thead style="background:lightgrey">
             <tr>
@@ -71,29 +73,29 @@
                 <th>Стр.</th>
                 <th>Мод.</th>
                 <th></th>
-                <th></th>
             </tr>
             </thead>
-            <form:form id="form1" action="/parser/getModelPages" commandName="manufacturerList" method="POST">
                 <c:forEach items="${manufacturerList}" var="entry" varStatus="loop">
                 <tr>
+<!--                    <input type="hidden" name="key" value="${entry.key}">   -->
+                    <form:hidden path="key"/>
                     <td>${loop.count}</td>
                     <td>${entry.value.name}</td>
                     <td>${entry.value.pagesCount}</td>
                     <td>${entry.value.modelsCount}</td>
-                    <td>
+                    <td><input type="checkbox" name="isChecked" value="${entry.value.checked}"></td>
+<!--                    <td>
                         <form method="GET" action="/parser/getModelPages">
                             <input type="hidden" name="manufacturerUrl" value="${entry.key}"/>
                             <input type="submit" value="Загрузить"/>
                         </form>
                     </td>
                     <td>
-                        <input type="checkbox" value="isChecked"/>
                     </td>
-                </tr>
+-->                </tr>
                 </c:forEach>
-            </form:form>
             </table>
+            </form:form>
           </c:if>
           <c:if test="${empty manufacturerList}">No records found</c:if>
         </td>

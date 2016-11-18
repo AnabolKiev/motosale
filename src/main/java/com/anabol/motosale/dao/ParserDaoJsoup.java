@@ -39,7 +39,6 @@ public class ParserDaoJsoup implements ParserDao {
 
 //    private static String startUrl = "http://www.motorcyclespecs.co.za/Manufacturer.htm";
     private static String startUrl = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
-    private static String baseUri = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\";
 
     private static String manufacturerSelector = "td#table24 a[href]";
     private static String modelPagesSelector = "table table p a[href*=htm][target=_self]";
