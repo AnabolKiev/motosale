@@ -31,10 +31,10 @@
                         </form>
                     </td>
                     <td>
-<!--                        <form method="POST" action="/parser/getModelPages">
--->                            <input type="submit" value="Загрузить страницы" form="manufacturerForm"/>
-<!--                        </form>
--->                    </td>
+                        <%--<form method="POST" action="/parser/getModelPages">--%>
+                            <input type="submit" value="Загрузить страницы" form="manufacturerForm"/>
+                        <%--</form>--%>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -62,9 +62,8 @@
     </tr>
     <tr>
         <td valign="top">
-            <c:if test="${not empty manufacturerList}">
-<!--            <form id="manufacturerForm" action="/parser/getModelPages" method="POST" > -->
-            <form:form id="manufacturerForm" action="/parser/getModelPages" method="post" modelAttribute="manufacturerList">
+            <c:if test="${not empty manufacturers}">
+            <form:form id="manufacturerForm" action="/parser/getModelPages" method="post" modelAttribute="manufacturers">
             <table border=1 cellspacing=0>
             <thead style="background:lightgrey">
             <tr>
@@ -75,32 +74,25 @@
                 <th></th>
             </tr>
             </thead>
-                <c:forEach items="${manufacturerList}" var="entry" varStatus="loop">
+                <c:forEach items="${manufacturers.manufacturersMap}" var="entry" varStatus="loop">
                 <tr>
-<!--                    <input type="hidden" name="key" value="${entry.key}">   -->
-                    <form:hidden path="key"/>
                     <td>${loop.count}</td>
                     <td>${entry.value.name}</td>
                     <td>${entry.value.pagesCount}</td>
                     <td>${entry.value.modelsCount}</td>
-                    <td><input type="checkbox" name="isChecked" value="${entry.value.checked}"></td>
-<!--                    <td>
-                        <form method="GET" action="/parser/getModelPages">
-                            <input type="hidden" name="manufacturerUrl" value="${entry.key}"/>
-                            <input type="submit" value="Загрузить"/>
-                        </form>
-                    </td>
-                    <td>
-                    </td>
--->                </tr>
+                    <%--<td><form:checkbox path="manufacturersMap['${entry.key}'].isChecked" value="${entry.value.checked}"/></td>--%>
+                    <td><input type="checkbox" name="manufacturersMap['${entry.key}'].isChecked" value="${entry.value.Checked}"/></td>
+                    <%--<td><input type="checkbox" name="manufacturerList" value="${entry.key}"/></td>--%>
+                    <%--<form:input type="hidden" path="manufacturersMap['${entry.key}'].url"/>--%>
+                </tr>
                 </c:forEach>
             </table>
             </form:form>
           </c:if>
-          <c:if test="${empty manufacturerList}">No records found</c:if>
+          <c:if test="${empty manufacturers}">No records found</c:if>
         </td>
         <td valign="top">
-                <c:if test="${not empty modelList}">
+                <c:if test="${not empty models}">
                     <table border=1 cellspacing=0>
                         <thead style="background:lightgrey">
                         <tr>
@@ -110,7 +102,7 @@
                             <th></th>
                         </tr>
                         </thead>
-                        <c:forEach items="${modelList}" var="entry" varStatus="loop">
+                        <c:forEach items="${models}" var="entry" varStatus="loop">
                             <tr>
                                 <td>${loop.count}</td>
                                 <td>${entry.value.modelName}</td>
@@ -125,7 +117,7 @@
                         </c:forEach>
                      </table>
                 </c:if>
-                <c:if test="${empty modelList}">No records found</c:if>
+                <c:if test="${empty models}">No records found</c:if>
         </td>
         <td valign="top">
             <c:if test="${not empty bikeModel}">

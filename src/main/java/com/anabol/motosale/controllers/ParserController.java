@@ -1,6 +1,7 @@
 package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.ParserDao;
+import com.anabol.motosale.form.ManufacturersForm;
 import com.anabol.motosale.model.Ad;
 import com.anabol.motosale.model.ManufacturerDownload;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
@@ -26,51 +29,49 @@ public class ParserController {
 
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public String parse(Model model) {
-        model.addAttribute("manufacturerList", dao.getManufacturers());
-        model.addAttribute("modelList", dao.getModels());
+//        model.addAttribute("manufacturerList", dao.getManufacturers());
+        ManufacturersForm manufacturersForm = new ManufacturersForm();
+        manufacturersForm.setManufacturersMap(dao.getManufacturers());
+        model.addAttribute("manufacturers", manufacturersForm);
+        model.addAttribute("models", dao.getModels());
         model.addAttribute("bikeModel", dao.getModelAttr());
         return "parser";
     }
 
     @RequestMapping(value = "/parser/getManufacturerList", method = RequestMethod.GET)
-    public String getManufacrurerList(Model model) {
+    public String getManufacturers(Model model) {
         dao.downloadManufacturers();
         return "redirect:/parser";
     }
 
     @RequestMapping(value = "/parser/clearManufacturerList", method = RequestMethod.GET)
-    public String clearManufacrurerList(Model model) {
+    public String clearManufacturers(Model model) {
         dao.clearManufacturers();
         return "redirect:/parser";
     }
 
     @RequestMapping(value = "/parser/getModelPages", method = RequestMethod.GET)
-    public String getModelListByManufacturer(@RequestParam("manufacturerUrl") String manufacturerUrl, Model model) {
+    public String getModelsByManufacturer(@RequestParam("manufacturerUrl") String manufacturerUrl, Model model) {
         dao.downloadModels(manufacturerUrl);
         return "redirect:/parser";
     }
 
     @RequestMapping(value = "/parser/getModelPages", method = RequestMethod.POST)
-    public String getModelListByCheckbox(@ModelAttribute("manufacturerList") TreeMap<String, ManufacturerDownload> manufacturerList, BindingResult bindingResult, Model model) {
+    public String getModelListByCheckbox(@ModelAttribute("manufacturers") ManufacturersForm manufacturers, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("bindRes", bindingResult);
             return "error";
-        } else {
-            model.addAttribute("bindRes", manufacturerList);
-            return "error";
         }
-/*        log.info("inside");
-        for (String manufacturerUrl: manufacturerList.keySet()) {
-            log.info("inside - 2");
-            if (manufacturerList.get(manufacturerUrl).isChecked()) {
+
+        for (String manufacturerUrl: manufacturers.getManufacturersMap().keySet()) {
+            if (manufacturers.getManufacturersMap().get(manufacturerUrl).isChecked())
                 dao.downloadModels(manufacturerUrl);
-            }
         }
-        return "redirect:/parser";*/
+        return "redirect:/parser";
     }
 
     @RequestMapping(value = "/parser/clearModelList", method = RequestMethod.GET)
-    public String clearModelList(Model model) {
+    public String clearModels(Model model) {
         dao.clearModels();
         return "redirect:/parser";
     }
