@@ -81,7 +81,7 @@
                     <td>${entry.value.pagesCount}</td>
                     <td>${entry.value.modelsCount}</td>
                     <%--<td><form:checkbox path="manufacturersMap['${entry.key}'].isChecked" value="${entry.value.checked}"/></td>--%>
-                    <td><input type="checkbox" name="manufacturersMap['${entry.key}'].isChecked" value="${entry.value.Checked}"/></td>
+                    <td><input type="checkbox" name="manufacturersMap['${entry.key}'].checked" value="true"/></td>
                     <%--<td><input type="checkbox" name="manufacturerList" value="${entry.key}"/></td>--%>
                     <%--<form:input type="hidden" path="manufacturersMap['${entry.key}'].url"/>--%>
                 </tr>

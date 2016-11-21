@@ -1,21 +1,14 @@
 package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.ParserDao;
-import com.anabol.motosale.form.ManufacturersForm;
-import com.anabol.motosale.model.Ad;
-import com.anabol.motosale.model.ManufacturerDownload;
+import com.anabol.motosale.form.ManufacturersWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
 @Controller
@@ -30,7 +23,7 @@ public class ParserController {
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public String parse(Model model) {
 //        model.addAttribute("manufacturerList", dao.getManufacturers());
-        ManufacturersForm manufacturersForm = new ManufacturersForm();
+        ManufacturersWrapper manufacturersForm = new ManufacturersWrapper();
         manufacturersForm.setManufacturersMap(dao.getManufacturers());
         model.addAttribute("manufacturers", manufacturersForm);
         model.addAttribute("models", dao.getModels());
@@ -57,7 +50,7 @@ public class ParserController {
     }
 
     @RequestMapping(value = "/parser/getModelPages", method = RequestMethod.POST)
-    public String getModelListByCheckbox(@ModelAttribute("manufacturers") ManufacturersForm manufacturers, BindingResult bindingResult, Model model) {
+    public String getModelListByCheckbox(@ModelAttribute("manufacturers") ManufacturersWrapper manufacturers, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("bindRes", bindingResult);
             return "error";

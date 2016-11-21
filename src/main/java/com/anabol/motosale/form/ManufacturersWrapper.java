@@ -4,7 +4,7 @@ import com.anabol.motosale.model.ManufacturerDownload;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class ManufacturersForm {
+public class ManufacturersWrapper {
 
     private Map<String, ManufacturerDownload> manufacturersMap = new TreeMap<String, ManufacturerDownload>();
 

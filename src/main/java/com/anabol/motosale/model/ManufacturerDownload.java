@@ -3,7 +3,7 @@ package com.anabol.motosale.model;
 public class ManufacturerDownload {
     private String url;
     private String name;
-    private boolean isChecked;
+    private boolean Checked;
     private int pagesCount;
     private int modelsCount;
 
@@ -24,11 +24,11 @@ public class ManufacturerDownload {
     }
 
     public boolean isChecked() {
-        return isChecked;
+        return Checked;
     }
 
     public void setChecked(boolean checked) {
-        isChecked = checked;
+        Checked = checked;
     }
 
     public int getPagesCount() {
