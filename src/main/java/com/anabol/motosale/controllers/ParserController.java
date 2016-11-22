@@ -2,7 +2,6 @@ package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.ParserDao;
 import com.anabol.motosale.form.CheckedWrapper;
-import com.anabol.motosale.form.ManufacturersWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -10,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 @Controller
@@ -24,9 +22,6 @@ public class ParserController {
 
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public String parse(Model model) {
-/*        ManufacturersWrapper manufacturersWrapper = new ManufacturersWrapper();
-        manufacturersWrapper.setManufacturersMap(dao.getManufacturers());
-        model.addAttribute("manufacturers", manufacturersWrapper);*/
         model.addAttribute("manufacturers", dao.getManufacturers());
         model.addAttribute("models", dao.getModels());
         model.addAttribute("bikeModel", dao.getModelAttr());
@@ -57,11 +52,6 @@ public class ParserController {
             model.addAttribute("bindRes", bindingResult);
             return "error";
         }
-
- /*       for (String manufacturerUrl: manufacturers.getManufacturersMap().keySet()) {
-            if (manufacturers.getManufacturersMap().get(manufacturerUrl).isChecked())
-                dao.downloadModels(manufacturerUrl);
-        }*/
         for (String manufacturerUrl: manufacturers.getManufacturersList()) {
              dao.downloadModels(manufacturerUrl);
         }
@@ -77,7 +67,14 @@ public class ParserController {
     @RequestMapping(value = "/parser/getModel", method = RequestMethod.GET)
     public String getModelAttrByUrl(@RequestParam("pageUrl") String url, Model model) {
         log.info(url);
+        dao.clearModelAttr();
         dao.downloadModelAttr(url);
+        return "redirect:/parser";
+    }
+
+    @RequestMapping(value = "/parser/getModels", method = RequestMethod.GET)
+    public String getModels(Model model) {
+        dao.downloadModelsAttr();
         return "redirect:/parser";
     }
 

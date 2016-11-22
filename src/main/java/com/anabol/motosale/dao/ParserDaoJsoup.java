@@ -96,7 +96,7 @@ public class ParserDaoJsoup implements ParserDao {
             String attrName = row.select(selectorName).first().text();
             String attrValue = row.select(selectorValue).first().text();
             if (!StringUtils.isNullOrEmpty(attrName) && !StringUtils.isNullOrEmpty(attrValue)) {
-                log.info("Name: " + attrName + " --- Value: " + attrValue);
+             //   log.info("Name: " + attrName + " --- Value: " + attrValue);
                 result.put(attrName, attrValue);
             }
         }
@@ -166,25 +166,31 @@ public class ParserDaoJsoup implements ParserDao {
         return models;
     }
 
-    public void saveModelAttr() {
-// TO DO
-    }
-
     public List<ModelAttribute> getModelAttr() {
         return modelAttr;
     }
 
     public void downloadModelAttr(String url) {
-        modelAttr.clear();
         log.info("Searching for attributes: " + url);
         Map<String, String> parsedModelAttr = parseAttributes(url, AttrNameSelector, AttrValueSelector);
         for (String attrName: parsedModelAttr.keySet()) {
             ModelAttribute modelAttribute = new ModelAttribute();
             modelAttribute.setUrl(url);
+            modelAttribute.setModelName(models.get(url).getModelName());
+            modelAttribute.setManufacturer(models.get(url).getManufacturer());
             modelAttribute.setAttrName(attrName);
             modelAttribute.setAttrValue(parsedModelAttr.get(attrName));
             modelAttr.add(modelAttribute);
         }
+    }
+
+    public void downloadModelsAttr() {
+        for (String url: models.keySet())
+            downloadModelAttr(url);
+    }
+
+    public void saveModelAttr() {
+// TO DO
     }
 
     public void clearModelAttr() {

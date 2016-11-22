@@ -25,5 +25,7 @@ public interface ParserDao {
 
     public void downloadModelAttr(String url);
 
+    public void downloadModelsAttr();
+
     public void clearModelAttr();
 }

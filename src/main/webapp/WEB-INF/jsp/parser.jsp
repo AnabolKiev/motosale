@@ -39,9 +39,20 @@
             </table>
         </td>
         <td>
-            <form method="GET" action="/parser/clearModelList" commandName="clearModelList">
-                <input type="submit" value="Очистить"/>
-            </form>
+            <table>
+                <tr>
+                    <td>
+                        <form method="GET" action="/parser/clearModelList" commandName="clearModelList">
+                            <input type="submit" value="Очистить"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="GET" action="/parser/getModels" commandName="getModels">
+                            <input type="submit" value="Загрузить все"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
         </td>
         <td>
             <table>
@@ -80,7 +91,6 @@
                     <td>${entry.value.name}</td>
                     <td>${entry.value.pagesCount}</td>
                     <td>${entry.value.modelsCount}</td>
-<%--                    <td><input type="checkbox" name="manufacturersMap['${entry.key}'].checked" value="true"/></td>--%>
                     <td><input type="checkbox" name="manufacturersList" value="${entry.key}"/></td>
                 </tr>
                 </c:forEach>
@@ -108,7 +118,7 @@
                                 <td>
                                     <form method="GET" action="/parser/getModel">
                                         <input type="hidden" name="pageUrl" value="${entry.key}"/>
-                                        <input type="submit" value="Загрузить модель"/>
+                                        <input type="submit" value="Загрузить"/>
                                     </form>
                                 </td>
                             </tr>
@@ -123,6 +133,9 @@
                     <thead style="background:lightgrey">
                     <tr>
                         <th>#</th>
+                        <th>Производитель</th>
+                        <th>Модель</th>
+                        <th>Год</th>
                         <th>Аттрибут</th>
                         <th>Значение</th>
                     </tr>
@@ -130,6 +143,9 @@
                     <c:forEach items="${bikeModel}" var="entry" varStatus="loop">
                         <tr>
                             <td>${loop.count}</td>
+                            <td>${entry.manufacturer}</td>
+                            <td>${entry.modelName}</td>
+                            <td>${entry.modelYear}</td>
                             <td>${entry.attrName}</td>
                             <td>${entry.attrValue}</td>
                         </tr>
