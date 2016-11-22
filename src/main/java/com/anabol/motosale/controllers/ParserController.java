@@ -1,6 +1,7 @@
 package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.ParserDao;
+import com.anabol.motosale.form.CheckedWrapper;
 import com.anabol.motosale.form.ManufacturersWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 @Controller
@@ -22,10 +24,10 @@ public class ParserController {
 
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public String parse(Model model) {
-//        model.addAttribute("manufacturerList", dao.getManufacturers());
-        ManufacturersWrapper manufacturersForm = new ManufacturersWrapper();
-        manufacturersForm.setManufacturersMap(dao.getManufacturers());
-        model.addAttribute("manufacturers", manufacturersForm);
+/*        ManufacturersWrapper manufacturersWrapper = new ManufacturersWrapper();
+        manufacturersWrapper.setManufacturersMap(dao.getManufacturers());
+        model.addAttribute("manufacturers", manufacturersWrapper);*/
+        model.addAttribute("manufacturers", dao.getManufacturers());
         model.addAttribute("models", dao.getModels());
         model.addAttribute("bikeModel", dao.getModelAttr());
         return "parser";
@@ -50,15 +52,18 @@ public class ParserController {
     }
 
     @RequestMapping(value = "/parser/getModelPages", method = RequestMethod.POST)
-    public String getModelListByCheckbox(@ModelAttribute("manufacturers") ManufacturersWrapper manufacturers, BindingResult bindingResult, Model model) {
+    public String getModelListByCheckbox(@ModelAttribute("checkedWrapper") CheckedWrapper manufacturers, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("bindRes", bindingResult);
             return "error";
         }
 
-        for (String manufacturerUrl: manufacturers.getManufacturersMap().keySet()) {
+ /*       for (String manufacturerUrl: manufacturers.getManufacturersMap().keySet()) {
             if (manufacturers.getManufacturersMap().get(manufacturerUrl).isChecked())
                 dao.downloadModels(manufacturerUrl);
+        }*/
+        for (String manufacturerUrl: manufacturers.getManufacturersList()) {
+             dao.downloadModels(manufacturerUrl);
         }
         return "redirect:/parser";
     }

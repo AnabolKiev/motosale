@@ -63,7 +63,7 @@
     <tr>
         <td valign="top">
             <c:if test="${not empty manufacturers}">
-            <form:form id="manufacturerForm" action="/parser/getModelPages" method="post" modelAttribute="manufacturers">
+            <form:form id="manufacturerForm" action="/parser/getModelPages" method="post" modelAttribute="checkedWrapper">
             <table border=1 cellspacing=0>
             <thead style="background:lightgrey">
             <tr>
@@ -74,16 +74,14 @@
                 <th></th>
             </tr>
             </thead>
-                <c:forEach items="${manufacturers.manufacturersMap}" var="entry" varStatus="loop">
+                <c:forEach items="${manufacturers}" var="entry" varStatus="loop">
                 <tr>
                     <td>${loop.count}</td>
                     <td>${entry.value.name}</td>
                     <td>${entry.value.pagesCount}</td>
                     <td>${entry.value.modelsCount}</td>
-                    <%--<td><form:checkbox path="manufacturersMap['${entry.key}'].isChecked" value="${entry.value.checked}"/></td>--%>
-                    <td><input type="checkbox" name="manufacturersMap['${entry.key}'].checked" value="true"/></td>
-                    <%--<td><input type="checkbox" name="manufacturerList" value="${entry.key}"/></td>--%>
-                    <%--<form:input type="hidden" path="manufacturersMap['${entry.key}'].url"/>--%>
+<%--                    <td><input type="checkbox" name="manufacturersMap['${entry.key}'].checked" value="true"/></td>--%>
+                    <td><input type="checkbox" name="manufacturersList" value="${entry.key}"/></td>
                 </tr>
                 </c:forEach>
             </table>
