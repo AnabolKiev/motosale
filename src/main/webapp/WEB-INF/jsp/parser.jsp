@@ -47,7 +47,7 @@
                         </form>
                     </td>
                     <td>
-                        <form method="GET" action="/parser/getModels" commandName="getModels">
+                        <form method="GET" action="/parser/getModelsAttr" commandName="getModelsAttr">
                             <input type="submit" value="Загрузить все"/>
                         </form>
                     </td>

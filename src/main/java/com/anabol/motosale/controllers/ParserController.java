@@ -72,7 +72,7 @@ public class ParserController {
         return "redirect:/parser";
     }
 
-    @RequestMapping(value = "/parser/getModels", method = RequestMethod.GET)
+    @RequestMapping(value = "/parser/getModelsAttr", method = RequestMethod.GET)
     public String getModels(Model model) {
         dao.downloadModelsAttr();
         return "redirect:/parser";

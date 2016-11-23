@@ -41,7 +41,7 @@ public class ParserDaoJsoup implements ParserDao {
     private static String startUrl = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
 
     private static String manufacturerSelector = "td#table24 a[href]";
-    private static String modelPagesSelector = "table table p a[href*=htm][target=_self]";
+    private static String modelPagesSelector = "table p a[href*=htm]:matches(^\\W*\\d+\\W*)";
     private static String modelSelector = "a[href*=model]";
     private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)) tr";
     private static String AttrNameSelector = "td:eq(0)";
@@ -55,6 +55,15 @@ public class ParserDaoJsoup implements ParserDao {
         }
         relatedUri = relatedUri.replace("/", "\\"); //  slash
         relatedUri = relatedUri.replace("%20"," "); //  space
+        relatedUri = relatedUri.replace("%26","&");
+        relatedUri = relatedUri.replace("%c3%a8","è");
+        relatedUri = relatedUri.replace("%c3%a9","é");
+        relatedUri = relatedUri.replace("%e2%80%9c","“");
+        relatedUri = relatedUri.replace("%e2%80%9d","”");
+        relatedUri = relatedUri.replace("%c3%b2","ò");
+        relatedUri = relatedUri.replace("%27","'");
+        relatedUri = relatedUri.replace("%c2%bb","»");
+        relatedUri = relatedUri.replace("%c2%a0"," ");
         return baseUri + "\\" + relatedUri;
     }
 
