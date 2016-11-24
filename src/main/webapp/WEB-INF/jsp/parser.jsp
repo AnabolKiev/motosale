@@ -3,6 +3,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 
+<script language="JavaScript">
+    function toggle(source) {
+        checkboxes = document.getElementsByName('manufacturersList');
+        for(var i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+</script>
+
 <html>
 <head>
     <title>Test parser</title>
@@ -14,7 +23,6 @@
     <tr>
         <td>Главные страницы производителей</td>
         <td>Страницы производителей</td>
-        <td>Аттрибуты модели</td>
     </tr>
     <tr>
         <td>
@@ -54,22 +62,6 @@
                 </tr>
             </table>
         </td>
-        <td>
-            <table>
-                <tr>
-                    <td>
-                        <form method="GET" action="/parser/saveModelAttr" commandName="saveModelAttr">
-                            <input type="submit" value="Сохранить"/>
-                        </form>
-                    </td>
-                    <td>
-                        <form method="GET" action="/parser/clearModelAttr" commandName="clearModelAttr">
-                            <input type="submit" value="Очистить"/>
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </td>
     </tr>
     <tr>
         <td valign="top">
@@ -82,7 +74,7 @@
                 <th>Производитель</th>
                 <th>Стр.</th>
                 <th>Мод.</th>
-                <th></th>
+                <th><input type="checkbox" onclick="toggle(this)"/></th>
             </tr>
             </thead>
                 <c:forEach items="${manufacturers}" var="entry" varStatus="loop">
@@ -127,6 +119,29 @@
                 </c:if>
                 <c:if test="${empty models}">No records found</c:if>
         </td>
+    </tr>
+    <tr>
+        <td>Аттрибуты модели</td>
+    </tr>
+    <tr>
+        <td>
+            <table>
+                <tr>
+                    <td>
+                        <form method="GET" action="/parser/saveModelAttr" commandName="saveModelAttr">
+                            <input type="submit" value="Сохранить"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form method="GET" action="/parser/clearModelAttr" commandName="clearModelAttr">
+                            <input type="submit" value="Очистить"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
         <td valign="top">
             <c:if test="${not empty bikeModel}">
                 <table border=1 cellspacing=0>

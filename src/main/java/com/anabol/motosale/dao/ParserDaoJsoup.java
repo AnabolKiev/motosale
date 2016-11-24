@@ -41,7 +41,7 @@ public class ParserDaoJsoup implements ParserDao {
     private static String startUrl = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
 
     private static String manufacturerSelector = "td#table24 a[href]";
-    private static String modelPagesSelector = "table p a[href*=htm]:matches(^\\W*\\d+\\W*)";
+    private static String modelPagesSelector = "table p a[href*=htm]:matches(^\\W*\\d+\\W*$)";
     private static String modelSelector = "a[href*=model]";
     private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)) tr";
     private static String AttrNameSelector = "td:eq(0)";
@@ -102,11 +102,15 @@ public class ParserDaoJsoup implements ParserDao {
         }
         Elements rows = doc.select(AttrRowSelector);
         for (Element row: rows) {
-            String attrName = row.select(selectorName).first().text();
-            String attrValue = row.select(selectorValue).first().text();
-            if (!StringUtils.isNullOrEmpty(attrName) && !StringUtils.isNullOrEmpty(attrValue)) {
-             //   log.info("Name: " + attrName + " --- Value: " + attrValue);
-                result.put(attrName, attrValue);
+            Element name = row.select(selectorName).first();
+            Element value = row.select(selectorValue).first();
+            if ((name != null) && (value != null)) {
+                String attrName = name.text();
+                String attrValue = value.text();
+                if (!StringUtils.isNullOrEmpty(attrName) && !StringUtils.isNullOrEmpty(attrValue)) {
+                    //   log.info("Name: " + attrName + " --- Value: " + attrValue);
+                    result.put(attrName, attrValue);
+                }
             }
         }
         return result;
@@ -180,7 +184,6 @@ public class ParserDaoJsoup implements ParserDao {
     }
 
     public void downloadModelAttr(String url) {
-        log.info("Searching for attributes: " + url);
         Map<String, String> parsedModelAttr = parseAttributes(url, AttrNameSelector, AttrValueSelector);
         for (String attrName: parsedModelAttr.keySet()) {
             ModelAttribute modelAttribute = new ModelAttribute();
