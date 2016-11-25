@@ -37,8 +37,8 @@ public class ParserDaoJsoup implements ParserDao {
     private Map<String, ModelAttribute> models = new HashMap<String, ModelAttribute>();
     private List<ModelAttribute> modelAttr = new ArrayList<ModelAttribute>();
 
-//    private static String startUrl = "http://www.motorcyclespecs.co.za/Manufacturer.htm";
-    private static String startUrl = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
+//    private static String startUri = "http://www.motorcyclespecs.co.za/Manufacturer.htm";
+    private static String startUri = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
 
     private static String manufacturerSelector = "td#table24 a[href]";
     private static String modelPagesSelector = "table p a[href*=htm]:matches(^\\W*\\d+\\W*$)";
@@ -47,77 +47,61 @@ public class ParserDaoJsoup implements ParserDao {
     private static String AttrNameSelector = "td:eq(0)";
     private static String AttrValueSelector = "td:eq(1)";
 
-    private String getAbsUri(String startUri, String relatedUri) {  // replacing URL to local
-        String baseUri = startUri.substring(0, startUri.lastIndexOf("\\"));
-        if (relatedUri.contains("../")) { // related path
-            relatedUri = relatedUri.replace("../","");
-            baseUri = baseUri.substring(0, baseUri.lastIndexOf("\\"));
-        }
-        relatedUri = relatedUri.replace("/", "\\"); //  slash
-        relatedUri = relatedUri.replace("%20"," "); //  space
-        relatedUri = relatedUri.replace("%26","&");
-        relatedUri = relatedUri.replace("%c3%a8","è");
-        relatedUri = relatedUri.replace("%c3%a9","é");
-        relatedUri = relatedUri.replace("%e2%80%9c","“");
-        relatedUri = relatedUri.replace("%e2%80%9d","”");
-        relatedUri = relatedUri.replace("%c3%b2","ò");
-        relatedUri = relatedUri.replace("%27","'");
-        relatedUri = relatedUri.replace("%c2%bb","»");
-        relatedUri = relatedUri.replace("%c2%a0"," ");
-        return baseUri + "\\" + relatedUri;
-    }
-
-    private Map<String, String> parseLinks(String urlToRead, String selector) {
+    private Map<String, String> parseLinks(String uriToRead, String selector) {
         Map<String, String> result = new HashMap();
-        Document doc = null;
         try {
-//            doc = Jsoup.connect(urlToRead).get(); // parsing from URL
-            File input = new File(urlToRead);
+//            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
+            File input = new File(uriToRead);
             log.info("File path: " + input.getPath());
-            doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Elements links = doc.select(selector);
+            URI absUri = input.toURI();
+            for (Element link: links) {
+                if (!StringUtils.isNullOrEmpty(link.text().trim().replace("\u00a0",""))) {  // trimming spaces and nbsp tag
+                    try {
+                        URI relativeUri = new URI(link.attr("href"));
+                        String absPath = absUri.resolve(relativeUri).getPath(); // building absolute URI from page URI and relative URI
+                        log.info("Key(URL): " + absPath + " --- Value: " + link.text());
+                        result.put(absPath, link.text());
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        Elements links = doc.select(selector);
-        for (Element link: links) {
-            if (!StringUtils.isNullOrEmpty(link.text().trim().replace("\u00a0",""))) {  // trimming spaces and nbsp tag
-                String absUri = getAbsUri(urlToRead, link.attr("href"));
-                log.info("Key(URL): " + absUri + " --- Value: " + link.text());
-                result.put(absUri, link.text());
-            }
         }
         return result;
     }
 
-    private Map<String, String> parseAttributes(String urlToRead, String selectorName, String selectorValue) {
+    private Map<String, String> parseAttributes(String uriToRead, String selectorName, String selectorValue) {
         Map<String, String> result = new HashMap();
-        Document doc = null;
         try {
-//            doc = Jsoup.connect(urlToRead).get(); // parsing from URL
-            File input = new File(urlToRead);
+//            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
+            File input = new File(uriToRead);
             log.info("File path: " + input.getPath());
-            doc = Jsoup.parse(input, "UTF-8"); // parsing from file
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Elements rows = doc.select(AttrRowSelector);
-        for (Element row: rows) {
-            Element name = row.select(selectorName).first();
-            Element value = row.select(selectorValue).first();
-            if ((name != null) && (value != null)) {
-                String attrName = name.text();
-                String attrValue = value.text();
-                if (!StringUtils.isNullOrEmpty(attrName) && !StringUtils.isNullOrEmpty(attrValue)) {
-                    //   log.info("Name: " + attrName + " --- Value: " + attrValue);
-                    result.put(attrName, attrValue);
+            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Elements rows = doc.select(AttrRowSelector);
+            for (Element row: rows) {
+                Element name = row.select(selectorName).first();
+                Element value = row.select(selectorValue).first();
+                if ((name != null) && (value != null)) {
+                    String attrName = name.text();
+                    String attrValue = value.text();
+                    if (!StringUtils.isNullOrEmpty(attrName) && !StringUtils.isNullOrEmpty(attrValue)) {
+                        //   log.info("Name: " + attrName + " --- Value: " + attrValue);
+                        result.put(attrName, attrValue);
+                    }
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return result;
     }
 
     public void downloadManufacturers() {
-        Map<String, String> parsedManufacturers = parseLinks(startUrl, manufacturerSelector);
+        Map<String, String> parsedManufacturers = parseLinks(startUri, manufacturerSelector);
         for (String manufacturerUrl: parsedManufacturers.keySet()) {
             ManufacturerDownload manufacturer = new ManufacturerDownload();
             manufacturer.setUrl(manufacturerUrl);
