@@ -1,8 +1,9 @@
 package com.anabol.motosale.dao;
 
 import com.anabol.motosale.model.ManufacturerDownload;
-import com.anabol.motosale.model.ModelAttribute;
-import org.springframework.stereotype.Repository;
+import com.anabol.motosale.model.ModelAttributeDownload;
+import com.anabol.motosale.model.ModelDownload;
+
 import java.util.*;
 
 public interface ParserDao {
@@ -17,11 +18,13 @@ public interface ParserDao {
 
     public void clearModels();
 
-    public Map<String, ModelAttribute> getModels();
+    public Map<String, ModelDownload> getModels();
+
+    public void saveModels();
 
     public void saveModelAttr();
 
-    public List<ModelAttribute> getModelAttr();
+    public List<ModelAttributeDownload> getModelAttr();
 
     public void downloadModelAttr(String url);
 

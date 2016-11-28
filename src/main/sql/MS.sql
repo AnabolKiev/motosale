@@ -24,19 +24,20 @@ create table ms.ad (
   FOREIGN KEY (manufacturerId) REFERENCES ms.manufacturer(id) ON DELETE CASCADE
 );
 
-drop table if exists ms.modelList;
-create table ms.modelList (
+drop table if exists ms.model_hold;
+create table ms.model_hold (
   url varchar(255) primary key not null,
-  manufacturer varchar(30)
-);
-
-drop table if exists ms.modelAttribute;
-create table ms.modelAttribute (
-  id int primary key not null auto_increment,
-  url varchar(255) not null,
   manufacturer varchar(30),
   modelName varchar(100),
   modelYear varchar(10),
+  attrCount int
+);
+
+drop table if exists ms.modelAttribute_hold;
+create table ms.modelAttribute_hold (
+  id int primary key not null auto_increment,
+  url varchar(255) not null,
   attrName varchar(255),
-  attrValue varchar(255)
+  attrValue varchar(255),
+  FOREIGN KEY (url) REFERENCES ms.model_hold(url) ON DELETE CASCADE
 );

@@ -1,10 +1,10 @@
 package com.anabol.motosale.dao;
 
-import com.anabol.motosale.dao.repository.ModelAttributeRepository;
-import com.anabol.motosale.dao.repository.ModelListRepository;
+import com.anabol.motosale.dao.repository.ModelAttributeDownloadRepository;
+import com.anabol.motosale.dao.repository.ModelDownloadRepository;
 import com.anabol.motosale.model.ManufacturerDownload;
-import com.anabol.motosale.model.ModelAttribute;
-import com.anabol.motosale.model.ModelList;
+import com.anabol.motosale.model.ModelDownload;
+import com.anabol.motosale.model.ModelAttributeDownload;
 import com.mysql.jdbc.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,27 +15,25 @@ import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
 import java.util.logging.Logger;
 
 @Repository
 public class ParserDaoJsoup implements ParserDao {
 
-//    @Autowired
-//    ModelListRepository modelListRepository;
-//    @Autowired
-//    ModelAttributeRepository modelAttributeRepository;
+    @Autowired
+    ModelDownloadRepository modelDownloadRepository;
+    @Autowired
+    ModelAttributeDownloadRepository modelAttributeDownloadRepository;
 
     private static Logger log = Logger.getLogger(ParserDaoJsoup.class.getName());
 
     private Map<String, ManufacturerDownload> manufacturers = new TreeMap<String, ManufacturerDownload>();
     private Map<String, String> pages = new HashMap<String, String>();
-    private Map<String, ModelAttribute> models = new HashMap<String, ModelAttribute>();
-    private List<ModelAttribute> modelAttr = new ArrayList<ModelAttribute>();
+    private Map<String, ModelDownload> models = new HashMap<String, ModelDownload>();
+    private List<ModelAttributeDownload> modelAttr = new ArrayList<ModelAttributeDownload>();
 
 //    private static String startUri = "http://www.motorcyclespecs.co.za/Manufacturer.htm";
     private static String startUri = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
@@ -43,16 +41,19 @@ public class ParserDaoJsoup implements ParserDao {
     private static String manufacturerSelector = "td#table24 a[href]";
     private static String modelPagesSelector = "table p a[href*=htm]:matches(^\\W*\\d+\\W*$)";
     private static String modelSelector = "a[href*=model]";
-    private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)) tr";
-    private static String AttrNameSelector = "td:eq(0)";
-    private static String AttrValueSelector = "td:eq(1)";
+    private static String modelRowSelector = "tr:has(a[href*=model]):not(:has(tr))";
+    private static String modelUrlSelector = "td:eq(0) a[href*=model]";
+    private static String modelYearSelector = "td:eq(1)";
+    private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)):not(table:has(img)) tr";
+    private static String AttrNameSelector = "td:eq(0):not(:has(table))";
+    private static String AttrValueSelector = "td:eq(1):not(:has(table))";
 
     private Map<String, String> parseLinks(String uriToRead, String selector) {
         Map<String, String> result = new HashMap();
         try {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
-            log.info("File path: " + input.getPath());
+//            log.info("File path: " + input.getPath());
             Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
             Elements links = doc.select(selector);
             URI absUri = input.toURI();
@@ -61,7 +62,7 @@ public class ParserDaoJsoup implements ParserDao {
                     try {
                         URI relativeUri = new URI(link.attr("href"));
                         String absPath = absUri.resolve(relativeUri).getPath(); // building absolute URI from page URI and relative URI
-                        log.info("Key(URL): " + absPath + " --- Value: " + link.text());
+//                        log.info("Key(URL): " + absPath + " --- Value: " + link.text());
                         result.put(absPath, link.text());
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
@@ -74,14 +75,45 @@ public class ParserDaoJsoup implements ParserDao {
         return result;
     }
 
-    private Map<String, String> parseAttributes(String uriToRead, String selectorName, String selectorValue) {
+    private Map<String, String> parseYears(String uriToRead, String selectorRow, String selectorName, String selectorValue) {
         Map<String, String> result = new HashMap();
         try {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
-            log.info("File path: " + input.getPath());
+//            log.info("File path: " + input.getPath());
             Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
-            Elements rows = doc.select(AttrRowSelector);
+            Elements rows = doc.select(selectorRow);
+            URI absUri = input.toURI();
+            for (Element row: rows) {
+                Element model = row.select(selectorName).first();
+                Element year = row.select(selectorValue).first();
+                if ((model != null) && (year != null)) {
+                    try {
+                        URI relativeUri = new URI(model.attr("href"));
+                        String absPath = absUri.resolve(relativeUri).getPath(); // building absolute URI from page URI and relative URI
+                        String modelYear = year.text();
+                        if (!StringUtils.isNullOrEmpty(absPath) && !StringUtils.isNullOrEmpty(modelYear)) {
+                            result.put(absPath, modelYear);
+                        }
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private Map<String, String> parseAttributes(String uriToRead, String selectorRow, String selectorName, String selectorValue) {
+        Map<String, String> result = new HashMap();
+        try {
+//            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
+            File input = new File(uriToRead);
+//            log.info("File path: " + input.getPath());
+            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Elements rows = doc.select(selectorRow);
             for (Element row: rows) {
                 Element name = row.select(selectorName).first();
                 Element value = row.select(selectorValue).first();
@@ -130,16 +162,18 @@ public class ParserDaoJsoup implements ParserDao {
         pages.putAll(manufacturerPages);
         log.info("Pages count: " + manufacturerPages.size());
 
-        Map<String, ModelAttribute> manufacturerModels = new HashMap<String, ModelAttribute>();
+        Map<String, ModelDownload> manufacturerModels = new HashMap<String, ModelDownload>();
         for (String pageUrl: manufacturerPages.keySet()) {// parse pages and save models URLs
             log.info("Search for models on page: " + pageUrl);
             Map<String, String> parsedModels = parseLinks(pageUrl, modelSelector); // parse models
+            Map<String, String> parsedModelsYear = parseYears(pageUrl, modelRowSelector, modelUrlSelector, modelYearSelector); // parsed models and years
             for (String modelUrl: parsedModels.keySet()) {
-                ModelAttribute model = new ModelAttribute();
+                ModelDownload model = new ModelDownload();
                 model.setUrl(modelUrl);
                 model.setManufacturer(manufacturer);
                 model.setModelName(parsedModels.get(modelUrl));
-                log.info("Adding to models: " + modelUrl);
+                model.setModelYear(parsedModelsYear.get(modelUrl));
+                //log.info("Adding to models: " + modelUrl);
                 manufacturerModels.put(modelUrl, model);
             }
         }
@@ -153,7 +187,7 @@ public class ParserDaoJsoup implements ParserDao {
         models.clear();
     }
 
-    public Map<String, ModelAttribute> getModels() {
+    public Map<String, ModelDownload> getModels() {
         /*HashMap<String,String> modelList = new HashMap<String, String>();
         Iterator<ModelList> i = modelListRepository.findAll().iterator();
         while (i.hasNext()) {
@@ -163,30 +197,35 @@ public class ParserDaoJsoup implements ParserDao {
         return models;
     }
 
-    public List<ModelAttribute> getModelAttr() {
+    public void saveModels() {
+        modelDownloadRepository.save(models.values());
+    }
+
+    public List<ModelAttributeDownload> getModelAttr() {
         return modelAttr;
     }
 
     public void downloadModelAttr(String url) {
-        Map<String, String> parsedModelAttr = parseAttributes(url, AttrNameSelector, AttrValueSelector);
+        log.info("Parse attributes from: " + url);
+        Map<String, String> parsedModelAttr = parseAttributes(url, AttrRowSelector, AttrNameSelector, AttrValueSelector);
         for (String attrName: parsedModelAttr.keySet()) {
-            ModelAttribute modelAttribute = new ModelAttribute();
+            ModelAttributeDownload modelAttribute = new ModelAttributeDownload();
             modelAttribute.setUrl(url);
-            modelAttribute.setModelName(models.get(url).getModelName());
-            modelAttribute.setManufacturer(models.get(url).getManufacturer());
             modelAttribute.setAttrName(attrName);
             modelAttribute.setAttrValue(parsedModelAttr.get(attrName));
             modelAttr.add(modelAttribute);
         }
+        models.get(url).setAttrCount(parsedModelAttr.size());
     }
 
     public void downloadModelsAttr() {
+        clearModelAttr();
         for (String url: models.keySet())
             downloadModelAttr(url);
     }
 
     public void saveModelAttr() {
-// TO DO
+        modelAttributeDownloadRepository.save(modelAttr);
     }
 
     public void clearModelAttr() {

@@ -59,6 +59,11 @@
                             <input type="submit" value="Загрузить все"/>
                         </form>
                     </td>
+                    <td>
+                    <form method="GET" action="/parser/saveModels" commandName="saveModels">
+                        <input type="submit" value="Сохранить"/>
+                    </form>
+                    </td>
                 </tr>
             </table>
         </td>
@@ -97,16 +102,22 @@
                         <thead style="background:lightgrey">
                         <tr>
                             <th>#</th>
+                            <th>Производитель</th>
                             <th>Модель</th>
+                            <th>Год</th>
                             <th>URL</th>
+                            <th>Аттр.</th>
                             <th></th>
                         </tr>
                         </thead>
                         <c:forEach items="${models}" var="entry" varStatus="loop">
                             <tr>
                                 <td>${loop.count}</td>
+                                <td>${entry.value.manufacturer}</td>
                                 <td>${entry.value.modelName}</td>
+                                <td>${entry.value.modelYear}</td>
                                 <td>${entry.key}</td>
+                                <td>${entry.value.attrCount}</td>
                                 <td>
                                     <form method="GET" action="/parser/getModel">
                                         <input type="hidden" name="pageUrl" value="${entry.key}"/>
@@ -128,13 +139,13 @@
             <table>
                 <tr>
                     <td>
-                        <form method="GET" action="/parser/saveModelAttr" commandName="saveModelAttr">
-                            <input type="submit" value="Сохранить"/>
+                        <form method="GET" action="/parser/clearModelAttr" commandName="clearModelAttr">
+                            <input type="submit" value="Очистить"/>
                         </form>
                     </td>
                     <td>
-                        <form method="GET" action="/parser/clearModelAttr" commandName="clearModelAttr">
-                            <input type="submit" value="Очистить"/>
+                        <form method="GET" action="/parser/saveModelAttr" commandName="saveModelAttr">
+                            <input type="submit" value="Сохранить"/>
                         </form>
                     </td>
                 </tr>
@@ -148,9 +159,8 @@
                     <thead style="background:lightgrey">
                     <tr>
                         <th>#</th>
-                        <th>Производитель</th>
-                        <th>Модель</th>
-                        <th>Год</th>
+                        <th>ID</th>
+                        <th>URL</th>
                         <th>Аттрибут</th>
                         <th>Значение</th>
                     </tr>
@@ -158,9 +168,8 @@
                     <c:forEach items="${bikeModel}" var="entry" varStatus="loop">
                         <tr>
                             <td>${loop.count}</td>
-                            <td>${entry.manufacturer}</td>
-                            <td>${entry.modelName}</td>
-                            <td>${entry.modelYear}</td>
+                            <td>${entry.id}</td>
+                            <td>${entry.url}</td>
                             <td>${entry.attrName}</td>
                             <td>${entry.attrValue}</td>
                         </tr>

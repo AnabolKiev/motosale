@@ -24,7 +24,7 @@ public class ParserController {
     public String parse(Model model) {
         model.addAttribute("manufacturers", dao.getManufacturers());
         model.addAttribute("models", dao.getModels());
-        model.addAttribute("bikeModel", dao.getModelAttr());
+        //model.addAttribute("bikeModel", dao.getModelAttr());
         return "parser";
     }
 
@@ -69,6 +69,12 @@ public class ParserController {
         log.info(url);
         dao.clearModelAttr();
         dao.downloadModelAttr(url);
+        return "redirect:/parser";
+    }
+
+    @RequestMapping(value = "/parser/saveModels", method = RequestMethod.GET)
+    public String saveModels(Model model) {
+        dao.saveModels();
         return "redirect:/parser";
     }
 
