@@ -1,3 +1,19 @@
+update modelattribute_hold
+set attrValue = 'Single � 320 mm floating discs, 4 piston radial caliper'
+where url = '/C:/DevTools/MCS/MCS/www.motorcyclespecs.co.za/model/aprilia/aprilia_rs125r_08.html' and attrName = 'Front Brakes';
+
+update modelattribute_hold
+set attrValue = '120 mm / 4.7 in'
+where url = '/C:/DevTools/MCS/MCS/www.motorcyclespecs.co.za/model/aprilia/aprilia_rs125r_08.html' and attrName = 'Rear Wheel Travel';
+
+insert into modelattribute_hold(url,attrName,attrValue)
+values('/C:/DevTools/MCS/MCS/www.motorcyclespecs.co.za/model/Honda/honda_cb125 82.html','Rear suspension','Swing arm, 2.6 in wheel travel');
+
+update modelattribute_hold
+set attrName = 'Front Tyre'
+where url = '/C:/DevTools/MCS/MCS/www.motorcyclespecs.co.za/model/Honda/honda_cb125 82.html' and attrName = 'Swing arm, 2.6 in wheel travel.Front Tyre';
+
+
 update ms.modelattribute_hold ma
 set attrname = '0-100 km/h'
 where ma.attrname in ('0-100 km/h','Acc: 0 - 100 km/h','Acc: 0 - 100 km/h / 62 mph','Acceleration 0 - 100 km / 62 mph','Acceleration 0 - 100 km/h','Acceleration 0 - 100 km/h / 60 mph',
@@ -102,7 +118,8 @@ where ma.attrname in ('Power','Maximum Power','Max Rower','Max Powner','Max Powe
 update ms.modelattribute_hold ma
 set attrname = 'Max Power Tyre'
 where ma.attrname in ('Power Rear Tyre','Max Power  Rear Wheel','Max Power Rear Wheel','Max Power (rear wheel)','Max Power (rear tyre)','Max Power  Rear Wheel','Max Power  Rear Tyre',
-'Max Power Reat Tyre','Max Power Rear Wheel','Max Power Rear Tyre','Max Power at Rear Wheel','Max Power (rear tyre)','Max Power (at rear wheel)','Max Power (at rear tyre)','Max Power (@ rear tyre)');
+'Max Power Reat Tyre','Max Power Rear Wheel','Max Power Rear Tyre','Max Power at Rear Wheel','Max Power (rear tyre)','Max Power (at rear wheel)','Max Power (at rear tyre)',
+'Max Power (@ rear tyre)','Rear Wheel Power');
 
 update ms.modelattribute_hold ma
 set attrname = 'Max Power Ram Air'
@@ -140,22 +157,28 @@ where ma.attrname in ('Maximum Speed','Top Seed','Top Speed','Top Speed (claimed
 update ms.modelattribute_hold ma
 set attrname = 'Seat Height'
 where ma.attrname in ('Saddle Height','Seat Heigh','Seat Height','Seat height:','Seat Height ','Seat Heigth','Seat Heigtht','Seat Heitght','Seat Hieght','Seat Higher','Swat H eight','Swat Height');
+/*
+update ms.modelattribute_hold ma
+set attrname = 'Rake'
+where ma.attrname in ('Caster','Castor:','Caster angle  /  Trail','Caster (rake)','Castor Angle','Caster Angle','Caster Angle:','Rake / Trail','Rake/Trail','Rake  / Trail','Rake  /  Trail',
+'Rake  /  Trail  /  Fork Angle','Rake','Rake (Caster Angle)','Rake (steering head)','Rake / Trqil','Rake Caster Angle','Rake/','Rake/Castor','Rakem','Rake ', 'Rake  /  Castor',
+'Rake (Caster Angle)','Rake l','  Rake',' Rake ','Steering Rake','Fork Angle','Fork Angle 30.5�','Steering Angle','Steering Angle (Left and Right)','Steering Angle (left to right)',
+'Steering angle (left/right)','Steering angle (total)','Steering Angle left / right','Steering Angle, left / right','Steering angle ','Steering Head Angle','Steering head angle:',
+'Steering Head Angle ','Steering lock (total)','Steering Lock Angle');
 
 update ms.modelattribute_hold ma
-set attrname = 
-where ma.attrname in ;
+set attrname = 'Trail'
+where ma.attrname in ('Trail','Trail:','Trail ','Tral',' Trail','Castor','Wheel castor');
+*/
+update ms.modelattribute_hold ma
+set attrname = 'Rear Wheel Travel'
+where ma.attrname in ('Rear Eravel Travel','Rear heel Travel','Rear Shock Stroke','Rear Track','Rear Wheel Trael','Rear Wheel Travcel',
+'Rear Wheel Travel','Rear Wheel Travel.','Rear Wheel Travl','Rear Wheel Ttavel','Rear Wheel  Travel');
 
 update ms.modelattribute_hold ma
-set attrname = 
-where ma.attrname in ;
-
-update ms.modelattribute_hold ma
-set attrname = 
-where ma.attrname in ;
-
-update ms.modelattribute_hold ma
-set attrname = 
-where ma.attrname in ;
+set attrname = 'Front Wheel Travel'
+where ma.attrname in ('Font Wheel Travel','Front Wheel ravel','Front Wheel Trael','Front Wheel Traval','Front Wheel Travel',
+'Front Wheel Travel.','Front Wheel TravelFront Wheel Travel','Front Wheel Travlel','Front Wheel Trqavel','Front Wheel  Travel','Front Wheel Travel','Front Whel Travel');
 
 update ms.modelattribute_hold ma
 set attrname = 
