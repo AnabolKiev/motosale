@@ -3,7 +3,7 @@ package com.anabol.motosale.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "modelAttribute_hold")
+@Table(name = "modelAttribute_hold2")
 public class ModelAttributeDownload {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)

@@ -36,15 +36,21 @@ public class ParserDaoJsoup implements ParserDao {
     private List<ModelAttributeDownload> modelAttr = new ArrayList<ModelAttributeDownload>();
 
 //    private static String startUri = "http://www.motorcyclespecs.co.za/Manufacturer.htm";
-    private static String startUri = "C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
-
-    private static String manufacturerSelector = "td#table24 a[href]";
-    private static String modelPagesSelector = "table p a[href*=htm]:matches(^\\W*\\d+\\W*$)";
-    private static String modelSelector = "a[href*=model]";
-    private static String modelRowSelector = "tr:has(a[href*=model]):not(:has(tr))";
-    private static String modelUrlSelector = "td:eq(0) a[href*=model]";
+    private static String startUri = //"C:\\DevTools\\MCS\\MCS\\www.motorcyclespecs.co.za\\Manufacturer.html";
+                                         "C:\\DevTools\\bikez\\bikez.com\\brands\\index.php.htm";
+    private static String manufacturerSelector = //"td#table24 a[href]";
+                                                 "table.zebra tr td a[href]";
+    private static String modelPagesSelector = //"table p a[href*=htm]:matches(^\\W*\\d+\\W*$)";
+                                                 "table.zebra tr:not(.head,.odd,.even) td a[href]";
+    private static String modelSelector = //"a[href*=model]";
+                                                "table.zebra tr.odd td a[href]:not(:has(img)), table.zebra tr.even td a[href]:not(:has(img))";
+    private static String modelRowSelector = //"tr:has(a[href*=model]):not(:has(tr))";
+                                                "table.zebra tr.odd, table.zebra tr.even";
+    private static String modelUrlSelector = //"td:eq(0) a[href*=model]";
+                                                "td:eq(0) a[href]";
     private static String modelYearSelector = "td:eq(1)";
-    private static String AttrRowSelector = "table:contains(Make Model):not(table:has(script)):not(table:has(img)) tr";
+    private static String AttrRowSelector = //"table:contains(Make Model):not(table:has(script)):not(table:has(img)) tr";
+                                                "table.grid tr:not(:has(th)):not(:has(script)):has(td:eq(1))";
     private static String AttrNameSelector = "td:eq(0):not(:has(table))";
     private static String AttrValueSelector = "td:eq(1):not(:has(table))";
 
@@ -166,13 +172,13 @@ public class ParserDaoJsoup implements ParserDao {
         for (String pageUrl: manufacturerPages.keySet()) {// parse pages and save models URLs
             log.info("Search for models on page: " + pageUrl);
             Map<String, String> parsedModels = parseLinks(pageUrl, modelSelector); // parse models
-            Map<String, String> parsedModelsYear = parseYears(pageUrl, modelRowSelector, modelUrlSelector, modelYearSelector); // parsed models and years
+//            Map<String, String> parsedModelsYear = parseYears(pageUrl, modelRowSelector, modelUrlSelector, modelYearSelector); // parsed models and years
             for (String modelUrl: parsedModels.keySet()) {
                 ModelDownload model = new ModelDownload();
                 model.setUrl(modelUrl);
                 model.setManufacturer(manufacturer);
                 model.setModelName(parsedModels.get(modelUrl));
-                model.setModelYear(parsedModelsYear.get(modelUrl));
+//                model.setModelYear(parsedModelsYear.get(modelUrl));
                 //log.info("Adding to models: " + modelUrl);
                 manufacturerModels.put(modelUrl, model);
             }

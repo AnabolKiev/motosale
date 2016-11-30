@@ -2,7 +2,7 @@ package com.anabol.motosale.model;
 
 import javax.persistence.*;
 @Entity
-@Table(name = "model_hold")
+@Table(name = "model_hold2")
 public class ModelDownload {
     @Id
     @Column(name = "Url")
