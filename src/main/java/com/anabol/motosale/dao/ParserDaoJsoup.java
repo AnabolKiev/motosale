@@ -60,7 +60,7 @@ public class ParserDaoJsoup implements ParserDao {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
 //            log.info("File path: " + input.getPath());
-            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Document doc = Jsoup.parse(input, "CP1252"); // parsing from file
             Elements links = doc.select(selector);
             URI absUri = input.toURI();
             for (Element link: links) {
@@ -87,7 +87,7 @@ public class ParserDaoJsoup implements ParserDao {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
 //            log.info("File path: " + input.getPath());
-            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Document doc = Jsoup.parse(input, "CP1252"); // parsing from file
             Elements rows = doc.select(selectorRow);
             URI absUri = input.toURI();
             for (Element row: rows) {
@@ -117,8 +117,8 @@ public class ParserDaoJsoup implements ParserDao {
         try {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
-//            log.info("File path: " + input.getPath());
-            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            log.info("File path: " + input.getPath());
+            Document doc = Jsoup.parse(input, "CP1252"); // parsing from file
             Elements rows = doc.select(selectorRow);
             for (Element row: rows) {
                 Element name = row.select(selectorName).first();
@@ -158,7 +158,7 @@ public class ParserDaoJsoup implements ParserDao {
 
     public void downloadModels(String manufacturerUrl) {
         String manufacturer = manufacturers.get(manufacturerUrl).getName();
-        log.info("Adding to pages: " + manufacturerUrl);
+   //     log.info("Adding to pages: " + manufacturerUrl);
         Set<String> parsedPages = parseLinks(manufacturerUrl, modelPagesSelector).keySet();
         Map<String, String> manufacturerPages = new HashMap<String, String>();
         manufacturerPages.put(manufacturerUrl, manufacturer); // adding manufacturer start URL for case of single page
@@ -166,11 +166,11 @@ public class ParserDaoJsoup implements ParserDao {
             manufacturerPages.put(pageUrl, manufacturer);
         manufacturers.get(manufacturerUrl).setPagesCount(manufacturerPages.size());
         pages.putAll(manufacturerPages);
-        log.info("Pages count: " + manufacturerPages.size());
+  //      log.info("Pages count: " + manufacturerPages.size());
 
         Map<String, ModelDownload> manufacturerModels = new HashMap<String, ModelDownload>();
         for (String pageUrl: manufacturerPages.keySet()) {// parse pages and save models URLs
-            log.info("Search for models on page: " + pageUrl);
+   //         log.info("Search for models on page: " + pageUrl);
             Map<String, String> parsedModels = parseLinks(pageUrl, modelSelector); // parse models
 //            Map<String, String> parsedModelsYear = parseYears(pageUrl, modelRowSelector, modelUrlSelector, modelYearSelector); // parsed models and years
             for (String modelUrl: parsedModels.keySet()) {
@@ -185,7 +185,7 @@ public class ParserDaoJsoup implements ParserDao {
         }
         manufacturers.get(manufacturerUrl).setModelsCount(manufacturerModels.size());
         models.putAll(manufacturerModels);
-        log.info("Pages count: " + manufacturerModels.size());
+     //   log.info("Pages count: " + manufacturerModels.size());
     }
 
     public void clearModels() {
@@ -212,7 +212,7 @@ public class ParserDaoJsoup implements ParserDao {
     }
 
     public void downloadModelAttr(String url) {
-        log.info("Parse attributes from: " + url);
+    //    log.info("Parse attributes from: " + url);
         Map<String, String> parsedModelAttr = parseAttributes(url, AttrRowSelector, AttrNameSelector, AttrValueSelector);
         for (String attrName: parsedModelAttr.keySet()) {
             ModelAttributeDownload modelAttribute = new ModelAttributeDownload();
