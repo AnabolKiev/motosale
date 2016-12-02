@@ -60,7 +60,7 @@ public class ParserDaoJsoup implements ParserDao {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
 //            log.info("File path: " + input.getPath());
-            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Document doc = Jsoup.parse(input, "windows-1252"); // parsing from file
             Elements links = doc.select(selector);
             URI absUri = input.toURI();
             for (Element link: links) {
@@ -87,7 +87,7 @@ public class ParserDaoJsoup implements ParserDao {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
 //            log.info("File path: " + input.getPath());
-            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Document doc = Jsoup.parse(input, "windows-1252"); // parsing from file
             Elements rows = doc.select(selectorRow);
             URI absUri = input.toURI();
             for (Element row: rows) {
@@ -118,7 +118,7 @@ public class ParserDaoJsoup implements ParserDao {
 //            doc = Jsoup.connect(uriToRead).get(); // parsing from URL
             File input = new File(uriToRead);
 //            log.info("File path: " + input.getPath());
-            Document doc = Jsoup.parse(input, "UTF-8"); // parsing from file
+            Document doc = Jsoup.parse(input, "windows-1252"); // parsing from file
             Elements rows = doc.select(selectorRow);
             for (Element row: rows) {
                 Element name = row.select(selectorName).first();
