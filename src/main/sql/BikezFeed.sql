@@ -21,78 +21,202 @@ insert into ms.finaldrivetype(name, nameeng)
 select distinct attrValue, attrValue from ms.modelattribute_hold_bikez ma
 where attrName = 'Transmission type, final drive:' order by 1;
 
-
-
-select m.url, mf.name, m.modelName,
-(select attrValue from modelattribute_hold_bikez mh where mh.url = m.url and mh.attrName = 'Year:') as year
+insert into ms.model(
+  name,
+  year,
+  manufacturerId,
+  categoryID,
+  borestroke,
+  compression,
+  coolingID,
+  displacement,
+  engine,
+  engineeng,
+  enginetypeID,
+  lubrications,
+  lubricationseng,
+  maxRPM,
+  oilcapacity,
+  valverpercylinder,
+  frame,
+  frameeng,
+  gearbox,
+  gearboxeng,
+  finaldriveID,
+  clutch,
+  clutcheng,
+  height,
+  length,
+  width,
+  dryweight,
+  wetweight,
+  wheelbase,
+  clearance,
+  carrying,
+  carryingeng,
+  seatheight,
+  altseatheight,
+  seat,
+  seateng,
+  power,
+  torque,
+  powerweight,
+  topspeed,
+  acceleration100,
+  acceleration60_140,
+  quotertime,
+  ignition,
+  ignitioneng,
+  starterID,
+  light,
+  lighteng,
+  emission,
+  emissioneng,
+  exhaust,
+  exhausteng,
+  co2,
+  fuelcontrol,
+  fuelcontroleng,
+  fuelsystem,
+  fuelsystemeng,
+  fuelcapacity,
+  reservefuel,
+  consumtion,
+  frontbrakesdiameter,
+  frontbrakes,
+  frontbrakeseng,
+  rearbrakesdiameter,
+  rearbrakes,
+  rearbrakeseng,
+  fronweightperc,
+  fronsuspension,
+  fronsuspensioneng,
+  fronttravel,
+  rearweightprc,
+  rearsuspension,
+  rearsuspensioneng,
+  reartravel,
+  fronttyre,
+  fronttyreeng,
+  reartyre,
+  reartyreeng,
+  wheels,
+  wheelseng,
+  rake,
+  trail,
+  driveline,
+  drivelineeng,
+  electrical,
+  electricaleng,
+  instruments,
+  instrumentseng,
+  modifications,
+  modificationseng,
+  price,
+  colors,
+  colorseng,
+  comments,
+  commentseng
+)
+select	m.modelName, 
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Year:'),
+		mf.id,
+        c.id,
+        (select substring(attrValue, 1, position(' mm' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Bore x stroke:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Compression:'),
+        cool.id,
+        (select substring(attrValue, 1, position(' ccm' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Displacement:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Engine details:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Engine details:'),
+        e.id,
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Lubrication system:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Lubrication system:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Max RPM:'),
+        (select substring(attrValue, 1, position(' litres' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Oil capacity:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Valves per cylinder:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Frame type:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Frame type:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Gearbox:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Gearbox:'),
+        fd.id,
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Clutch:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Clutch:'),  
+		(select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Overall height:'),
+		(select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Overall length:'),
+		(select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Overall width:'),
+        (select replace(substring(attrValue, 1, position(' kg' in attrValue)-1),',','')  from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Dry weight:'),
+        (select replace(substring(attrValue, 1, position(' kg' in attrValue)-1),',','')  from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Weight incl. oil, gas, etc:'), 
+		(select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Wheelbase:'),
+        (select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Ground clearance:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Carrying capacity:'),  
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Carrying capacity:'),  
+		(select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Seat height:'),
+		(select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Alternate seat height:'),  
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Seat:'),  
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Seat:'), 
+        (select concat(substring(attrValue, 1, position(' HP' in attrValue)-1) , substring(attrValue, position(' @' in attrValue))) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Power:'),  
+        (select concat(substring(attrValue, 1, position(' Nm' in attrValue)-1) , substring(attrValue, position(' @' in attrValue))) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Torque:'),
+        (select substring(attrValue, 1, position(' HP/kg' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Power/weight ratio:'),  
+        (select substring(attrValue, 1, position(' km/h' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Top speed:'),  
+        (select substring(attrValue, 1, position(' seconds' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = '0-100 km/h (0-62 mph):'),  
+        (select substring(attrValue, 1, position(' seconds' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = '60-140 km/h (37-87 mph), highest gear:'),  
+        (select substring(attrValue, 1, position(' seconds' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = '1/4 mile (0.4 km):'),  
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Ignition:'), 
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Ignition:'),       
+        s.id,
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Light:'),         
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Light:'),   
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Emission details:'),     
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Emission details:'),  
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Exhaust system:'),  
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Exhaust system:'),  
+        (select replace(substring(attrValue, 1, position(' CO2 g/km.' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Greenhouse gases:'),  
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Fuel control:'),  
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Fuel control:'),  
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Fuel system:'),  
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Fuel system:'),  
+        (select replace(substring(attrValue, 1, position(' litres' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Fuel capacity:'),
+        (select substring(attrValue, 1, position(' litres' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Reserve fuel capacity:'),
+        (select substring(attrValue, 1, position(' litres/100 km' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Fuel consumption:'),
+        (select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front brakes diameter:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front brakes:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front brakes:'),
+        (select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear brakes diameter:'),  
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear brakes:'),
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear brakes:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front percentage of weight:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front suspension:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front suspension:'),
+        (select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front wheel travel:'),  
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear percentage of weight:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear suspension:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear suspension:'),
+        (select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear wheel travel:'),    
+        (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front tyre:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Front tyre:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear tyre:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rear tyre:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Wheels:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Wheels:'),        
+        (select substring(attrValue, 1, position('°' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Rake (fork angle):'), 
+        (select replace(substring(attrValue, 1, position(' mm' in attrValue)-1),',','') from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Trail:'),    
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Driveline:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Driveline:'), 
+   		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Electrical:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Electrical:'), 
+   		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Instruments:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Instruments:'), 
+   		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Modifications compared to previous model:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Modifications compared to previous model:'), 
+        (select substring(attrValue, 1, position('.' in attrValue)-1) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Price as new (MSRP):'), 
+   		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Color options:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Color options:'), 
+   		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Comments:'),
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Comments:')
 from model_hold_bikez m
 left outer join manufacturer mf on mf.name = TRIM(TRAILING ' motorcycles' FROM m.manufacturer)
-
-acceleration100 		'0-100 km/h (0-62 mph):' decimal [unsigned]
-quotertime 				'1/4 mile (0.4 km):'	decimal [unsigned]
-acceleration60_140		'60-140 km/h (37-87 mph), highest gear:'	decimal [unsigned]
-altseatheigth			'Alternate seat height:' smallint
-borestroke				'Bore x stroke:' varchar(30)
-carrying				'Carrying capacity:' varchar(255)
-categoryID				'Category:'	dictionary
-clutch					'Clutch:' varchar(255)
-colors					'Color options:' varchar(300)
-comments				'Comments:' varchar(2048)
-compression				'Compression:' varchar(10)
-coolingID				'Cooling system:' dictionary
-displacement			'Displacement:' decimal [unsigned]
-driveline				'Driveline:' varchar(255)
-dryweight				'Dry weight:' decimal [unsigned]
-electrical				'Electrical:' varchar(255)
-emission				'Emission details:' varchar(255)
-engine					'Engine details:' varchar(255)
-enginetypeID			'Engine type:' dictionary
-exhaust					'Exhaust system:' varchar(255)
-frame					'Frame type:' varchar(255)
-frontbrakesdiameter		'Front brakes diameter:' decimal [unsigned]
-frontbrakes				'Front brakes:' varchar(255)
-fronweightperc			'Front percentage of weight:' decimal [unsigned]
-fronsuspension			'Front suspension:' varchar(255)
-fronttyre				'Front tyre:' varchar(30)
-fronttravel				'Front wheel travel:' decimal [unsigned]
-fuelcapacity			'Fuel capacity:' decimal [unsigned]
-consumtion				'Fuel consumption:' decimal [unsigned]
-fuelcontrol				'Fuel control:' varchar(50)
-fuelsystem				'Fuel system:' varchar(300)
-gearbox					'Gearbox:' varchar(30)
-co2						'Greenhouse gases:' decimal [unsigned]
-clearance				'Ground clearance:' smallint
-ignition				'Ignition:' varchar(255)
-instruments				'Instruments:' varchar(512)
-light					'Light:' varchar(255)
-lubricatios				'Lubrication system:' varchar(255)
-maxRPM					'Max RPM:' smallint
-name					'Model:' varchar(100)
-modifications			'Modifications compared to previous model:' varchar(2048)
-oilcapacity				'Oil capacity:' decimal [unsigned]
-height					'Overall height:' smallint
-length					'Overall length:' smallint
-width					'Overall width:' smallint
-powerweight				'Power/weight ratio:' decimal [unsigned]
-power					'Power:' varchar(40)
-price					'Price as new (MSRP):'varchar(10)
-rake					'Rake (fork angle):' decimal [unsigned]
-rearbrakesdiameter		'Rear brakes diameter:' decimal [unsigned]
-rearbrakes				'Rear brakes:' varchar(200)
-rearweightprc			'Rear percentage of weight:' decimal [unsigned]
-rearsuspension			'Rear suspension:' varchar(255)
-reartyre				'Rear tyre:' varchar(30)
-reartravel				'Rear wheel travel:' decimal [unsigned]
-reservefuel				'Reserve fuel capacity:' decimal [unsigned]
-seatheight				'Seat height:' smallint
-seat					'Seat:' varchar(255)
-starter					'Starter:' dictionary
-topspeed				'Top speed:' decimal [unsigned]
-torque					'Torque:' varchar(60)
-trail					'Trail:' smallint
-finaldrive				'Transmission type, final drive:' dictionary
-valverpercylinder		'Valves per cylinder:' smallint
-wetweight				'Weight incl. oil, gas, etc:' decimal [unsigned]
-wheelbase				'Wheelbase:' decimal [unsigned]
-wheels					'Wheels:' varchar(255)
-year					'Year:' smallint  
+left outer join category c on c.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Category:')
+left outer join coolingtype cool on cool.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Cooling system:')
+left outer join enginetype e on e.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Engine type:')
+left outer join finaldrivetype fd on fd.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Transmission type, final drive:')
+left outer join startertype s on s.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Starter:');

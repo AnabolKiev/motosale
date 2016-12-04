@@ -60,13 +60,6 @@ create table ms.startertype (
   nameeng varchar(20) unique
 );
 
-drop table if exists ms.startertype;
-create table ms.startertype (
-  id int primary key not null auto_increment,
-  name varchar(20) unique,
-  nameeng varchar(20) unique
-);
-
 drop table if exists ms.finaldrivetype;
 create table ms.finaldrivetype (
   id int primary key not null auto_increment,
@@ -76,93 +69,110 @@ create table ms.finaldrivetype (
 
 drop table if exists ms.model;
 create table ms.model (
-  id int primary key not null auto_increment,
-  
-  
-  title varchar(255),
-  description varchar(2048),
-  manufacturerId int,
-  modelId int,
-  produceYear year,
-  capacity int,
-  mileage int,
-  phone varchar(15),
-  email varchar(30),
-  startDate date,
-  endDate date,
-  
-  FOREIGN KEY (manufacturerId) REFERENCES ms.manufacturer(id) ON DELETE CASCADE
+  id					int primary key not null auto_increment,
+  name					varchar(100), 		-- 'Model:' 
+  year					smallint, 			-- 'Year:'
+  manufacturerId		int,
+  categoryID			int, 				-- 'Category:'
+  borestroke			varchar(30), 		-- 'Bore x stroke:'
+  compression			varchar(10), 		-- 'Compression:'
+  coolingID				int, 				-- 'Cooling system:'
+  displacement			decimal(7,2) unsigned, 	-- 'Displacement:'
+  engine				varchar(255), 		-- 'Engine details:'
+  engineeng				varchar(255), 		-- 'Engine details:'
+  enginetypeID			int, 				-- 'Engine type:'
+  lubrications			varchar(255), 		-- 'Lubrication system:'
+  lubricationseng		varchar(255), 		-- 'Lubrication system:'
+  maxRPM				int, 				-- 'Max RPM:'
+  oilcapacity			decimal(5,2) unsigned, 	-- 'Oil capacity:'
+  valverpercylinder		smallint, 			-- 'Valves per cylinder:'
+  frame					varchar(255), 		-- 'Frame type:'
+  frameeng				varchar(255), 		-- 'Frame type:'
+  gearbox				varchar(30), 		-- 'Gearbox:'
+  gearboxeng			varchar(30), 		-- 'Gearbox:'
+  finaldriveID			int, 				-- 'Transmission type, final drive:'
+  clutch				varchar(255), 		-- 'Clutch:'
+  clutcheng				varchar(255), 		-- 'Clutch:'
+  height				int unsigned, 	-- 'Overall height:'
+  length				int unsigned, 	-- 'Overall length:'
+  width					int unsigned, 	-- 'Overall width:'
+  dryweight				decimal(5,1) unsigned, 	-- 'Dry weight:'
+  wetweight				decimal(5,1) unsigned, 	-- 'Weight incl. oil, gas, etc:'
+  wheelbase				smallint unsigned, 	-- 'Wheelbase:' 
+  clearance				smallint, 			-- 'Ground clearance:'
+  carrying				varchar(255), 		-- 'Carrying capacity:'
+  carryingeng			varchar(255), 		-- 'Carrying capacity:'
+  seatheight			smallint, 			-- 'Seat height:'
+  altseatheight			smallint, 			-- 'Alternate seat height:'
+  seat					varchar(255), 		-- 'Seat:'
+  seateng				varchar(255), 		-- 'Seat:'
+  power					varchar(40), 		-- 'Power:' 
+  torque				varchar(60), 		-- 'Torque:'
+  powerweight			decimal(5,4) unsigned, 	-- 'Power/weight ratio:'
+  topspeed				decimal(4,1) unsigned, 	-- 'Top speed:'
+  acceleration100		decimal(6,3) unsigned, 	-- '0-100 km/h (0-62 mph):'
+  acceleration60_140	decimal(6,3) unsigned, 	-- '60-140 km/h (37-87 mph), highest gear:'
+  quotertime			decimal(6,3) unsigned, 	-- '1/4 mile (0.4 km):'
+  ignition				varchar(255), 		-- 'Ignition:'
+  ignitioneng			varchar(255), 		-- 'Ignition:'
+  starterID				int, 				-- 'Starter:'
+  light					varchar(255), 		-- 'Light:'
+  lighteng				varchar(255), 		-- 'Light:'
+  emission				varchar(255), 		-- 'Emission details:'
+  emissioneng			varchar(255), 		-- 'Emission details:'
+  exhaust				varchar(255), 		-- 'Exhaust system:'
+  exhausteng			varchar(255), 		-- 'Exhaust system:'
+  co2					decimal(6,1) unsigned, 	-- 'Greenhouse gases:'
+  fuelcontrol			varchar(50), 		-- 'Fuel control:'
+  fuelcontroleng		varchar(50), 		-- 'Fuel control:'
+  fuelsystem			varchar(300), 		-- 'Fuel system:'
+  fuelsystemeng			varchar(300), 		-- 'Fuel system:'
+  fuelcapacity			decimal(6,2) unsigned, 	-- 'Fuel capacity:'
+  reservefuel			decimal(6,2) unsigned, 	-- 'Reserve fuel capacity:'
+  consumtion			decimal(6,2) unsigned, 	-- 'Fuel consumption:'
+  frontbrakesdiameter	smallint unsigned, 	-- 'Front brakes diameter:'
+  frontbrakes			varchar(255), 		-- 'Front brakes:'
+  frontbrakeseng		varchar(255), 		-- 'Front brakes:'
+  rearbrakesdiameter	smallint, 	-- 'Rear brakes diameter:'
+  rearbrakes			varchar(200), 		-- 'Rear brakes:'
+  rearbrakeseng			varchar(200), 		-- 'Rear brakes:'
+  fronweightperc		decimal(4,1) unsigned, 	-- 'Front percentage of weight:'
+  fronsuspension		varchar(255), 		-- 'Front suspension:'
+  fronsuspensioneng		varchar(255), 		-- 'Front suspension:'
+  fronttravel			smallint,			-- 'Front wheel travel:'
+  rearweightprc			decimal(4,1) unsigned, 	-- 'Rear percentage of weight:'
+  rearsuspension		varchar(255), 		-- 'Rear suspension:'
+  rearsuspensioneng		varchar(255), 		-- 'Rear suspension:'
+  reartravel			smallint, 			-- 'Rear wheel travel:'
+  fronttyre				varchar(30), 		-- 'Front tyre:'
+  fronttyreeng			varchar(30), 		-- 'Front tyre:'
+  reartyre				varchar(30), 		-- 'Rear tyre:'
+  reartyreeng			varchar(30), 		-- 'Rear tyre:'  
+  wheels				varchar(255), 		-- 'Wheels:'
+  wheelseng				varchar(255), 		-- 'Wheels:'
+  rake					decimal(4,1) unsigned,	-- 'Rake (fork angle):'
+  trail					smallint, 			-- 'Trail:'
+  driveline				varchar(255), 		-- 'Driveline:'
+  drivelineeng			varchar(255), 		-- 'Driveline:'
+  electrical			varchar(255), 		-- 'Electrical:'
+  electricaleng			varchar(255), 		-- 'Electrical:'
+  instruments			varchar(512), 		-- 'Instruments:'
+  instrumentseng		varchar(512), 		-- 'Instruments:'
+  modifications			varchar(2048), 		-- 'Modifications compared to previous model:'
+  modificationseng		varchar(2048), 		-- 'Modifications compared to previous model:'
+  price					varchar(15), 		-- 'Price as new (MSRP):'
+  colors				varchar(300), 		-- 'Color options:'
+  colorseng				varchar(300), 		-- 'Color options:'
+  comments				varchar(2048),		-- 'Comments:'
+  commentseng			varchar(2048),		-- 'Comments:'
+
+  FOREIGN KEY (manufacturerId) REFERENCES ms.manufacturer(id) ON DELETE CASCADE,
+  FOREIGN KEY (categoryID) REFERENCES ms.category(id) ON DELETE CASCADE,
+  FOREIGN KEY (coolingID) REFERENCES ms.coolingtype(id) ON DELETE CASCADE,
+  FOREIGN KEY (enginetypeID) REFERENCES ms.enginetype(id) ON DELETE CASCADE,
+  FOREIGN KEY (finaldriveID) REFERENCES ms.finaldrivetype(id) ON DELETE CASCADE,
+  FOREIGN KEY (starterID) REFERENCES ms.startertype(id) ON DELETE CASCADE
 );
-
-
-acceleration100 		'0-100 km/h (0-62 mph):' decimal [unsigned]
-quotertime 				'1/4 mile (0.4 km):'	decimal [unsigned]
-acceleration60_140		'60-140 km/h (37-87 mph), highest gear:'	decimal [unsigned]
-altseatheigth			'Alternate seat height:' smallint
-borestroke				'Bore x stroke:' varchar(30)
-carrying				'Carrying capacity:' varchar(255)
-categoryID				'Category:'	dictionary
-clutch					'Clutch:' varchar(255)
-colors					'Color options:' varchar(300)
-comments				'Comments:' varchar(2048)
-compression				'Compression:' varchar(10)
-coolingID				'Cooling system:' dictionary
-displacement			'Displacement:' decimal [unsigned]
-driveline				'Driveline:' varchar(255)
-dryweight				'Dry weight:' decimal [unsigned]
-electrical				'Electrical:' varchar(255)
-emission				'Emission details:' varchar(255)
-engine					'Engine details:' varchar(255)
-enginetypeID			'Engine type:' dictionary
-exhaust					'Exhaust system:' varchar(255)
-frame					'Frame type:' varchar(255)
-frontbrakesdiameter		'Front brakes diameter:' decimal [unsigned]
-frontbrakes				'Front brakes:' varchar(255)
-fronweightperc			'Front percentage of weight:' decimal [unsigned]
-fronsuspension			'Front suspension:' varchar(255)
-fronttyre				'Front tyre:' varchar(30)
-fronttravel				'Front wheel travel:' decimal [unsigned]
-fuelcapacity			'Fuel capacity:' decimal [unsigned]
-consumtion				'Fuel consumption:' decimal [unsigned]
-fuelcontrol				'Fuel control:' varchar(50)
-fuelsystem				'Fuel system:' varchar(300)
-gearbox					'Gearbox:' varchar(30)
-co2						'Greenhouse gases:' decimal [unsigned]
-clearance				'Ground clearance:' smallint
-ignition				'Ignition:' varchar(255)
-instruments				'Instruments:' varchar(512)
-light					'Light:' varchar(255)
-lubricatios				'Lubrication system:' varchar(255)
-maxRPM					'Max RPM:' smallint
-name					'Model:' varchar(100)
-modifications			'Modifications compared to previous model:' varchar(2048)
-oilcapacity				'Oil capacity:' decimal [unsigned]
-height					'Overall height:' smallint
-length					'Overall length:' smallint
-width					'Overall width:' smallint
-powerweight				'Power/weight ratio:' decimal [unsigned]
-power					'Power:' varchar(40)
-price					'Price as new (MSRP):'varchar(10)
-rake					'Rake (fork angle):' decimal [unsigned]
-rearbrakesdiameter		'Rear brakes diameter:' decimal [unsigned]
-rearbrakes				'Rear brakes:' varchar(200)
-rearweightprc			'Rear percentage of weight:' decimal [unsigned]
-rearsuspension			'Rear suspension:' varchar(255)
-reartyre				'Rear tyre:' varchar(30)
-reartravel				'Rear wheel travel:' decimal [unsigned]
-reservefuel				'Reserve fuel capacity:' decimal [unsigned]
-seatheight				'Seat height:' smallint
-seat					'Seat:' varchar(255)
-starter					'Starter:' dictionary
-topspeed				'Top speed:' decimal [unsigned]
-torque					'Torque:' varchar(60)
-trail					'Trail:' smallint
-finaldrive				'Transmission type, final drive:' dictionary
-valverpercylinder		'Valves per cylinder:' smallint
-wetweight				'Weight incl. oil, gas, etc:' decimal [unsigned]
-wheelbase				'Wheelbase:' decimal [unsigned]
-wheels					'Wheels:' varchar(255)
-year					'Year:' smallint
 
 
 drop table if exists ms.ad;
