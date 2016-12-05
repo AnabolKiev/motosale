@@ -213,10 +213,10 @@ select	m.modelName,
 		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Color options:'), 
    		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Comments:'),
 		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Comments:')
-from model_hold_bikez m
-left outer join manufacturer mf on mf.name = TRIM(TRAILING ' motorcycles' FROM m.manufacturer)
-left outer join category c on c.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Category:')
-left outer join coolingtype cool on cool.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Cooling system:')
-left outer join enginetype e on e.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Engine type:')
-left outer join finaldrivetype fd on fd.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Transmission type, final drive:')
-left outer join startertype s on s.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Starter:');
+from ms.model_hold_bikez m
+left outer join ms.manufacturer mf on mf.name = TRIM(TRAILING ' motorcycles' FROM m.manufacturer)
+left outer join ms.category c on c.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Category:')
+left outer join ms.coolingtype cool on cool.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Cooling system:')
+left outer join ms.enginetype e on e.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Engine type:')
+left outer join ms.finaldrivetype fd on fd.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Transmission type, final drive:')
+left outer join ms.startertype s on s.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Starter:');

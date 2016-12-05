@@ -5,8 +5,26 @@
 
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Производители и модели</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
+
+<script language="JavaScript">
+    $(document).ready(function(){
+        $('#cbtest').click(function() {
+            $.ajax( {
+                type: 'POST',
+                url: '/ajax/manufacturer/',
+                data: { checkedManufacturers : $('input:checkbox:checked').val()},
+                success: function(data) {
+                 $('#ajaxResponse').html(data);
+                }
+            });
+        })
+    });
+</script>
+
 <body>
 <a href="<c:url value="/"/>">Объявления</a>
 <h3>Производители и модели</h3>
@@ -21,12 +39,15 @@
     </table>
 </form:form>
 <br>
+<strong>Ajax Response</strong>:
+<div id="ajaxResponse"></div>
 <c:if test="${not empty manufacturers}">
     <table border=1 cellspacing=0>
         <thead style="background:lightgrey">
         <tr>
             <th>ID</th>
             <th>Производитель</th>
+            <th>Активный</th>
             <th></th><th></th>
         </tr>
         </thead>
@@ -34,6 +55,7 @@
             <tr>
                 <td>${man.id}</td>
                 <td>${man.name}</td>
+                <td><input id="cbtest" type="checkbox" value="${man.active}"/></td>
                 <td><a href="<c:url value="/manufacturer/edit/${man.id}"/>">Редактировать</a></td>
                 <td><a href="<c:url value="/manufacturer/delete/${man.id}"/>">Удалить</a></td>
             </tr>

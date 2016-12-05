@@ -13,6 +13,8 @@ public class Manufacturer {
     private Long id;
     @Column(name = "NAME", nullable = false, length = 30)
     private String name;
+    @Column(name = "ACTIVE")
+    private Boolean active;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturer")
     private Set<Ad> ads = new HashSet<Ad>(0);
 
@@ -38,5 +40,13 @@ public class Manufacturer {
 
     public void setAds(Set<Ad> ads) {
         this.ads = ads;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

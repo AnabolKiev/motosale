@@ -1,5 +1,7 @@
 package com.anabol.motosale.controllers;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.anabol.motosale.dao.repository.ManufacturerRepository;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.anabol.motosale.dao.ManufacturerDao;
 import com.anabol.motosale.model.Manufacturer;
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @Transactional
@@ -59,4 +64,12 @@ public class ManufacturerController {
         }
         return "redirect:/manufacturer/";
     }
+
+    @RequestMapping(value = "/ajax/manufacturer/", method = RequestMethod.POST)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String[] checkedManufacturers = request.getParameterValues("checkedManufacturers");
+        response.setContentType("text/plain");
+        response.getWriter().write("OK");
+    }
+
 }
