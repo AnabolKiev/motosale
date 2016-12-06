@@ -44,6 +44,11 @@
                 <td><a href="<c:url value="/manufacturer/delete/${man.id}"/>">Удалить</a></td>
             </tr>
         </c:forEach>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><input id="saveCheckboxes" type="submit" value="Сохранить"/></td>
+        </tr>
     </table>
 </c:if>
 <c:if test="${empty manufacturers}">No records found</c:if>

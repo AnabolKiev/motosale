@@ -26,10 +26,11 @@ drop index modelattribute_name_I on modelAttribute_hold_bikez;
 create index modelattribute_name_I ON ms.modelAttribute_hold_bikez (attrName);
 /*-----------------------------------------------------------------------------------*/
 drop table if exists ms.manufacturer;
+
 create table ms.manufacturer (
   id int primary key not null auto_increment,
   name varchar(30) unique,
-  active boolean
+  active boolean not null default false
 );
 
 drop table if exists ms.category;

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#manufacturerTable:checkbox').click(function() {
+    $('#saveCheckboxes').submit(function(){
         $.ajax( {
             type: 'POST',
             url: '/ajax/manufacturer/',
