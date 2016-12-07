@@ -14,7 +14,7 @@ public class Manufacturer {
     @Column(name = "NAME", nullable = false, length = 30)
     private String name;
     @Column(name = "ACTIVE")
-    private Boolean active;
+    private boolean active;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "manufacturer")
     private Set<Ad> ads = new HashSet<Ad>(0);
 
@@ -42,11 +42,11 @@ public class Manufacturer {
         this.ads = ads;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 }

@@ -39,7 +39,7 @@
             <tr>
                 <td>${man.id}</td>
                 <td>${man.name}</td>
-                <td><input type="checkbox" value="${man.active}"/></td>
+                <td><input type="checkbox" value="${man.id}"/></td>
                 <td><a href="<c:url value="/manufacturer/edit/${man.id}"/>">Редактировать</a></td>
                 <td><a href="<c:url value="/manufacturer/delete/${man.id}"/>">Удалить</a></td>
             </tr>
@@ -47,7 +47,7 @@
         <tr>
             <td></td>
             <td></td>
-            <td><input id="saveCheckboxes" type="submit" value="Сохранить"/></td>
+            <td><input id="saveCheckboxes" type="button" value="Сохранить" onclick="submitCheckboxes()"/></td>
         </tr>
     </table>
 </c:if>

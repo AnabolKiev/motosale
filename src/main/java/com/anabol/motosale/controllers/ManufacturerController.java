@@ -10,10 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 import com.anabol.motosale.dao.ManufacturerDao;
 import com.anabol.motosale.model.Manufacturer;
 import javax.annotation.Resource;
@@ -66,8 +63,7 @@ public class ManufacturerController {
     }
 
     @RequestMapping(value = "/ajax/manufacturer/", method = RequestMethod.POST)
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String[] checkedManufacturers = request.getParameterValues("checkedManufacturers");
+    protected void setManufacturersActive(@RequestParam("checkedManufacturers") String[] checkedManufacturers, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain");
         response.getWriter().write("OK");
     }
