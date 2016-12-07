@@ -1,12 +1,8 @@
 function submitCheckboxes() {
-    var myCheckboxes = new Array();
-    $("input:checked").each(function() {
-        myCheckboxes.push($(this).val());
-    });
     $.ajax({
         type: "POST",
         url: "/ajax/manufacturer/",
-        data: { checkedManufacturers:myCheckboxes },
+        data: $("input:checked").serialize(),
         success: function(data){
                     $('#ajaxResponse').html(data)
                 }
