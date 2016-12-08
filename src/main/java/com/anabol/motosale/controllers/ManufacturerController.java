@@ -28,7 +28,7 @@ public class ManufacturerController {
 
     @RequestMapping(value = "/manufacturer", method = RequestMethod.GET)
     public String indexManufacturer(Model model) {
-        List<Manufacturer> manufacturers = dao.getAllManufacturers();
+        List<Manufacturer> manufacturers = dao.getAll();
         model.addAttribute("manufacturers", manufacturers);
         model.addAttribute("manufacturer", new Manufacturer());
         return "manufacturerEdit";
@@ -42,10 +42,10 @@ public class ManufacturerController {
 
     @RequestMapping(value = "/manufacturer/edit/{id}", method = RequestMethod.GET)
     public String updateManufacturer(@PathVariable("id") Long id, Model model) {
-        List<Manufacturer> manufacturers = dao.getAllManufacturers();
+        List<Manufacturer> manufacturers = dao.getAll();
         model.addAttribute("manufacturers", manufacturers);
         Manufacturer manufacturer = new Manufacturer();
-        model.addAttribute("manufacturer", dao.findManufacturerById(id));
+        model.addAttribute("manufacturer", dao.findById(id));
         return "manufacturerEdit";
     }
     @RequestMapping(value = "/manufacturer/", method = RequestMethod.POST)
@@ -55,17 +55,17 @@ public class ManufacturerController {
             return "error";
         }
         if (manufacturer.getId() == null) {
-            dao.insertManufacturer(manufacturer);
+            dao.insert(manufacturer);
         } else {
-            dao.updateManufacturer(manufacturer);
+            dao.update(manufacturer);
         }
         return "redirect:/manufacturer/";
     }
 
     @RequestMapping(value = "/ajax/manufacturer/", method = RequestMethod.POST)
-    protected void setManufacturersActive(@RequestParam("checkedManufacturers") String[] checkedManufacturers, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/plain");
-        response.getWriter().write("OK");
+    protected void setManufacturersActive(@RequestParam("checkedManufacturers") Long[] checkedManufacturers, HttpServletResponse response) throws ServletException, IOException {
+        dao.setActiveAll(false);
+        dao.setActiveByIds(true, checkedManufacturers);
     }
 
 }

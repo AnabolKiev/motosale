@@ -13,7 +13,7 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
     @Autowired
     ManufacturerRepository manufacturerRepository;
 
-    public List<Manufacturer> getAllManufacturers() {
+    public List<Manufacturer> getAll() {
         List<Manufacturer> manufacturers = new ArrayList<Manufacturer>();
         Iterator<Manufacturer> i = manufacturerRepository.findAll().iterator();
         while (i.hasNext()) {
@@ -22,16 +22,16 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
         return manufacturers;
     }
 
-    public Manufacturer findManufacturerById(Long id) {
+    public Manufacturer findById(Long id) {
             Manufacturer manufacturer = manufacturerRepository.findOne(id);
         return manufacturer;
     }
 
-    public void insertManufacturer(Manufacturer manufacturer) {
+    public void insert(Manufacturer manufacturer) {
         manufacturerRepository.save(manufacturer);
     }
 
-    public void updateManufacturer(Manufacturer manufacturer) {
+    public void update(Manufacturer manufacturer) {
         manufacturerRepository.save(manufacturer);
     }
 
@@ -39,4 +39,11 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
         manufacturerRepository.delete(id);
     }
 
+    public void setActiveAll(boolean active) {
+        manufacturerRepository.setActiveAll(active);
+    }
+
+    public void setActiveByIds(boolean active, Long[] ids) {
+        manufacturerRepository.setActiveByIDs(active, ids);
+    }
 }

@@ -39,14 +39,14 @@ public class AdController {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addAd(Model model) {
 		model.addAttribute("ad", new Ad());
-		model.addAttribute("manufacturers", manufacturerDao.getAllManufacturers());
+		model.addAttribute("manufacturers", manufacturerDao.getAll());
 		return "addEdit";
 	}
 
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String showEditAd(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("ad", dao.findAdById(id));
-		model.addAttribute("manufacturers", manufacturerDao.getAllManufacturers());
+		model.addAttribute("manufacturers", manufacturerDao.getAll());
 		return "addEdit";
 	}
 

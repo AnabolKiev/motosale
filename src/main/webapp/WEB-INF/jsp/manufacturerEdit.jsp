@@ -39,7 +39,7 @@
             <tr>
                 <td>${man.id}</td>
                 <td>${man.name}</td>
-                <td><input type="checkbox" name="checkedManufacturers" value="${man.id}"/></td>
+                <td><input type="checkbox" name="checkedManufacturers" value="${man.id}" <c:if test="${man.active}">checked</c:if>/></td>
                 <td><a href="<c:url value="/manufacturer/edit/${man.id}"/>">Редактировать</a></td>
                 <td><a href="<c:url value="/manufacturer/delete/${man.id}"/>">Удалить</a></td>
             </tr>
