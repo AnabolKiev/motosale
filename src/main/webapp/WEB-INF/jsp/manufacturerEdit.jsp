@@ -8,12 +8,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Производители и модели</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/ajax.js" type="text/javascript"></script>
+    <script src="/js/ajax.js" type="text/javascript"></script>
 </head>
 <body>
-<a href="<c:url value="/"/>">Объявления</a>
-<h3>Производители и модели</h3>
-<form:form method="POST" action="/manufacturer/" commandName="manufacturer">
+<h3>Производители</h3>
+<a href="<c:url value="/"/>">Главная</a>
+<br>
+<a href="/admin/">Панель администратора</a>
+
+<form:form method="POST" action="/admin/manufacturer/" commandName="manufacturer">
     <form:hidden path="id"/>
     <table>
         <tr>
@@ -24,7 +27,6 @@
     </table>
 </form:form>
 <br>
-<strong>Ajax Response</strong>: <div id="ajaxResponse"></div>
 <c:if test="${not empty manufacturers}">
     <table id="manufacturerTable" border=1 cellspacing=0>
         <thead style="background:lightgrey">
@@ -40,8 +42,8 @@
                 <td>${man.id}</td>
                 <td>${man.name}</td>
                 <td><input type="checkbox" name="checkedManufacturers" value="${man.id}" <c:if test="${man.active}">checked</c:if>/></td>
-                <td><a href="<c:url value="/manufacturer/edit/${man.id}"/>">Редактировать</a></td>
-                <td><a href="<c:url value="/manufacturer/delete/${man.id}"/>">Удалить</a></td>
+                <td><a href="<c:url value="/admin/manufacturer/edit/${man.id}"/>">Редактировать</a></td>
+                <td><a href="<c:url value="/admin/manufacturer/delete/${man.id}"/>">Удалить</a></td>
             </tr>
         </c:forEach>
         <tr>

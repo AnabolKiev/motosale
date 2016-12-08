@@ -26,7 +26,7 @@ public class ManufacturerController {
     private ManufacturerDao dao;
 
 
-    @RequestMapping(value = "/manufacturer", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/manufacturer", method = RequestMethod.GET)
     public String indexManufacturer(Model model) {
         List<Manufacturer> manufacturers = dao.getAll();
         model.addAttribute("manufacturers", manufacturers);
@@ -34,13 +34,13 @@ public class ManufacturerController {
         return "manufacturerEdit";
     }
 
-    @RequestMapping(value = "/manufacturer/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/manufacturer/delete/{id}", method = RequestMethod.GET)
     public String deleteManufacturer(@PathVariable("id") Long id, Model model) {
         dao.deleteById(id);
-        return "redirect:/manufacturer/";
+        return "redirect:/admin/manufacturer/";
     }
 
-    @RequestMapping(value = "/manufacturer/edit/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/manufacturer/edit/{id}", method = RequestMethod.GET)
     public String updateManufacturer(@PathVariable("id") Long id, Model model) {
         List<Manufacturer> manufacturers = dao.getAll();
         model.addAttribute("manufacturers", manufacturers);
@@ -48,7 +48,7 @@ public class ManufacturerController {
         model.addAttribute("manufacturer", dao.findById(id));
         return "manufacturerEdit";
     }
-    @RequestMapping(value = "/manufacturer/", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/manufacturer/", method = RequestMethod.POST)
     public String saveManufacturer(@ModelAttribute Manufacturer manufacturer, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("bindRes", bindingResult);
@@ -59,7 +59,7 @@ public class ManufacturerController {
         } else {
             dao.update(manufacturer);
         }
-        return "redirect:/manufacturer/";
+        return "redirect:/admin/manufacturer/";
     }
 
     @RequestMapping(value = "/ajax/manufacturer/", method = RequestMethod.POST)
