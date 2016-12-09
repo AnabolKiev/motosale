@@ -11,7 +11,7 @@ public class Category {
     private Long id;
     @Column(name = "NAME", unique = true, nullable = false, length = 30)
     private String name;
-    @Column(name = "NAMEENG", unique = true, nullable = false, length = 30)
+    @Column(name = "NameEng", unique = true, nullable = false, length = 30)
     private String nameEng;
 
     public Long getId() {

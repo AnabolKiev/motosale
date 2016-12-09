@@ -15,5 +15,4 @@ public class CheckedWrapper {
         this.manufacturersList = manufacturersList;
     }
 
-
 }
