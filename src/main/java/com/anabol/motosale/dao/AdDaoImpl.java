@@ -22,14 +22,13 @@ public class AdDaoImpl implements AdDao{
         return ads;
 	 }
 	 
-	 public Ad findAdById(Long id) {
-           Ad ad = adRepository.findOne(id);
-         return ad;
-	 }
+    public Ad findAdById(Long id) {
+        return adRepository.findOne(id);
+    }
 	 
-	 public void insertAd(Ad ad) {
-         adRepository.save(ad);
-	 }
+    public void insertAd(Ad ad) {
+        adRepository.save(ad);
+    }
 
     public void updateAd(Ad ad) {
         adRepository.save(ad);

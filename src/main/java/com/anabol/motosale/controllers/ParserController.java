@@ -7,15 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import java.util.logging.Logger;
 
 @Controller
 @Transactional
 public class ParserController {
 
-    @Resource(name = "parserDaoJsoup")
+    @Inject
     private ParserDao dao;
 
     private static Logger log = Logger.getLogger(ParserController.class.getName());

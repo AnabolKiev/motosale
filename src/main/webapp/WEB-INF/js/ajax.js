@@ -8,17 +8,10 @@ function submitCheckboxes() {
 };
 
 function submitCategories() {
-    var attr = new Array();
-    var object = {};
-    var key = $("input:hidden").val();
-    var value = $("input:hidden").val();
-    object[key] = value;
-    attr.push(object);
-
     $.ajax({
         type: "POST",
         url: "/ajax/category/",
-        data: attr
+        data: $("#categoriesForm").serialize()
     });
     return false;
 };

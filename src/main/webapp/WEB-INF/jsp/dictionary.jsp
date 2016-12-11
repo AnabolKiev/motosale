@@ -16,8 +16,9 @@
 <a href="/admin/">Панель администратора</a>
 <br>
 <h3>Типы мотоциклов</h3>
+<div id="test"></div>
 <c:if test="${not empty categories}">
-    <form:form id="categoriesForm" action="/admin/dictionary/saveCategories" method="post" modelAttribute="categoriesWrapper">
+    <form:form id="categoriesForm">
         <table id="categoriesTable" border=1 cellspacing=0>
             <thead style="background:lightgrey">
             <tr>
@@ -28,18 +29,15 @@
             </thead>
             <c:forEach items="${categories}" var="entry">
                 <tr>
-                    <input type="hidden" name="id" value="${entry.id}"/>
+                    <%--<input type="hidden" name="id" value="${entry.id}"/>--%>
                     <td>${entry.id}</td>
-                    <td><input name="categoryName" value="${entry.name}"/></td>
+                    <td><input name="${entry.id}" value="${entry.name}"/></td>
                     <td>${entry.nameEng}</td>
                 </tr>
             </c:forEach>
-            <tr>
-                <td></td>
-                <td><input id="saveCategories" type="button" value="Сохранить" onclick="submitCategories()"/></td>
-                <td></td>
-            </tr>
         </table>
+        <br>
+        <input id="saveCategories" type="button" value="Сохранить" onclick="submitCategories()"/>
     </form:form>
 </c:if>
 <c:if test="${empty categories}">No records found</c:if>
