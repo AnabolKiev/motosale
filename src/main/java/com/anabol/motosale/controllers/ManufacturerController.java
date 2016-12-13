@@ -51,7 +51,7 @@ public class ManufacturerController {
     }
 
     @RequestMapping(value = "/ajax/manufacturer/", method = RequestMethod.POST)
-    protected void setManufacturersActive(@RequestParam("checkedManufacturers") Long[] checkedManufacturers, HttpServletResponse response) throws ServletException, IOException {
+    public void setManufacturersActive(@RequestParam("checkedManufacturers") Long[] checkedManufacturers, HttpServletResponse response) throws ServletException, IOException {
         dao.setActiveAll(false);
         dao.setActiveByIDs(true, checkedManufacturers);
     }

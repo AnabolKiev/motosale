@@ -17,6 +17,7 @@
 		<hibernate.version>5.2.3.Final</hibernate.version>
 		<jsoup.version>1.9.2</jsoup.version>
 		<guava.version>20.0</guava.version>
+		<jackson.version>2.6.3</jackson.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -74,6 +75,17 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
+		</dependency>
+		<!-- Need this for json to/from object -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
     </dependencies>
 	<build>

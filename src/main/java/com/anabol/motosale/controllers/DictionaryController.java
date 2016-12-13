@@ -6,9 +6,8 @@ import com.anabol.motosale.model.Category;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -44,12 +43,19 @@ public class DictionaryController {
     }
 
     @RequestMapping(value = "/ajax/category/", method = RequestMethod.POST)
-    protected void saveCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map categoriesMap = request.getParameterMap();
-        for (Object id: categoriesMap.keySet()) {
-            String categoryName = String.valueOf(categoriesMap.get(id));
-            categoryDao.findOne((Long) id).setName(categoryName);
+    public void saveCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Map<String, String[]> categoriesMap = request.getParameterMap();
+        for (String id: categoriesMap.keySet()) {
+            String categoryName = categoriesMap.get(id)[0];
+            Category category = categoryDao.findOne(Long.valueOf(id));
+            category.setName(categoryName);
+            categoryDao.save(category);
         }
+    }
+
+    @RequestMapping(value = "/ajax/engineType/", method = RequestMethod.POST, consumes = "application/json")
+    public void saveEngineTypes(@RequestBody Map<String, Object> engineTypesMap) throws ServletException, IOException {
+
     }
 
 }

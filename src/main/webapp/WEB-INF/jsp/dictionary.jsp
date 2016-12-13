@@ -15,32 +15,62 @@
 <a href="<c:url value="/"/>">Главная</a> |
 <a href="/admin/">Панель администратора</a>
 <br>
-<h3>Типы мотоциклов</h3>
-<div id="test"></div>
-<c:if test="${not empty categories}">
-    <form:form id="categoriesForm">
-        <table id="categoriesTable" border=1 cellspacing=0>
-            <thead style="background:lightgrey">
-            <tr>
-                <th>ID</th>
-                <th>Тип</th>
-                <th>English</th>
-            </tr>
-            </thead>
-            <c:forEach items="${categories}" var="entry">
-                <tr>
-                    <%--<input type="hidden" name="id" value="${entry.id}"/>--%>
-                    <td>${entry.id}</td>
-                    <td><input name="${entry.id}" value="${entry.name}"/></td>
-                    <td>${entry.nameEng}</td>
-                </tr>
-            </c:forEach>
-        </table>
-        <br>
-        <input id="saveCategories" type="button" value="Сохранить" onclick="submitCategories()"/>
-    </form:form>
-</c:if>
-<c:if test="${empty categories}">No records found</c:if>
-
+<table>
+    <tr valign="top">
+        <td>
+            <h3>Типы мотоциклов</h3>
+            <c:if test="${not empty categories}">
+                <form:form id="categoriesForm">
+                    <table id="categoriesTable" border=1 cellspacing=0>
+                        <thead style="background:lightgrey">
+                        <tr>
+                            <th>ID</th>
+                            <th>Тип</th>
+                            <th>English</th>
+                        </tr>
+                        </thead>
+                        <c:forEach items="${categories}" var="entry">
+                        <tr>
+                            <td>${entry.id}</td>
+                            <td><input name="${entry.id}" value="${entry.name}"/></td>
+                            <td>${entry.nameEng}</td>
+                        </tr>
+                        </c:forEach>
+                    </table>
+                    <br>
+                    <input id="saveCategories" type="button" value="Сохранить" onclick="submitCategories()"/>
+                </form:form>
+            </c:if>
+            <c:if test="${empty categories}">No records found</c:if>
+        </td>
+        <td>
+        <h3>Типы двигателей</h3>
+            <div id="test"></div>
+        <c:if test="${not empty engineTypes}">
+            <form:form id="engineTypeForm">
+                <table id="engineTypeTable" border=1 cellspacing=0>
+                    <thead style="background:lightgrey">
+                    <tr>
+                        <th>ID</th>
+                        <th>Тип</th>
+                        <th>English</th>
+                    </tr>
+                    </thead>
+                    <c:forEach items="${engineTypes}" var="entry">
+                        <tr>
+                            <td>${entry.id}</td>
+                            <td><input name="${entry.id}" value="${entry.name}"/></td>
+                            <td>${entry.nameEng}</td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <br>
+                <input id="saveEngineTypes" type="button" value="Сохранить" onclick="submitEngineTypes()"/>
+            </form:form>
+        </c:if>
+        <c:if test="${empty engineTypes}">No records found</c:if>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
