@@ -7,30 +7,17 @@ function submitCheckboxes() {
     return false;
 };
 
-function submitCategories() {
-    $.ajax({
-        type: "POST",
-        url: "/ajax/category/",
-        data: $("#categoriesForm").serialize()
+function submitDictionary(formId, url) {
+    var data = {};
+    $('#' + formId).find(':input:not(:button)').each(function() {
+        data[this.name] = $(this).val();
     });
-    return false;
-};
-
-function submitEngineTypes() {
-    //var data = $("#engineTypeForm").serialize();
-    var data = {}
-    data["1"] = "honda";
-    data["2"] = "triumph";
-    //search["email"] = $("#email").val();
-    var data2 = {key: "1", value : "test"};
-
     $.ajax({
         type: "POST",
         contentType : "application/json",
-        url: "/ajax/engineType/",
-        data : JSON.stringify(data2),
-        dataType : 'json'
+        url: url,
+        data : JSON.stringify(data),
+        dataType : "JSON"
     });
-    $("#test").text(JSON.stringify(data2));
     return false;
 };

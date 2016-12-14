@@ -2,7 +2,7 @@ package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.repository.*;
 import com.anabol.motosale.form.MapWrapper;
-import com.anabol.motosale.model.Category;
+import com.anabol.motosale.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -45,20 +45,57 @@ public class DictionaryController {
     }
 
     @RequestMapping(value = "/ajax/category/", method = RequestMethod.POST)
-    public void saveCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<String, String[]> categoriesMap = request.getParameterMap();
+    @ResponseStatus(HttpStatus.OK)
+    public void saveCategories(@RequestBody Map<String, String> categoriesMap, BindingResult bindingResult) throws ServletException, IOException {
         for (String id: categoriesMap.keySet()) {
-            String categoryName = categoriesMap.get(id)[0];
+            String categoryName = categoriesMap.get(id);
             Category category = categoryDao.findOne(Long.valueOf(id));
             category.setName(categoryName);
             categoryDao.save(category);
         }
     }
 
-    @RequestMapping(value = "/ajax/engineType/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/ajax/engineType/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void saveEngineTypes(@RequestBody Map<String, Object> engineTypesMap, BindingResult bindingResult) throws ServletException, IOException {
-        System.out.println(bindingResult);
+    public void saveEngineTypes(@RequestBody Map<String, String> engineTypesMap, BindingResult bindingResult) throws ServletException, IOException {
+        for (String id: engineTypesMap.keySet()) {
+            String engineTypeName = engineTypesMap.get(id);
+            EngineType engineType = engineTypeDao.findOne(Long.valueOf(id));
+            engineType.setName(engineTypeName);
+            engineTypeDao.save(engineType);
+        }
     }
 
+    @RequestMapping(value = "/ajax/coolingType/", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void saveCoolingTypes(@RequestBody Map<String, String> coolingTypesMap, BindingResult bindingResult) throws ServletException, IOException {
+        for (String id: coolingTypesMap.keySet()) {
+            String coolingTypeName = coolingTypesMap.get(id);
+            CoolingType coolingType = coolingTypeDao.findOne(Long.valueOf(id));
+            coolingType.setName(coolingTypeName);
+            coolingTypeDao.save(coolingType);
+        }
+    }
+
+    @RequestMapping(value = "/ajax/finalDriveType/", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void saveFinalDriveTypes(@RequestBody Map<String, String> finalDriveTypesMap, BindingResult bindingResult) throws ServletException, IOException {
+        for (String id: finalDriveTypesMap.keySet()) {
+            String finalDriveTypeName = finalDriveTypesMap.get(id);
+            FinalDriveType finalDriveType = finalDriveTypeDao.findOne(Long.valueOf(id));
+            finalDriveType.setName(finalDriveTypeName);
+            finalDriveTypeDao.save(finalDriveType);
+        }
+    }
+
+    @RequestMapping(value = "/ajax/starterType/", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void saveStarterTypes(@RequestBody Map<String, String> starterTypesMap, BindingResult bindingResult) throws ServletException, IOException {
+        for (String id: starterTypesMap.keySet()) {
+            String starterTypeName = starterTypesMap.get(id);
+            StarterType starterType = starterTypeDao.findOne(Long.valueOf(id));
+            starterType.setName(starterTypeName);
+            starterTypeDao.save(starterType);
+        }
+    }
 }

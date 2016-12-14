@@ -43,8 +43,8 @@ create table ms.category (
 drop table if exists ms.coolingtype;
 create table ms.coolingtype (
   id int primary key not null auto_increment,
-  name varchar(15) unique,
-  nameeng varchar(15) unique
+  name varchar(20) unique,
+  nameeng varchar(20) unique 
 );
 
 drop table if exists ms.enginetype;

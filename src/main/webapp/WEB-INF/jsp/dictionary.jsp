@@ -38,7 +38,7 @@
                         </c:forEach>
                     </table>
                     <br>
-                    <input id="saveCategories" type="button" value="Сохранить" onclick="submitCategories()"/>
+                    <input id="saveCategories" type="button" value="Сохранить" onclick="submitDictionary('categoriesForm','/ajax/category/')"/>
                 </form:form>
             </c:if>
             <c:if test="${empty categories}">No records found</c:if>
@@ -65,10 +65,91 @@
                     </c:forEach>
                 </table>
                 <br>
-                <input id="saveEngineTypes" type="button" value="Сохранить" onclick="submitEngineTypes()"/>
+                <input id="saveEngineTypes" type="button" value="Сохранить" onclick="submitDictionary('engineTypeForm','/ajax/engineType/')"/>
             </form:form>
         </c:if>
         <c:if test="${empty engineTypes}">No records found</c:if>
+        </td>
+        <td>
+            <h3>Типы охлаждения</h3>
+            <div id="test"></div>
+            <c:if test="${not empty coolingTypes}">
+                <form:form id="coolingTypeForm">
+                    <table id="coolingTypeTable" border=1 cellspacing=0>
+                        <thead style="background:lightgrey">
+                        <tr>
+                            <th>ID</th>
+                            <th>Тип</th>
+                            <th>English</th>
+                        </tr>
+                        </thead>
+                        <c:forEach items="${coolingTypes}" var="entry">
+                            <tr>
+                                <td>${entry.id}</td>
+                                <td><input name="${entry.id}" value="${entry.name}"/></td>
+                                <td>${entry.nameEng}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <br>
+                    <input id="saveCoolingTypes" type="button" value="Сохранить" onclick="submitDictionary('coolingTypeForm','/ajax/coolingType/')"/>
+                </form:form>
+            </c:if>
+            <c:if test="${empty coolingTypes}">No records found</c:if>
+        </td>
+        <td>
+            <h3>Типы привода</h3>
+            <div id="test"></div>
+            <c:if test="${not empty finalDriveTypes}">
+                <form:form id="finalDriveTypeForm">
+                    <table id="finalDriveTypeTable" border=1 cellspacing=0>
+                        <thead style="background:lightgrey">
+                        <tr>
+                            <th>ID</th>
+                            <th>Тип</th>
+                            <th>English</th>
+                        </tr>
+                        </thead>
+                        <c:forEach items="${finalDriveTypes}" var="entry">
+                            <tr>
+                                <td>${entry.id}</td>
+                                <td><input name="${entry.id}" value="${entry.name}"/></td>
+                                <td>${entry.nameEng}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <br>
+                    <input id="saveFinalDriveTypes" type="button" value="Сохранить" onclick="submitDictionary('finalDriveTypeForm','/ajax/finalDriveType/')"/>
+                </form:form>
+            </c:if>
+            <c:if test="${empty finalDriveTypes}">No records found</c:if>
+        </td>
+        <td>
+            <h3>Типы стартера</h3>
+            <div id="test"></div>
+            <c:if test="${not empty starterTypes}">
+                <form:form id="starterTypeForm">
+                    <table id="starterTypeTable" border=1 cellspacing=0>
+                        <thead style="background:lightgrey">
+                        <tr>
+                            <th>ID</th>
+                            <th>Тип</th>
+                            <th>English</th>
+                        </tr>
+                        </thead>
+                        <c:forEach items="${starterTypes}" var="entry">
+                            <tr>
+                                <td>${entry.id}</td>
+                                <td><input name="${entry.id}" value="${entry.name}"/></td>
+                                <td>${entry.nameEng}</td>
+                            </tr>
+                        </c:forEach>
+                    </table>
+                    <br>
+                    <input id="saveStarterTypes" type="button" value="Сохранить" onclick="submitDictionary('starterTypeForm','/ajax/starterType/')"/>
+                </form:form>
+            </c:if>
+            <c:if test="${empty starterTypes}">No records found</c:if>
         </td>
     </tr>
 </table>
