@@ -3,6 +3,8 @@ package com.anabol.motosale.controllers;
 import com.anabol.motosale.dao.repository.*;
 import com.anabol.motosale.form.MapWrapper;
 import com.anabol.motosale.model.Category;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -53,9 +55,10 @@ public class DictionaryController {
         }
     }
 
-    @RequestMapping(value = "/ajax/engineType/", method = RequestMethod.POST, consumes = "application/json")
-    public void saveEngineTypes(@RequestBody Map<String, Object> engineTypesMap) throws ServletException, IOException {
-
+    @RequestMapping(value = "/ajax/engineType/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void saveEngineTypes(@RequestBody Map<String, Object> engineTypesMap, BindingResult bindingResult) throws ServletException, IOException {
+        System.out.println(bindingResult);
     }
 
 }
