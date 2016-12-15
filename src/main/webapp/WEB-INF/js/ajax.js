@@ -7,7 +7,8 @@ function submitCheckboxes() {
     return false;
 };
 
-function submitDictionary(formId, url) {
+function submitDictionary(source) {
+    var formId = $(source).closest('form').attr('id');
     var data = {};
     $('#' + formId).find(':input:not(:button)').each(function() {
         data[this.name] = $(this).val();
@@ -15,7 +16,7 @@ function submitDictionary(formId, url) {
     $.ajax({
         type: "POST",
         contentType : "application/json",
-        url: url,
+        url: '/ajax/' + formId + '/',
         data : JSON.stringify(data),
         dataType : "JSON"
     });
