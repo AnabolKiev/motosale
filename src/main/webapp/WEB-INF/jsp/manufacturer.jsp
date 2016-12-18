@@ -7,9 +7,9 @@
     <title>Технические характеристики</title>
 </head>
 <body>
-<h3>Мотокаталог</h3>
+<h3>Мотокаталог моделей ${manufacturer}</h3>
 <table>
-    <c:forEach items="${manufacturers}" var="entry">
+    <c:forEach items="${models}" var="entry">
         <tr>
             <td><a href="<c:url value="/${entry.name}"/>">${entry.name}</a></td>
         </tr>

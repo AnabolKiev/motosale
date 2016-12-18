@@ -138,8 +138,8 @@ create table ms.model (
   rearbrakes			varchar(200), 		-- 'Rear brakes:'
   rearbrakeseng			varchar(200), 		-- 'Rear brakes:'
   fronweightperc		decimal(4,1) unsigned, 	-- 'Front percentage of weight:'
-  fronsuspension		varchar(255), 		-- 'Front suspension:'
-  fronsuspensioneng		varchar(255), 		-- 'Front suspension:'
+  frontsuspension		varchar(255), 		-- 'Front suspension:'
+  frontsuspensioneng		varchar(255), 		-- 'Front suspension:'
   fronttravel			smallint,			-- 'Front wheel travel:'
   rearweightprc			decimal(4,1) unsigned, 	-- 'Rear percentage of weight:'
   rearsuspension		varchar(255), 		-- 'Rear suspension:'
@@ -174,7 +174,6 @@ create table ms.model (
   FOREIGN KEY (finaldriveID) REFERENCES ms.finaldrivetype(id) ON DELETE CASCADE,
   FOREIGN KEY (starterID) REFERENCES ms.startertype(id) ON DELETE CASCADE
 );
-
 
 drop table if exists ms.ad;
 create table ms.ad (
