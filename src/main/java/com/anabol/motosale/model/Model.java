@@ -12,36 +12,36 @@ public class Model {
     @Column(name = "Name", nullable = false, length = 100)
     private String name;
     @Column(name = "Year")
-    private int year;
-    @ManyToOne(fetch = FetchType.LAZY)
+    private Integer year;
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MANUFACTURERID", nullable = false)
     private Manufacturer manufacturer;
     @Column(name = "CategoryId")
-    private int categoryId;
+    private Integer categoryId;
     @Column(name = "boreStroke", length = 30)
     private String boreStroke;
     @Column(name = "Compression", length = 10)
     private String compression;
     @Column(name = "CoolingId")
-    private int coolingID;
+    private Integer coolingID;
     @Column(name = "Displacement")
-    private float displacement;
+    private Float displacement;
     @Column(name = "Engine", length = 255)
     private String engine;
     @Column(name = "EngineEng", length = 255)
     private String engineEng;
     @Column(name = "EngineTypeId")
-    private int enginetypeId;
+    private Integer enginetypeId;
     @Column(name = "Lubrications", length = 255)
     private String lubrications;
     @Column(name = "LubricationsEng", length = 255)
     private String lubricationsEng;
     @Column(name = "MaxRPM")
-    private int maxRPM;
+    private Integer maxRPM;
     @Column(name = "OilCapacity")
-    private float oilCapacity;
+    private Float oilCapacity;
     @Column(name = "ValvePerCylinder")
-    private int valverPerCylinder;
+    private Integer valverPerCylinder;
     @Column(name = "Frame", length = 255)
     private String frame;
     @Column(name = "FrameEng", length = 255)
@@ -51,33 +51,33 @@ public class Model {
     @Column(name = "GearboxEng", length = 30)
     private String gearboxEng;
     @Column(name = "FinalDriveId")
-    private int finaldriveId;
+    private Integer finaldriveId;
     @Column(name = "Clutch", length = 255)
     private String clutch;
     @Column(name = "ClutchEng", length = 255)
     private String clutchEng;
     @Column(name = "Height")
-    private int height;
+    private Integer height;
     @Column(name = "Length")
-    private int length;
+    private Integer length;
     @Column(name = "Width")
-    private int width;
+    private Integer width;
     @Column(name = "DryWeight")
-    private float dryWeight;
+    private Float dryWeight;
     @Column(name = "WetWeight")
-    private float wetWeight;
+    private Float wetWeight;
     @Column(name = "Wheelbase")
-    private int wheelbase;
+    private Integer wheelbase;
     @Column(name = "Clearance")
-    private int clearance;
+    private Integer clearance;
     @Column(name = "Carrying", length = 255)
     private String carrying;
     @Column(name = "CarryingEng", length = 255)
     private String carryingEng;
     @Column(name = "SeatHeight")
-    private int seatHeight;
+    private Integer seatHeight;
     @Column(name = "AltSeatHeight")
-    private int altSeatHeight;
+    private Integer altSeatHeight;
     @Column(name = "Seat", length = 255)
     private String seat;
     @Column(name = "seatEng", length = 255)
@@ -87,21 +87,21 @@ public class Model {
     @Column(name = "Torque", length = 60)
     private String torque;
     @Column(name = "PowerWeight")
-    private float powerWeight;
+    private Float powerWeight;
     @Column(name = "TopSpeed")
-    private float topSpeed;
+    private Float topSpeed;
     @Column(name = "Acceleration100")
-    private float acceleration100;
+    private Float acceleration100;
     @Column(name = "Acceleration60_140")
-    private float acceleration60_140;
+    private Float acceleration60_140;
     @Column(name = "QuoterTime")
-    private float quoterTime;
+    private Float quoterTime;
     @Column(name = "Ignition", length = 255)
     private String ignition;
     @Column(name = "IgnitionEng", length = 255)
     private String ignitionEng;
     @Column(name = "StarterId")
-    private int starterID;
+    private Integer starterID;
     @Column(name = "Light", length = 255)
     private String light;
     @Column(name = "LightEng", length = 255)
@@ -115,7 +115,7 @@ public class Model {
     @Column(name = "ExhaustEng", length = 255)
     private String exhaustEng;
     @Column(name = "CO2")
-    private float co2;
+    private Float co2;
     @Column(name = "FuelControl", length = 50)
     private String fuelControl;
     @Column(name = "FuelControlEng", length = 50)
@@ -125,39 +125,39 @@ public class Model {
     @Column(name = "FuelSystemEng", length = 300)
     private String fuelSystemEng;
     @Column(name = "FuelCapacity")
-    private float fuelCapacity;
+    private Float fuelCapacity;
     @Column(name = "ReserveFuel")
-    private float reserveFuel;
+    private Float reserveFuel;
     @Column(name = "Consumption")
-    private float consumtion;
+    private Float consumtion;
     @Column(name = "FrontBrakesDiameter")
-    private int frontBrakesDiameter;
+    private Integer frontBrakesDiameter;
     @Column(name = "FrontBrakes", length = 255)
     private String frontBrakes;
     @Column(name = "FrontBrakesEng", length = 255)
     private String frontBrakesEng;
     @Column(name = "RearBrakesDiameter")
-    private int rearBrakesDiameter;
+    private Integer rearBrakesDiameter;
     @Column(name = "RearBrakes", length = 200)
     private String rearBrakes;
     @Column(name = "RearBrakesEng", length = 200)
     private String rearBrakesEng;
     @Column(name = "FrontWeightPerc")
-    private float fronWeightPerc;
+    private Float fronWeightPerc;
     @Column(name = "FrontSuspension", length = 255)
     private String frontSuspension;
     @Column(name = "FrontSuspensionEng", length = 255)
     private String frontSuspensionEng;
     @Column(name = "FrontTravel")
-    private int frontTravel;
+    private Integer frontTravel;
     @Column(name = "RearWeightPerc")
-    private float rearWeightPerc;
+    private Float rearWeightPerc;
     @Column(name = "RearSuspension", length = 255)
     private String rearSuspension;
     @Column(name = "RearSuspensionEng", length = 255)
     private String rearSuspensionEng;
     @Column(name = "RearTravel")
-    private int rearTravel;
+    private Integer rearTravel;
     @Column(name = "FrontTyre", length = 30)
     private String frontTyre;
     @Column(name = "FrontTyreEng", length = 30)
@@ -171,9 +171,9 @@ public class Model {
     @Column(name = "WheelsEng", length = 255)
     private String wheelsEng;
     @Column(name = "Rake")
-    private float rake;
+    private Float rake;
     @Column(name = "Trail")
-    private int trail;
+    private Integer trail;
     @Column(name = "Driveline", length = 255)
     private String driveline;
     @Column(name = "DrivelineEng", length = 255)
@@ -217,11 +217,11 @@ public class Model {
         this.name = name;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -233,11 +233,11 @@ public class Model {
         this.manufacturer = manufacturer;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -257,19 +257,19 @@ public class Model {
         this.compression = compression;
     }
 
-    public int getCoolingID() {
+    public Integer getCoolingID() {
         return coolingID;
     }
 
-    public void setCoolingID(int coolingID) {
+    public void setCoolingID(Integer coolingID) {
         this.coolingID = coolingID;
     }
 
-    public float getDisplacement() {
+    public Float getDisplacement() {
         return displacement;
     }
 
-    public void setDisplacement(float displacement) {
+    public void setDisplacement(Float displacement) {
         this.displacement = displacement;
     }
 
@@ -289,11 +289,11 @@ public class Model {
         this.engineEng = engineEng;
     }
 
-    public int getEnginetypeId() {
+    public Integer getEnginetypeId() {
         return enginetypeId;
     }
 
-    public void setEnginetypeId(int enginetypeId) {
+    public void setEnginetypeId(Integer enginetypeId) {
         this.enginetypeId = enginetypeId;
     }
 
@@ -313,27 +313,27 @@ public class Model {
         this.lubricationsEng = lubricationsEng;
     }
 
-    public int getMaxRPM() {
+    public Integer getMaxRPM() {
         return maxRPM;
     }
 
-    public void setMaxRPM(int maxRPM) {
+    public void setMaxRPM(Integer maxRPM) {
         this.maxRPM = maxRPM;
     }
 
-    public float getOilCapacity() {
+    public Float getOilCapacity() {
         return oilCapacity;
     }
 
-    public void setOilCapacity(float oilCapacity) {
+    public void setOilCapacity(Float oilCapacity) {
         this.oilCapacity = oilCapacity;
     }
 
-    public int getValverPerCylinder() {
+    public Integer getValverPerCylinder() {
         return valverPerCylinder;
     }
 
-    public void setValverPerCylinder(int valverPerCylinder) {
+    public void setValverPerCylinder(Integer valverPerCylinder) {
         this.valverPerCylinder = valverPerCylinder;
     }
 
@@ -369,11 +369,11 @@ public class Model {
         this.gearboxEng = gearboxEng;
     }
 
-    public int getFinaldriveId() {
+    public Integer getFinaldriveId() {
         return finaldriveId;
     }
 
-    public void setFinaldriveId(int finaldriveId) {
+    public void setFinaldriveId(Integer finaldriveId) {
         this.finaldriveId = finaldriveId;
     }
 
@@ -393,59 +393,59 @@ public class Model {
         this.clutchEng = clutchEng;
     }
 
-    public int getHeight() {
+    public Integer getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(Integer height) {
         this.height = height;
     }
 
-    public int getLength() {
+    public Integer getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(Integer length) {
         this.length = length;
     }
 
-    public int getWidth() {
+    public Integer getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
+    public void setWidth(Integer width) {
         this.width = width;
     }
 
-    public float getDryWeight() {
+    public Float getDryWeight() {
         return dryWeight;
     }
 
-    public void setDryWeight(float dryWeight) {
+    public void setDryWeight(Float dryWeight) {
         this.dryWeight = dryWeight;
     }
 
-    public float getWetWeight() {
+    public Float getWetWeight() {
         return wetWeight;
     }
 
-    public void setWetWeight(float wetWeight) {
+    public void setWetWeight(Float wetWeight) {
         this.wetWeight = wetWeight;
     }
 
-    public int getWheelbase() {
+    public Integer getWheelbase() {
         return wheelbase;
     }
 
-    public void setWheelbase(int wheelbase) {
+    public void setWheelbase(Integer wheelbase) {
         this.wheelbase = wheelbase;
     }
 
-    public int getClearance() {
+    public Integer getClearance() {
         return clearance;
     }
 
-    public void setClearance(int clearance) {
+    public void setClearance(Integer clearance) {
         this.clearance = clearance;
     }
 
@@ -465,19 +465,19 @@ public class Model {
         this.carryingEng = carryingEng;
     }
 
-    public int getSeatHeight() {
+    public Integer getSeatHeight() {
         return seatHeight;
     }
 
-    public void setSeatHeight(int seatHeight) {
+    public void setSeatHeight(Integer seatHeight) {
         this.seatHeight = seatHeight;
     }
 
-    public int getAltSeatHeight() {
+    public Integer getAltSeatHeight() {
         return altSeatHeight;
     }
 
-    public void setAltSeatHeight(int altSeatHeight) {
+    public void setAltSeatHeight(Integer altSeatHeight) {
         this.altSeatHeight = altSeatHeight;
     }
 
@@ -513,43 +513,43 @@ public class Model {
         this.torque = torque;
     }
 
-    public float getPowerWeight() {
+    public Float getPowerWeight() {
         return powerWeight;
     }
 
-    public void setPowerWeight(float powerWeight) {
+    public void setPowerWeight(Float powerWeight) {
         this.powerWeight = powerWeight;
     }
 
-    public float getTopSpeed() {
+    public Float getTopSpeed() {
         return topSpeed;
     }
 
-    public void setTopSpeed(float topSpeed) {
+    public void setTopSpeed(Float topSpeed) {
         this.topSpeed = topSpeed;
     }
 
-    public float getAcceleration100() {
+    public Float getAcceleration100() {
         return acceleration100;
     }
 
-    public void setAcceleration100(float acceleration100) {
+    public void setAcceleration100(Float acceleration100) {
         this.acceleration100 = acceleration100;
     }
 
-    public float getAcceleration60_140() {
+    public Float getAcceleration60_140() {
         return acceleration60_140;
     }
 
-    public void setAcceleration60_140(float acceleration60_140) {
+    public void setAcceleration60_140(Float acceleration60_140) {
         this.acceleration60_140 = acceleration60_140;
     }
 
-    public float getQuoterTime() {
+    public Float getQuoterTime() {
         return quoterTime;
     }
 
-    public void setQuoterTime(float quoterTime) {
+    public void setQuoterTime(Float quoterTime) {
         this.quoterTime = quoterTime;
     }
 
@@ -569,11 +569,11 @@ public class Model {
         this.ignitionEng = ignitionEng;
     }
 
-    public int getStarterID() {
+    public Integer getStarterID() {
         return starterID;
     }
 
-    public void setStarterID(int starterID) {
+    public void setStarterID(Integer starterID) {
         this.starterID = starterID;
     }
 
@@ -625,11 +625,11 @@ public class Model {
         this.exhaustEng = exhaustEng;
     }
 
-    public float getCo2() {
+    public Float getCo2() {
         return co2;
     }
 
-    public void setCo2(float co2) {
+    public void setCo2(Float co2) {
         this.co2 = co2;
     }
 
@@ -665,35 +665,35 @@ public class Model {
         this.fuelSystemEng = fuelSystemEng;
     }
 
-    public float getFuelCapacity() {
+    public Float getFuelCapacity() {
         return fuelCapacity;
     }
 
-    public void setFuelCapacity(float fuelCapacity) {
+    public void setFuelCapacity(Float fuelCapacity) {
         this.fuelCapacity = fuelCapacity;
     }
 
-    public float getReserveFuel() {
+    public Float getReserveFuel() {
         return reserveFuel;
     }
 
-    public void setReserveFuel(float reserveFuel) {
+    public void setReserveFuel(Float reserveFuel) {
         this.reserveFuel = reserveFuel;
     }
 
-    public float getConsumtion() {
+    public Float getConsumtion() {
         return consumtion;
     }
 
-    public void setConsumtion(float consumtion) {
+    public void setConsumtion(Float consumtion) {
         this.consumtion = consumtion;
     }
 
-    public int getFrontBrakesDiameter() {
+    public Integer getFrontBrakesDiameter() {
         return frontBrakesDiameter;
     }
 
-    public void setFrontBrakesDiameter(int frontBrakesDiameter) {
+    public void setFrontBrakesDiameter(Integer frontBrakesDiameter) {
         this.frontBrakesDiameter = frontBrakesDiameter;
     }
 
@@ -713,11 +713,11 @@ public class Model {
         this.frontBrakesEng = frontBrakesEng;
     }
 
-    public int getRearBrakesDiameter() {
+    public Integer getRearBrakesDiameter() {
         return rearBrakesDiameter;
     }
 
-    public void setRearBrakesDiameter(int rearBrakesDiameter) {
+    public void setRearBrakesDiameter(Integer rearBrakesDiameter) {
         this.rearBrakesDiameter = rearBrakesDiameter;
     }
 
@@ -737,11 +737,11 @@ public class Model {
         this.rearBrakesEng = rearBrakesEng;
     }
 
-    public float getFronWeightPerc() {
+    public Float getFronWeightPerc() {
         return fronWeightPerc;
     }
 
-    public void setFronWeightPerc(float fronWeightPerc) {
+    public void setFronWeightPerc(Float fronWeightPerc) {
         this.fronWeightPerc = fronWeightPerc;
     }
 
@@ -761,19 +761,19 @@ public class Model {
         this.frontSuspensionEng = frontSuspensionEng;
     }
 
-    public int getFrontTravel() {
+    public Integer getFrontTravel() {
         return frontTravel;
     }
 
-    public void setFrontTravel(int frontTravel) {
+    public void setFrontTravel(Integer frontTravel) {
         this.frontTravel = frontTravel;
     }
 
-    public float getRearWeightPerc() {
+    public Float getRearWeightPerc() {
         return rearWeightPerc;
     }
 
-    public void setRearWeightPerc(float rearWeightPerc) {
+    public void setRearWeightPerc(Float rearWeightPerc) {
         this.rearWeightPerc = rearWeightPerc;
     }
 
@@ -793,11 +793,11 @@ public class Model {
         this.rearSuspensionEng = rearSuspensionEng;
     }
 
-    public int getRearTravel() {
+    public Integer getRearTravel() {
         return rearTravel;
     }
 
-    public void setRearTravel(int rearTravel) {
+    public void setRearTravel(Integer rearTravel) {
         this.rearTravel = rearTravel;
     }
 
@@ -849,19 +849,19 @@ public class Model {
         this.wheelsEng = wheelsEng;
     }
 
-    public float getRake() {
+    public Float getRake() {
         return rake;
     }
 
-    public void setRake(float rake) {
+    public void setRake(Float rake) {
         this.rake = rake;
     }
 
-    public int getTrail() {
+    public Integer getTrail() {
         return trail;
     }
 
-    public void setTrail(int trail) {
+    public void setTrail(Integer trail) {
         this.trail = trail;
     }
 

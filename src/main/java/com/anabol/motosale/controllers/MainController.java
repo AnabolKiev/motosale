@@ -35,7 +35,8 @@ public class MainController {
 
 	@RequestMapping(value = "/{manufacturerName}", method = RequestMethod.GET)
 	public String showManufacturerModels(@PathVariable("manufacturerName") String manufacturerName, Model model) {
-		System.out.println(manufacturerName);
+        model.addAttribute("models", Lists.newArrayList(modelRepository.findByManufacturer_Name(manufacturerName)));
+        model.addAttribute("manufacturer", manufacturerName);
 		return "manufacturer";
 	}
 }

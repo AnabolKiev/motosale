@@ -11,7 +11,11 @@
 <table>
     <c:forEach items="${models}" var="entry">
         <tr>
-            <td><a href="<c:url value="/${entry.name}"/>">${entry.name}</a></td>
+            <td><a href="<c:url value="/${manufacturer}/${entry.name}"/>">${entry.name}</a></td>
+            <td>${entry.manufacturer.name}</td>
+            <td>${entry.year}</td>
+            <td>${entry.displacement}</td>
+            <td>${entry.categoryId}</td>
         </tr>
     </c:forEach>
 </table>
