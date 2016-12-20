@@ -8,7 +8,15 @@
 </head>
 <body>
 <h3>Мотокаталог моделей ${manufacturer}</h3>
-<table>
+<table border="1" cellspacing=0>
+    <c:forEach items="${modelsShort}" var="entry">
+        <tr>
+            <td>${entry}</td>
+        </tr>
+    </c:forEach>
+</table>
+<br>
+<table border="1" cellspacing=0>
     <c:forEach items="${models}" var="entry">
         <tr>
             <td><a href="<c:url value="/${manufacturer}/${entry.name}"/>">${entry.name}</a></td>

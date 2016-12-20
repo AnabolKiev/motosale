@@ -88,7 +88,7 @@ insert into ms.model(
   rearbrakesdiameter,
   rearbrakes,
   rearbrakeseng,
-  fronweightperc,
+  frontweightperc,
   frontsuspension,
   frontsuspensioneng,
   fronttravel,
@@ -118,7 +118,7 @@ insert into ms.model(
   comments,
   commentseng
 )
-select	m.modelName, 
+select	trim(substring(m.modelname, length(mf.name)+1)),
 		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Year:'),
 		mf.id,
         c.id,

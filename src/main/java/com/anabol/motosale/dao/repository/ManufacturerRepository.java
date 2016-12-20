@@ -10,15 +10,14 @@ import java.util.List;
 
 public interface ManufacturerRepository extends CrudRepository<Manufacturer, Long> {
     @Modifying
-    @Transactional
     @Query("UPDATE Manufacturer m SET m.active = :active")
     int setActiveAll(@Param("active") boolean active);
 
     @Modifying
-    @Transactional
     @Query("UPDATE Manufacturer m SET m.active = :active WHERE m.id in :manufacturerIDs")
     int setActiveByIDs(@Param("active") boolean active, @Param("manufacturerIDs") Long[] manufacturerIDs);
 
     List<Manufacturer> findByActiveTrue();
+    List<Manufacturer> findByNameAndActiveTrue(String name);
 
 }
