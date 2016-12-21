@@ -11,7 +11,7 @@
 <table>
     <c:forEach items="${manufacturers}" var="entry">
         <tr>
-            <td><a href="<c:url value="/${entry.id}/${entry.name}"/>">${entry.name}</a></td>
+            <td><a href="<c:url value="/${entry.name}"/>">${entry.name}</a></td>
         </tr>
     </c:forEach>
 </table>

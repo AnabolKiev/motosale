@@ -14,24 +14,27 @@ public class BikeModel {
     @Column(name = "Year")
     private Integer year;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "MANUFACTURERID", nullable = false)
+    @JoinColumn(name = "ManufacturerId", nullable = false)
     private Manufacturer manufacturer;
-    @Column(name = "CategoryId")
-    private Integer categoryId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CategoryId")
+    private Category category;
     @Column(name = "boreStroke", length = 30)
     private String boreStroke;
     @Column(name = "Compression", length = 10)
     private String compression;
-    @Column(name = "CoolingId")
-    private Integer coolingID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CoolingId")
+    private CoolingType coolingType;
     @Column(name = "Displacement")
     private Float displacement;
     @Column(name = "Engine", length = 255)
     private String engine;
     @Column(name = "EngineEng", length = 255)
     private String engineEng;
-    @Column(name = "EngineTypeId")
-    private Integer enginetypeId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "EngineTypeId")
+    private EngineType engineType;
     @Column(name = "Lubrications", length = 255)
     private String lubrications;
     @Column(name = "LubricationsEng", length = 255)
@@ -50,8 +53,9 @@ public class BikeModel {
     private String gearbox;
     @Column(name = "GearboxEng", length = 30)
     private String gearboxEng;
-    @Column(name = "FinalDriveId")
-    private Integer finaldriveId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "FinalDriveId")
+    private FinalDriveType finalDriveType;
     @Column(name = "Clutch", length = 255)
     private String clutch;
     @Column(name = "ClutchEng", length = 255)
@@ -100,8 +104,9 @@ public class BikeModel {
     private String ignition;
     @Column(name = "IgnitionEng", length = 255)
     private String ignitionEng;
-    @Column(name = "StarterId")
-    private Integer starterID;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "StarterId")
+    private StarterType starterType;
     @Column(name = "Light", length = 255)
     private String light;
     @Column(name = "LightEng", length = 255)
@@ -233,12 +238,12 @@ public class BikeModel {
         this.manufacturer = manufacturer;
     }
 
-    public Integer getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getBoreStroke() {
@@ -257,12 +262,12 @@ public class BikeModel {
         this.compression = compression;
     }
 
-    public Integer getCoolingID() {
-        return coolingID;
+    public CoolingType getCoolingType() {
+        return coolingType;
     }
 
-    public void setCoolingID(Integer coolingID) {
-        this.coolingID = coolingID;
+    public void setCoolingType(CoolingType coolingType) {
+        this.coolingType = coolingType;
     }
 
     public Float getDisplacement() {
@@ -289,12 +294,12 @@ public class BikeModel {
         this.engineEng = engineEng;
     }
 
-    public Integer getEnginetypeId() {
-        return enginetypeId;
+    public EngineType getEngineType() {
+        return engineType;
     }
 
-    public void setEnginetypeId(Integer enginetypeId) {
-        this.enginetypeId = enginetypeId;
+    public void setEngineType(EngineType engineType) {
+        this.engineType = engineType;
     }
 
     public String getLubrications() {
@@ -369,12 +374,12 @@ public class BikeModel {
         this.gearboxEng = gearboxEng;
     }
 
-    public Integer getFinaldriveId() {
-        return finaldriveId;
+    public FinalDriveType getFinalDriveType() {
+        return finalDriveType;
     }
 
-    public void setFinaldriveId(Integer finaldriveId) {
-        this.finaldriveId = finaldriveId;
+    public void setFinalDriveType(FinalDriveType finalDriveType) {
+        this.finalDriveType = finalDriveType;
     }
 
     public String getClutch() {
@@ -569,12 +574,12 @@ public class BikeModel {
         this.ignitionEng = ignitionEng;
     }
 
-    public Integer getStarterID() {
-        return starterID;
+    public StarterType getStarterType() {
+        return starterType;
     }
 
-    public void setStarterID(Integer starterID) {
-        this.starterID = starterID;
+    public void setStarterType(StarterType starterType) {
+        this.starterType = starterType;
     }
 
     public String getLight() {

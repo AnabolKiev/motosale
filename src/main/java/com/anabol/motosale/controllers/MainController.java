@@ -54,4 +54,16 @@ public class MainController {
 		}
 			return "manufacturer";
 	}
+
+    @RequestMapping(value = "/{manufacturerName}/{modelName}/{modelYear}", method = RequestMethod.GET)
+    public String showModelSpecs(@PathVariable("manufacturerName") String manufacturerName, @PathVariable("modelName") String modelName, @PathVariable("modelYear") Integer modelYear, Model model) {
+        List<Manufacturer> manufacturer = manufacturerDao.findByNameAndActiveTrue(manufacturerName);
+        if (1 == manufacturer.size() && !manufacturer.isEmpty()) {  // validation of manufacturer`s name
+            Long manufacturerId = manufacturer.get(0).getId();
+            BikeModel bikeModel = modelRepository.findByManufacturer_IdAndNameAndYearAndManufacturer_ActiveTrue(manufacturerId, modelName, modelYear);
+            model.addAttribute("model", bikeModel);
+        }
+        return "model";
+    }
+
 }
