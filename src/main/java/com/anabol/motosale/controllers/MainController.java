@@ -37,16 +37,19 @@ public class MainController {
 	@RequestMapping(value = "/{manufacturerName}", method = RequestMethod.GET)
 	public String showManufacturerModels(@PathVariable("manufacturerName") String manufacturerName, Model model) {
 		List<Manufacturer> manufacturer = manufacturerDao.findByNameAndActiveTrue(manufacturerName);
-		if (1 == manufacturer.size() && !manufacturer.isEmpty()) {
+		if (1 == manufacturer.size() && !manufacturer.isEmpty()) {  // validation of manufacturer`s name
 			Long manufacturerId = manufacturer.get(0).getId();
 			List<BikeModel> modelList = modelRepository.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
-			Set<String> modelNameSet = new TreeSet<String>();
 			Iterator<BikeModel> modelIterator = modelList.iterator();
+			Map<String, Set<Integer>> modelMap = new TreeMap(); 	// Sorted map. Key - unique models, Values - years
 			while (modelIterator.hasNext()) {
-				modelNameSet.add(modelIterator.next().getName());
+				BikeModel bikeModel = modelIterator.next();
+				if (!modelMap.containsKey(bikeModel.getName())) {  	// create new record in map
+					modelMap.put(bikeModel.getName(), new TreeSet<Integer>());
+				}
+				modelMap.get(bikeModel.getName()).add(bikeModel.getYear());  // adding year
 			}
-			model.addAttribute("modelsShort", modelNameSet);
-			model.addAttribute("models", modelList);
+			model.addAttribute("modelMap", modelMap);
 			model.addAttribute("manufacturer", manufacturerName);
 		}
 			return "manufacturer";

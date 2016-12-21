@@ -8,22 +8,13 @@
 </head>
 <body>
 <h3>Мотокаталог моделей ${manufacturer}</h3>
-<table border="1" cellspacing=0>
-    <c:forEach items="${modelsShort}" var="entry">
+<table>
+    <c:forEach items="${modelMap}" var="entry">
         <tr>
-            <td>${entry}</td>
-        </tr>
-    </c:forEach>
-</table>
-<br>
-<table border="1" cellspacing=0>
-    <c:forEach items="${models}" var="entry">
-        <tr>
-            <td><a href="<c:url value="/${manufacturer}/${entry.name}"/>">${entry.name}</a></td>
-            <td>${entry.manufacturer.name}</td>
-            <td>${entry.year}</td>
-            <td>${entry.displacement}</td>
-            <td>${entry.categoryId}</td>
+            <td>${entry.key}</td>
+            <c:forEach items="${entry.value}" var="year">
+                <td><a href="${manufacturer}/${entry.key}/${year}">${year}</a></td>
+            </c:forEach>
         </tr>
     </c:forEach>
 </table>
