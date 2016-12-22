@@ -18,6 +18,6 @@ public interface ManufacturerRepository extends CrudRepository<Manufacturer, Lon
     int setActiveByIDs(@Param("active") boolean active, @Param("manufacturerIDs") Long[] manufacturerIDs);
 
     List<Manufacturer> findByActiveTrue();
-    List<Manufacturer> findByNameAndActiveTrue(String name);
+    Manufacturer findByNameAndActiveTrue(String name);
 
 }
