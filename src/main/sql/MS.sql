@@ -174,6 +174,9 @@ create table ms.model (
   FOREIGN KEY (finaldriveID) REFERENCES ms.finaldrivetype(id) ON DELETE CASCADE,
   FOREIGN KEY (starterID) REFERENCES ms.startertype(id) ON DELETE CASCADE
 );
+drop index model_manufacturer_name_year_I on ms.model;
+create unique index model_manufacturer_name_year_I ON ms.model (manufacturerId, name, year);
+
 
 drop table if exists ms.ad;
 create table ms.ad (
