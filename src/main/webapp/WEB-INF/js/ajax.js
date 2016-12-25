@@ -22,3 +22,37 @@ function submitDictionary(source) {
     });
     return false;
 };
+
+function showModels(id) {
+    event.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: "/ajax/model/",
+        data: {manufacturerId: id},
+        success: function (data) {
+            $("#modelsTable tbody").empty();
+            $.each(data, function( index, value ) {
+                var link = "/admin/" + id + "/" + value.id;
+                var row = $("<tr><td>" + value.id + "</td><td>" + value.name + "</td><td>" +
+                    "<a href='" + link + "' onclick=showModelAttr(" + value.id + ")>"+ value.year + "</a></td></tr>");
+                $("#modelsTable").append(row);
+            });
+        }
+    });
+}
+
+function showModelAttr(id) {
+    event.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: "/ajax/modelAttr/",
+        data: {modelId: id},
+        success: function (data) {
+            $.each(data, function( key, value ) {
+                $('#modelAttrForm [name='+key+']').val(value);
+            });
+
+//            $("#modelAttrForm input[name='name']").val(data.name);
+        }
+    });
+}

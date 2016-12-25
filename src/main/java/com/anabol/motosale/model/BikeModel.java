@@ -1,16 +1,21 @@
 package com.anabol.motosale.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Model")
 public class BikeModel {
+    @JsonView(Views.AdminUi.class)
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false, precision = 5, scale = 0)
     private Long id;
+    @JsonView(Views.AdminUi.class)
     @Column(name = "Name", nullable = false, length = 100)
     private String name;
+    @JsonView(Views.AdminUi.class)
     @Column(name = "Year")
     private Integer year;
     @ManyToOne(fetch = FetchType.EAGER)
