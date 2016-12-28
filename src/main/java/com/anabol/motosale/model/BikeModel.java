@@ -1,5 +1,6 @@
 package com.anabol.motosale.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;

@@ -7,14 +7,12 @@ import com.anabol.motosale.model.Views;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -61,6 +59,13 @@ public class ModelController {
     @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody BikeModel showModelAttr(@RequestParam Long modelId) throws ServletException, IOException {
         return modelDao.findOne(modelId);
+    }
+
+    @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void saveModelAttr(@RequestBody BikeModel bikeModel) throws ServletException, IOException {
+        String name = bikeModel.getName();
+        return;
     }
 
 }

@@ -63,7 +63,7 @@
                     <tr>
                         <td>Производитель</td>
                         <td>
-                            <select id="manufacturerSelect">
+                            <select id="manufacturerSelect" name="manufacturer.id">
                                 <option value="0">--- Select ---</option>
                                 <c:forEach items="${manufacturers}" var="entry">
                                 <option value="${entry.id}">${entry.name}</option>
@@ -82,7 +82,7 @@
                     <tr>
                         <td>Тип</td>
                         <td>
-                            <select id="categorySelect">
+                            <select id="categorySelect" name="categoryId">
                                 <option value="0">--- Select ---</option>
                                 <c:forEach items="${categories}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
@@ -101,7 +101,7 @@
                     <tr>
                         <td>Тип двигателя</td>
                         <td>
-                            <select id="engineTypeSelect">
+                            <select id="engineTypeSelect" name="engineTypeId">
                                 <option value="0">--- Select ---</option>
                                 <c:forEach items="${engineTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
@@ -168,7 +168,7 @@
                     <tr>
                         <td>Охлаждение</td>
                         <td>
-                            <select id="coolingTypeSelect">
+                            <select id="coolingTypeSelect" name="coolingTypeId">
                                 <option value="0">--- Select ---</option>
                                 <c:forEach items="${coolingTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
@@ -195,7 +195,7 @@
                     <tr>
                         <td>Привод</td>
                         <td>
-                            <select id="finalDriveTypeSelect">
+                            <select id="finalDriveTypeSelect" name="finalDriveTypeId">
                                 <option value="0">--- Select ---</option>
                                 <c:forEach items="${finalDriveTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
@@ -310,7 +310,7 @@
                     <tr>
                         <td>Стартер</td>
                         <td>
-                            <select id="starterTypeSelect">
+                            <select id="starterTypeSelect" name="starterTypeId">
                                 <option value="0">--- Select ---</option>
                                 <c:forEach items="${starterTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
@@ -479,6 +479,9 @@
                         <td><input type="text" name="commentsEng" readonly/></td>
                     </tr>
                 </table>
+                <br>
+                <input id="saveModelAttr" type="button" value="Сохранить"/>
+                <div id="test"/>
             </form>
         </td>
     </tr>
