@@ -139,7 +139,7 @@ public class BikeModel {
     @Column(name = "ReserveFuel")
     private Float reserveFuel;
     @Column(name = "Consumption")
-    private Float consumtion;
+    private Float consumption;
     @Column(name = "FrontBrakesDiameter")
     private Integer frontBrakesDiameter;
     @Column(name = "FrontBrakes", length = 255)
@@ -153,7 +153,7 @@ public class BikeModel {
     @Column(name = "RearBrakesEng", length = 200)
     private String rearBrakesEng;
     @Column(name = "FrontWeightPerc")
-    private Float fronWeightPerc;
+    private Float frontWeightPerc;
     @Column(name = "FrontSuspension", length = 255)
     private String frontSuspension;
     @Column(name = "FrontSuspensionEng", length = 255)
@@ -691,12 +691,12 @@ public class BikeModel {
         this.reserveFuel = reserveFuel;
     }
 
-    public Float getConsumtion() {
-        return consumtion;
+    public Float getConsumption() {
+        return consumption;
     }
 
-    public void setConsumtion(Float consumtion) {
-        this.consumtion = consumtion;
+    public void setConsumption(Float consumption) {
+        this.consumption = consumption;
     }
 
     public Integer getFrontBrakesDiameter() {
@@ -747,12 +747,12 @@ public class BikeModel {
         this.rearBrakesEng = rearBrakesEng;
     }
 
-    public Float getFronWeightPerc() {
-        return fronWeightPerc;
+    public Float getFrontWeightPerc() {
+        return frontWeightPerc;
     }
 
-    public void setFronWeightPerc(Float fronWeightPerc) {
-        this.fronWeightPerc = fronWeightPerc;
+    public void setFrontWeightPerc(Float frontWeightPerc) {
+        this.frontWeightPerc = frontWeightPerc;
     }
 
     public String getFrontSuspension() {

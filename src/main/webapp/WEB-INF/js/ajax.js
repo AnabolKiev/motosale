@@ -32,10 +32,10 @@ function showModels(id) {
         success: function (data) {
             $("#modelsTable tbody").empty();
             $.each(data, function( index, value ) {
-                var link = "/admin/" + id + "/" + value.id;
-                var row = $("<tr><td>" + value.id + "</td><td>" + value.name + "</td><td>" +
-                    "<a href='" + link + "' onclick=showModelAttr(" + value.id + ")>"+ value.year + "</a></td></tr>");
-                $("#modelsTable").append(row);
+                var link = '/admin/' + id + '/' + value.id;
+                var row = $('<tr><td>' + value.id + '</td><td>' + value.name + '</td><td>' +
+                    '<a href=' + link + ' onclick=showModelAttr(' + value.id + ')>'+ value.year + '</a></td></tr>');
+                $("#modelsTable tbody").append(row);
             });
         }
     });
@@ -48,11 +48,23 @@ function showModelAttr(id) {
         url: "/ajax/modelAttr/",
         data: {modelId: id},
         success: function (data) {
+            $('#categorySelect').val(0);
+            $('#engineTypeSelect').val(0);
+            $('#coolingTypeSelect').val(0);
+            $('#finalDriveTypeSelect').val(0);
+            $('#starterTypeSelect').val(0);
             $.each(data, function( key, value ) {
-                $('#modelAttrForm [name='+key+']').val(value);
+                $('#modelAttrForm [name=' + key + ']').val(value);
+                if (this.constructor.name == 'Object') {
+                    $('#' + key + 'Select').val(this.id);
+                }
             });
-
-//            $("#modelAttrForm input[name='name']").val(data.name);
         }
     });
 }
+
+$(document).ready( function() {
+    $('#manufacturerTable a').click(function() {
+        showModels($(this).attr('value'));
+    });
+});

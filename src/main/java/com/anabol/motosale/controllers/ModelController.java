@@ -1,7 +1,6 @@
 package com.anabol.motosale.controllers;
 
-import com.anabol.motosale.dao.repository.ManufacturerRepository;
-import com.anabol.motosale.dao.repository.ModelRepository;
+import com.anabol.motosale.dao.repository.*;
 import com.anabol.motosale.model.BikeModel;
 import com.anabol.motosale.model.Manufacturer;
 import com.anabol.motosale.model.Views;
@@ -30,22 +29,37 @@ public class ModelController {
     @Inject
     private ManufacturerRepository manufacturerDao;
     @Inject
+    private CategoryRepository categoryDao;
+    @Inject
+    private CoolingTypeRepository coolingTypeDao;
+    @Inject
+    private EngineTypeRepository engineTypeDao;
+    @Inject
+    private FinalDriveTypeRepository finalDriveTypeDao;
+    @Inject
+    private StarterTypeRepository starterTypeDao;
+    @Inject
     private ModelRepository modelDao;
 
     @RequestMapping(value = "/admin/model", method = RequestMethod.GET)
     public String indexModel(Model model) {
         model.addAttribute("manufacturers", Lists.newArrayList(manufacturerDao.findAll()));
+        model.addAttribute("categories", Lists.newArrayList(categoryDao.findAll()));
+        model.addAttribute("coolingTypes", Lists.newArrayList(coolingTypeDao.findAll()));
+        model.addAttribute("engineTypes", Lists.newArrayList(engineTypeDao.findAll()));
+        model.addAttribute("finalDriveTypes", Lists.newArrayList(finalDriveTypeDao.findAll()));
+        model.addAttribute("starterTypes", Lists.newArrayList(starterTypeDao.findAll()));
         return "modelEdit";
     }
 
     @JsonView(Views.AdminUi.class)
     @RequestMapping(value = "/ajax/model/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<BikeModel> showModels(@RequestParam Long manufacturerId, HttpServletResponse response) throws ServletException, IOException {
+    public @ResponseBody List<BikeModel> showModels(@RequestParam Long manufacturerId) throws ServletException, IOException {
         return modelDao.findByManufacturer_Id(manufacturerId);
     }
 
     @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody BikeModel showModelAttr(@RequestParam Long modelId, HttpServletResponse response) throws ServletException, IOException {
+    public @ResponseBody BikeModel showModelAttr(@RequestParam Long modelId) throws ServletException, IOException {
         return modelDao.findOne(modelId);
     }
 
