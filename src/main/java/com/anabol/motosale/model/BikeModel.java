@@ -1,6 +1,7 @@
 package com.anabol.motosale.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -22,16 +23,19 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ManufacturerId", nullable = false)
     private Manufacturer manufacturer;
+    private Long manufacturerId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CategoryId")
     private Category category;
+    private Long categoryId;
     @Column(name = "boreStroke", length = 30)
     private String boreStroke;
     @Column(name = "Compression", length = 10)
     private String compression;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CoolingId")
+    @JoinColumn(name = "CoolingTypeId")
     private CoolingType coolingType;
+    private Long coolingTypeId;
     @Column(name = "Displacement")
     private Float displacement;
     @Column(name = "Engine", length = 255)
@@ -41,6 +45,7 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EngineTypeId")
     private EngineType engineType;
+    private Long engineTypeId;
     @Column(name = "Lubrications", length = 255)
     private String lubrications;
     @Column(name = "LubricationsEng", length = 255)
@@ -60,8 +65,9 @@ public class BikeModel {
     @Column(name = "GearboxEng", length = 30)
     private String gearboxEng;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FinalDriveId")
+    @JoinColumn(name = "FinalDriveTypeId")
     private FinalDriveType finalDriveType;
+    private Long finalDriveTypeId;
     @Column(name = "Clutch", length = 255)
     private String clutch;
     @Column(name = "ClutchEng", length = 255)
@@ -111,8 +117,9 @@ public class BikeModel {
     @Column(name = "IgnitionEng", length = 255)
     private String ignitionEng;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "StarterId")
+    @JoinColumn(name = "StarterTypeId")
     private StarterType starterType;
+    private Long starterTypeId;
     @Column(name = "Light", length = 255)
     private String light;
     @Column(name = "LightEng", length = 255)
@@ -244,12 +251,28 @@ public class BikeModel {
         this.manufacturer = manufacturer;
     }
 
+    public Long getManufacturerId() {
+        return manufacturerId;
+    }
+
+    public void setManufacturerId(Long manufacturerId) {
+        this.manufacturerId = manufacturerId;
+    }
+
     public Category getCategory() {
         return category;
     }
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getBoreStroke() {
@@ -274,6 +297,14 @@ public class BikeModel {
 
     public void setCoolingType(CoolingType coolingType) {
         this.coolingType = coolingType;
+    }
+
+    public Long getCoolingTypeId() {
+        return coolingTypeId;
+    }
+
+    public void setCoolingTypeId(Long coolingTypeId) {
+        this.coolingTypeId = coolingTypeId;
     }
 
     public Float getDisplacement() {
@@ -306,6 +337,14 @@ public class BikeModel {
 
     public void setEngineType(EngineType engineType) {
         this.engineType = engineType;
+    }
+
+    public Long getEngineTypeId() {
+        return engineTypeId;
+    }
+
+    public void setEngineTypeId(Long engineTypeId) {
+        this.engineTypeId = engineTypeId;
     }
 
     public String getLubrications() {
@@ -386,6 +425,14 @@ public class BikeModel {
 
     public void setFinalDriveType(FinalDriveType finalDriveType) {
         this.finalDriveType = finalDriveType;
+    }
+
+    public Long getFinalDriveTypeId() {
+        return finalDriveTypeId;
+    }
+
+    public void setFinalDriveTypeId(Long finalDriveTypeId) {
+        this.finalDriveTypeId = finalDriveTypeId;
     }
 
     public String getClutch() {
@@ -586,6 +633,14 @@ public class BikeModel {
 
     public void setStarterType(StarterType starterType) {
         this.starterType = starterType;
+    }
+
+    public Long getStarterTypeId() {
+        return starterTypeId;
+    }
+
+    public void setStarterTypeId(Long starterTypeId) {
+        this.starterTypeId = starterTypeId;
     }
 
     public String getLight() {

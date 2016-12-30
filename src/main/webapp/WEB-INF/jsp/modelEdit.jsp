@@ -63,7 +63,7 @@
                     <tr>
                         <td>Производитель</td>
                         <td>
-                            <select id="manufacturerSelect" name="manufacturer.id">
+                            <select id="manufacturerSelect" name="manufacturerId">
                                 <option value="0">--- Select ---</option>
                                 <c:forEach items="${manufacturers}" var="entry">
                                 <option value="${entry.id}">${entry.name}</option>

@@ -1,9 +1,7 @@
 package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.repository.*;
-import com.anabol.motosale.model.BikeModel;
-import com.anabol.motosale.model.Manufacturer;
-import com.anabol.motosale.model.Views;
+import com.anabol.motosale.model.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
@@ -64,8 +62,31 @@ public class ModelController {
     @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     public void saveModelAttr(@RequestBody BikeModel bikeModel) throws ServletException, IOException {
-        String name = bikeModel.getName();
-        return;
+        if (bikeModel.getManufacturerId() != null) {        // Model enrichment for dictionaries
+            Manufacturer manufacturer = manufacturerDao.findOne(bikeModel.getManufacturerId());
+            if (manufacturer != null) bikeModel.setManufacturer(manufacturer);
+        }
+        if (bikeModel.getCategoryId() != null) {
+            Category category = categoryDao.findOne(bikeModel.getCategoryId());
+            if (category != null) bikeModel.setCategory(category);
+        }
+        if (bikeModel.getCoolingTypeId() != null) {
+            CoolingType coolingType = coolingTypeDao.findOne(bikeModel.getCoolingTypeId());
+            if (coolingType != null) bikeModel.setCoolingType(coolingType);
+        }
+        if (bikeModel.getEngineTypeId() != null) {
+            EngineType engineType = engineTypeDao.findOne(bikeModel.getEngineTypeId());
+            if (engineType != null) bikeModel.setEngineType(engineType);
+        }
+        if (bikeModel.getFinalDriveTypeId() != null) {
+            FinalDriveType finalDriveType = finalDriveTypeDao.findOne(bikeModel.getFinalDriveTypeId());
+            if (finalDriveType != null) bikeModel.setFinalDriveType(finalDriveType);
+        }
+        if (bikeModel.getStarterTypeId() != null) {
+            StarterType starterType = starterTypeDao.findOne(bikeModel.getStarterTypeId());
+            if (starterType != null) bikeModel.setStarterType(starterType);
+        }
+        modelDao.save(bikeModel);
     }
 
 }

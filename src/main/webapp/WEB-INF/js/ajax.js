@@ -76,6 +76,7 @@ function showModelAttr(id) {
                 $('#modelAttrForm [name=' + key + ']').val(value);
                 if (this.constructor.name == 'Object') {
                     $('#' + key + 'Select').val(this.id);
+                    console.log('#' + key + 'Select');
                 }
             });
         }
