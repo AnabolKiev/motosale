@@ -25,21 +25,18 @@ function submitDictionary(source) {
 
 function submitModelAttr() {
     event.preventDefault();
-   // var data = $('#modelAttrForm').serialize();
     var data = {};
     $('#modelAttrForm').find(':input:not(:button)').each(function() {
         data[this.name] = $(this).val();
     });
     $('#test').text(JSON.stringify(data));
-
- //   $('#test').text(JSON.stringify($('#modelAttrForm').serializeArray()));
-     $.ajax({
-         type: "POST",
-         contentType : "application/json",
-         url: '/ajax/modelAttr/',
-         data : JSON.stringify(data),
-         dataType : "JSON"
-     });
+    $.ajax({
+        type: "POST",
+        contentType : "application/json",
+        url: '/ajax/modelAttr/',
+        data : JSON.stringify(data),
+        dataType : "JSON"
+    });
 }
 
 function showModels(id) {
@@ -84,11 +81,11 @@ function showModelAttr(id) {
 }
 
 $(document).ready( function() {
-    $('#manufacturerTable a').click(function() {
+    $('#manufacturerTable2 a').click(function() {
         showModels($(this).attr('value'));
     });
 
     $('#saveModelAttr').click(function() {
-        submitModelAttr();
+        if ($('#modelAttrForm')[0].checkValidity()) submitModelAttr();
     });
 });

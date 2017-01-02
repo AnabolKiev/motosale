@@ -24,7 +24,7 @@
     <tr valign="top">
         <td>
         <c:if test="${not empty manufacturers}">
-            <table id="manufacturerTable" border=1 cellspacing=0>
+            <table id="manufacturerTable2" border=1 cellspacing=0>
                 <thead style="background:lightgrey">
                 <tr>
                     <th>ID</th>
@@ -63,8 +63,8 @@
                     <tr>
                         <td>Производитель</td>
                         <td>
-                            <select id="manufacturerSelect" name="manufacturerId">
-                                <option value="0">--- Select ---</option>
+                            <select id="manufacturerSelect" name="manufacturerId" required>
+                                <option value="">--- Select ---</option>
                                 <c:forEach items="${manufacturers}" var="entry">
                                 <option value="${entry.id}">${entry.name}</option>
                                 </c:forEach>
@@ -73,17 +73,17 @@
                     </tr>
                     <tr>
                         <td>Имя модели</td>
-                        <td><input type="text" name="name"/></td>
+                        <td><input type="text" name="name" required/></td>
                     </tr>
                     <tr>
                         <td>Год выпуска</td>
-                        <td><input type="number" name="year"/></td>
+                        <td><input type="number" name="year" required/></td>
                     </tr>
                     <tr>
                         <td>Тип</td>
                         <td>
-                            <select id="categorySelect" name="categoryId">
-                                <option value="0">--- Select ---</option>
+                            <select id="categorySelect" name="categoryId" required>
+                                <option value="">--- Select ---</option>
                                 <c:forEach items="${categories}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
                                 </c:forEach>
@@ -102,7 +102,7 @@
                         <td>Тип двигателя</td>
                         <td>
                             <select id="engineTypeSelect" name="engineTypeId">
-                                <option value="0">--- Select ---</option>
+                                <option value="">--- Select ---</option>
                                 <c:forEach items="${engineTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
                                 </c:forEach>
@@ -111,7 +111,7 @@
                     </tr>
                     <tr>
                         <td>Объем, см3</td>
-                        <td><input type="text" name="displacement"/></td>
+                        <td><input type="text" name="displacement" required/></td>
                     </tr>
                     <tr>
                         <td>Мощность, л.с.</td>
@@ -169,7 +169,7 @@
                         <td>Охлаждение</td>
                         <td>
                             <select id="coolingTypeSelect" name="coolingTypeId">
-                                <option value="0">--- Select ---</option>
+                                <option value="">--- Select ---</option>
                                 <c:forEach items="${coolingTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
                                 </c:forEach>
@@ -196,7 +196,7 @@
                         <td>Привод</td>
                         <td>
                             <select id="finalDriveTypeSelect" name="finalDriveTypeId">
-                                <option value="0">--- Select ---</option>
+                                <option value="">--- Select ---</option>
                                 <c:forEach items="${finalDriveTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
                                 </c:forEach>
@@ -311,7 +311,7 @@
                         <td>Стартер</td>
                         <td>
                             <select id="starterTypeSelect" name="starterTypeId">
-                                <option value="0">--- Select ---</option>
+                                <option value="">--- Select ---</option>
                                 <c:forEach items="${starterTypes}" var="entry">
                                     <option value="${entry.id}">${entry.name}</option>
                                 </c:forEach>
@@ -480,7 +480,8 @@
                     </tr>
                 </table>
                 <br>
-                <input id="saveModelAttr" type="button" value="Сохранить"/>
+                <input id="saveModelAttr" type="submit" value="Сохранить"/>
+                <input id="clearModelAttr" type="reset" value="Очистить"/>
                 <div id="test"/>
             </form>
         </td>
