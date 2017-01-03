@@ -482,7 +482,6 @@
                 <br>
                 <input id="saveModelAttr" type="submit" value="Сохранить"/>
                 <input id="clearModelAttr" type="reset" value="Очистить"/>
-                <div id="test"/>
             </form>
         </td>
     </tr>

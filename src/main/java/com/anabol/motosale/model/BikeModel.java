@@ -1,8 +1,6 @@
 package com.anabol.motosale.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 
@@ -256,11 +254,11 @@ public class BikeModel {
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
-
+    @JsonIgnore
     public Long getManufacturerId() {
         return manufacturerId;
     }
-
+    @JsonProperty
     public void setManufacturerId(Long manufacturerId) {
         this.manufacturerId = manufacturerId;
     }
@@ -272,11 +270,11 @@ public class BikeModel {
     public void setCategory(Category category) {
         this.category = category;
     }
-
+    @JsonIgnore
     public Long getCategoryId() {
         return categoryId;
     }
-
+    @JsonProperty
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
@@ -304,11 +302,11 @@ public class BikeModel {
     public void setCoolingType(CoolingType coolingType) {
         this.coolingType = coolingType;
     }
-
+    @JsonIgnore
     public Long getCoolingTypeId() {
         return coolingTypeId;
     }
-
+    @JsonProperty
     public void setCoolingTypeId(Long coolingTypeId) {
         this.coolingTypeId = coolingTypeId;
     }
@@ -344,11 +342,11 @@ public class BikeModel {
     public void setEngineType(EngineType engineType) {
         this.engineType = engineType;
     }
-
+    @JsonIgnore
     public Long getEngineTypeId() {
         return engineTypeId;
     }
-
+    @JsonProperty
     public void setEngineTypeId(Long engineTypeId) {
         this.engineTypeId = engineTypeId;
     }
@@ -432,11 +430,11 @@ public class BikeModel {
     public void setFinalDriveType(FinalDriveType finalDriveType) {
         this.finalDriveType = finalDriveType;
     }
-
+    @JsonIgnore
     public Long getFinalDriveTypeId() {
         return finalDriveTypeId;
     }
-
+    @JsonProperty
     public void setFinalDriveTypeId(Long finalDriveTypeId) {
         this.finalDriveTypeId = finalDriveTypeId;
     }
@@ -640,11 +638,11 @@ public class BikeModel {
     public void setStarterType(StarterType starterType) {
         this.starterType = starterType;
     }
-
+    @JsonIgnore
     public Long getStarterTypeId() {
         return starterTypeId;
     }
-
+    @JsonProperty
     public void setStarterTypeId(Long starterTypeId) {
         this.starterTypeId = starterTypeId;
     }

@@ -26,10 +26,9 @@ function submitDictionary(source) {
 function submitModelAttr() {
     event.preventDefault();
     var data = {};
-    $('#modelAttrForm').find(':input:not(:button)').each(function() {
+    $('#modelAttrForm').find(':input').not(':button, :submit, :reset').each(function() {
         data[this.name] = $(this).val();
     });
-    $('#test').text(JSON.stringify(data));
     $.ajax({
         type: "POST",
         contentType : "application/json",
@@ -64,13 +63,11 @@ function showModelAttr(id) {
         url: "/ajax/modelAttr/",
         data: {modelId: id},
         success: function (data) {
-            $('#modelAttrForm input').val('').removeAttr('checked').removeAttr('selected');
+            $('#modelAttrForm').find(':input').not(':button,:submit,:reset,:hidden').val('').removeAttr('checked').removeAttr('selected');
             $.each(data, function( key, value ) {
                 $('#modelAttrForm [name=' + key + ']').val(value);
-                if (this.constructor.name == 'Object') {
+                if (this.constructor.name == 'Object')
                     $('#' + key + 'Select').val(this.id);
-                    console.log('#' + key + 'Select  id=' + this.id);
-                }
             });
         }
     });
