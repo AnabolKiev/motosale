@@ -23,12 +23,10 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ManufacturerId", nullable = false)
     private Manufacturer manufacturer;
-    @Transient
     private Long manufacturerId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CategoryId")
     private Category category;
-    @Transient
     private Long categoryId;
     @Column(name = "boreStroke", length = 30)
     private String boreStroke;
@@ -37,7 +35,6 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CoolingTypeId")
     private CoolingType coolingType;
-    @Transient
     private Long coolingTypeId;
     @Column(name = "Displacement")
     private Float displacement;
@@ -48,7 +45,6 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EngineTypeId")
     private EngineType engineType;
-    @Transient
     private Long engineTypeId;
     @Column(name = "Lubrications", length = 255)
     private String lubrications;
@@ -71,7 +67,6 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "FinalDriveTypeId")
     private FinalDriveType finalDriveType;
-    @Transient
     private Long finalDriveTypeId;
     @Column(name = "Clutch", length = 255)
     private String clutch;
@@ -124,7 +119,6 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "StarterTypeId")
     private StarterType starterType;
-    @Transient
     private Long starterTypeId;
     @Column(name = "Light", length = 255)
     private String light;

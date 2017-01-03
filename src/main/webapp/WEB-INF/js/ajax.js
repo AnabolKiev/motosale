@@ -64,12 +64,16 @@ function showModelAttr(id) {
         url: "/ajax/modelAttr/",
         data: {modelId: id},
         success: function (data) {
-            $('#modelAttrForm input').val('').removeAttr('checked').removeAttr('selected');
+            $('#categorySelect').val(0);
+            $('#engineTypeSelect').val(0);
+            $('#coolingTypeSelect').val(0);
+            $('#finalDriveTypeSelect').val(0);
+            $('#starterTypeSelect').val(0);
             $.each(data, function( key, value ) {
                 $('#modelAttrForm [name=' + key + ']').val(value);
                 if (this.constructor.name == 'Object') {
                     $('#' + key + 'Select').val(this.id);
-                    console.log('#' + key + 'Select  id=' + this.id);
+                    console.log('#' + key + 'Select');
                 }
             });
         }
