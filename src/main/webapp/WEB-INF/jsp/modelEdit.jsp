@@ -48,6 +48,7 @@
                     <th>ID</th>
                     <th>Модель</th>
                     <th>Год</th>
+                    <th>Удалить</th>
                 </tr>
                 </thead>
                 <tbody></tbody>

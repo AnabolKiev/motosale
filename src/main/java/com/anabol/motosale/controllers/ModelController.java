@@ -54,10 +54,17 @@ public class ModelController {
         return modelDao.findByManufacturer_Id(manufacturerId);
     }
 
+    @RequestMapping(value = "/ajax/deleteModel/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteModel(@RequestParam Long modelId) throws ServletException, IOException {
+        modelDao.delete(modelId);
+    }
+
     @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody BikeModel showModelAttr(@RequestParam Long modelId) throws ServletException, IOException {
         return modelDao.findOne(modelId);
     }
+
 
     @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)

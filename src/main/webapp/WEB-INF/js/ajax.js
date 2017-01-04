@@ -38,6 +38,18 @@ function submitModelAttr() {
     });
 }
 
+function deleteModel(id, source) {
+    event.preventDefault();
+    /*$.ajax({
+        type: "GET",
+        url: "/ajax/deleteModel/",
+        data: {modelId: id},
+        success: $('#modelsTable tr:contains(' + id + ')').remove
+    });*/
+    var selector = "#modelsTable tr:contains('" + id + "')";
+    $(selector).remove;
+}
+
 function showModels(id) {
     event.preventDefault();
     $.ajax({
@@ -49,7 +61,8 @@ function showModels(id) {
             $.each(data, function( index, value ) {
                 var link = '/admin/' + id + '/' + value.id;
                 var row = $('<tr><td>' + value.id + '</td><td>' + value.name + '</td><td>' +
-                    '<a href=' + link + ' onclick=showModelAttr(' + value.id + ')>'+ value.year + '</a></td></tr>');
+                    '<a href=' + link + ' onclick=showModelAttr(' + value.id + ')>'+ value.year + '</a></td><td>' +
+                    '<a href=' + link + ' onclick=deleteModel(' + value.id + ')>' + 'X' + '</a></td></tr>');
                 $("#modelsTable tbody").append(row);
             });
         }
