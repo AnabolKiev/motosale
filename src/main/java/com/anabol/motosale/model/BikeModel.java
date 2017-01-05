@@ -1,31 +1,42 @@
 package com.anabol.motosale.model;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Model")
 public class BikeModel {
+    @JsonView(Views.AdminUi.class)
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "Id", unique = true, nullable = false, precision = 5, scale = 0)
     private Long id;
+    @JsonView(Views.AdminUi.class)
     @Column(name = "Name", nullable = false, length = 100)
     private String name;
+    @JsonView(Views.AdminUi.class)
     @Column(name = "Year")
     private Integer year;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ManufacturerId", nullable = false)
     private Manufacturer manufacturer;
+    @Transient
+    private Long manufacturerId;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CategoryId")
     private Category category;
+    @Transient
+    private Long categoryId;
     @Column(name = "boreStroke", length = 30)
     private String boreStroke;
     @Column(name = "Compression", length = 10)
     private String compression;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CoolingId")
+    @JoinColumn(name = "CoolingTypeId")
     private CoolingType coolingType;
+    @Transient
+    private Long coolingTypeId;
     @Column(name = "Displacement")
     private Float displacement;
     @Column(name = "Engine", length = 255)
@@ -35,6 +46,8 @@ public class BikeModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EngineTypeId")
     private EngineType engineType;
+    @Transient
+    private Long engineTypeId;
     @Column(name = "Lubrications", length = 255)
     private String lubrications;
     @Column(name = "LubricationsEng", length = 255)
@@ -54,8 +67,10 @@ public class BikeModel {
     @Column(name = "GearboxEng", length = 30)
     private String gearboxEng;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FinalDriveId")
+    @JoinColumn(name = "FinalDriveTypeId")
     private FinalDriveType finalDriveType;
+    @Transient
+    private Long finalDriveTypeId;
     @Column(name = "Clutch", length = 255)
     private String clutch;
     @Column(name = "ClutchEng", length = 255)
@@ -105,8 +120,10 @@ public class BikeModel {
     @Column(name = "IgnitionEng", length = 255)
     private String ignitionEng;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "StarterId")
+    @JoinColumn(name = "StarterTypeId")
     private StarterType starterType;
+    @Transient
+    private Long starterTypeId;
     @Column(name = "Light", length = 255)
     private String light;
     @Column(name = "LightEng", length = 255)
@@ -134,7 +151,7 @@ public class BikeModel {
     @Column(name = "ReserveFuel")
     private Float reserveFuel;
     @Column(name = "Consumption")
-    private Float consumtion;
+    private Float consumption;
     @Column(name = "FrontBrakesDiameter")
     private Integer frontBrakesDiameter;
     @Column(name = "FrontBrakes", length = 255)
@@ -148,7 +165,7 @@ public class BikeModel {
     @Column(name = "RearBrakesEng", length = 200)
     private String rearBrakesEng;
     @Column(name = "FrontWeightPerc")
-    private Float fronWeightPerc;
+    private Float frontWeightPerc;
     @Column(name = "FrontSuspension", length = 255)
     private String frontSuspension;
     @Column(name = "FrontSuspensionEng", length = 255)
@@ -237,6 +254,14 @@ public class BikeModel {
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
+    @JsonIgnore
+    public Long getManufacturerId() {
+        return manufacturerId;
+    }
+    @JsonProperty
+    public void setManufacturerId(Long manufacturerId) {
+        this.manufacturerId = manufacturerId;
+    }
 
     public Category getCategory() {
         return category;
@@ -244,6 +269,14 @@ public class BikeModel {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+    @JsonIgnore
+    public Long getCategoryId() {
+        return categoryId;
+    }
+    @JsonProperty
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getBoreStroke() {
@@ -268,6 +301,14 @@ public class BikeModel {
 
     public void setCoolingType(CoolingType coolingType) {
         this.coolingType = coolingType;
+    }
+    @JsonIgnore
+    public Long getCoolingTypeId() {
+        return coolingTypeId;
+    }
+    @JsonProperty
+    public void setCoolingTypeId(Long coolingTypeId) {
+        this.coolingTypeId = coolingTypeId;
     }
 
     public Float getDisplacement() {
@@ -300,6 +341,14 @@ public class BikeModel {
 
     public void setEngineType(EngineType engineType) {
         this.engineType = engineType;
+    }
+    @JsonIgnore
+    public Long getEngineTypeId() {
+        return engineTypeId;
+    }
+    @JsonProperty
+    public void setEngineTypeId(Long engineTypeId) {
+        this.engineTypeId = engineTypeId;
     }
 
     public String getLubrications() {
@@ -380,6 +429,14 @@ public class BikeModel {
 
     public void setFinalDriveType(FinalDriveType finalDriveType) {
         this.finalDriveType = finalDriveType;
+    }
+    @JsonIgnore
+    public Long getFinalDriveTypeId() {
+        return finalDriveTypeId;
+    }
+    @JsonProperty
+    public void setFinalDriveTypeId(Long finalDriveTypeId) {
+        this.finalDriveTypeId = finalDriveTypeId;
     }
 
     public String getClutch() {
@@ -581,6 +638,14 @@ public class BikeModel {
     public void setStarterType(StarterType starterType) {
         this.starterType = starterType;
     }
+    @JsonIgnore
+    public Long getStarterTypeId() {
+        return starterTypeId;
+    }
+    @JsonProperty
+    public void setStarterTypeId(Long starterTypeId) {
+        this.starterTypeId = starterTypeId;
+    }
 
     public String getLight() {
         return light;
@@ -686,12 +751,12 @@ public class BikeModel {
         this.reserveFuel = reserveFuel;
     }
 
-    public Float getConsumtion() {
-        return consumtion;
+    public Float getConsumption() {
+        return consumption;
     }
 
-    public void setConsumtion(Float consumtion) {
-        this.consumtion = consumtion;
+    public void setConsumption(Float consumption) {
+        this.consumption = consumption;
     }
 
     public Integer getFrontBrakesDiameter() {
@@ -742,12 +807,12 @@ public class BikeModel {
         this.rearBrakesEng = rearBrakesEng;
     }
 
-    public Float getFronWeightPerc() {
-        return fronWeightPerc;
+    public Float getFrontWeightPerc() {
+        return frontWeightPerc;
     }
 
-    public void setFronWeightPerc(Float fronWeightPerc) {
-        this.fronWeightPerc = fronWeightPerc;
+    public void setFrontWeightPerc(Float frontWeightPerc) {
+        this.frontWeightPerc = frontWeightPerc;
     }
 
     public String getFrontSuspension() {

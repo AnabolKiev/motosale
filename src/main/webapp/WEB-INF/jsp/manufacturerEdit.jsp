@@ -12,10 +12,9 @@
 </head>
 <body>
 <h3>Производители</h3>
-<a href="<c:url value="/"/>">Главная</a>
-<br>
+<a href="<c:url value="/"/>">Главная</a> |
 <a href="/admin/">Панель администратора</a>
-
+<br>
 <form:form method="POST" action="/admin/manufacturer/" commandName="manufacturer">
     <form:hidden path="id"/>
     <table>

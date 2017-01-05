@@ -77,7 +77,7 @@ create table ms.model (
   categoryID			int, 				-- 'Category:'
   borestroke			varchar(30), 		-- 'Bore x stroke:'
   compression			varchar(10), 		-- 'Compression:'
-  coolingID				int, 				-- 'Cooling system:'
+  coolingTypeID				int, 				-- 'Cooling system:'
   displacement			decimal(7,2) unsigned, 	-- 'Displacement:'
   engine				varchar(255), 		-- 'Engine details:'
   engineeng				varchar(255), 		-- 'Engine details:'
@@ -91,7 +91,7 @@ create table ms.model (
   frameeng				varchar(255), 		-- 'Frame type:'
   gearbox				varchar(30), 		-- 'Gearbox:'
   gearboxeng			varchar(30), 		-- 'Gearbox:'
-  finaldriveID			int, 				-- 'Transmission type, final drive:'
+  finaldriveTypeID			int, 				-- 'Transmission type, final drive:'
   clutch				varchar(255), 		-- 'Clutch:'
   clutcheng				varchar(255), 		-- 'Clutch:'
   height				int unsigned, 	-- 'Overall height:'
@@ -116,7 +116,7 @@ create table ms.model (
   quotertime			decimal(6,3) unsigned, 	-- '1/4 mile (0.4 km):'
   ignition				varchar(255), 		-- 'Ignition:'
   ignitioneng			varchar(255), 		-- 'Ignition:'
-  starterID				int, 				-- 'Starter:'
+  starterTypeID				int, 				-- 'Starter:'
   light					varchar(255), 		-- 'Light:'
   lighteng				varchar(255), 		-- 'Light:'
   emission				varchar(255), 		-- 'Emission details:'
@@ -169,14 +169,15 @@ create table ms.model (
 
   FOREIGN KEY (manufacturerId) REFERENCES ms.manufacturer(id) ON DELETE CASCADE,
   FOREIGN KEY (categoryID) REFERENCES ms.category(id) ON DELETE CASCADE,
-  FOREIGN KEY (coolingID) REFERENCES ms.coolingtype(id) ON DELETE CASCADE,
-  FOREIGN KEY (enginetypeID) REFERENCES ms.enginetype(id) ON DELETE CASCADE,
-  FOREIGN KEY (finaldriveID) REFERENCES ms.finaldrivetype(id) ON DELETE CASCADE,
-  FOREIGN KEY (starterID) REFERENCES ms.startertype(id) ON DELETE CASCADE
+  FOREIGN KEY (coolingTypeID) REFERENCES ms.coolingtype(id) ON DELETE CASCADE,
+  FOREIGN KEY (engineTypeID) REFERENCES ms.enginetype(id) ON DELETE CASCADE,
+  FOREIGN KEY (finaldriveTypeID) REFERENCES ms.finaldrivetype(id) ON DELETE CASCADE,
+  FOREIGN KEY (starterTypeID) REFERENCES ms.startertype(id) ON DELETE CASCADE
 );
 drop index model_manufacturer_name_year_I on ms.model;
 create unique index model_manufacturer_name_year_I ON ms.model (manufacturerId, name, year);
 
+alter table model change column starterID starterTypeID int;
 
 drop table if exists ms.ad;
 create table ms.ad (

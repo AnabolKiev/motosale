@@ -16,6 +16,8 @@
     <br>
     <a href="/admin/manufacturer">Производители</a>
     <br>
+    <a href="/admin/model">Модели</a>
+    <br>
     <a href="/admin/dictionary">Справочники</a>
 </body>
 </html>
