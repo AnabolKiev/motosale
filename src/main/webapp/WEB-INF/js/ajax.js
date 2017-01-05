@@ -38,16 +38,18 @@ function submitModelAttr() {
     });
 }
 
-function deleteModel(id, source) {
+function deleteModel(id) {
     event.preventDefault();
-    /*$.ajax({
+    $.ajax({
         type: "GET",
         url: "/ajax/deleteModel/",
         data: {modelId: id},
-        success: $('#modelsTable tr:contains(' + id + ')').remove
-    });*/
-    var selector = "#modelsTable tr:contains('" + id + "')";
-    $(selector).remove;
+        success: $('#modelsTable tr').each(function(){
+            if($(this).find('td').eq(0).text() == id){
+                $(this).remove();
+            }
+        })
+    });
 }
 
 function showModels(id) {

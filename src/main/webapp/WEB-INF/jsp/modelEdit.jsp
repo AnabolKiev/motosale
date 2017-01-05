@@ -112,7 +112,7 @@
                     </tr>
                     <tr>
                         <td>Объем, см3</td>
-                        <td><input type="text" name="displacement" required/></td>
+                        <td><input type="text" name="displacement"/></td>
                     </tr>
                     <tr>
                         <td>Мощность, л.с.</td>
