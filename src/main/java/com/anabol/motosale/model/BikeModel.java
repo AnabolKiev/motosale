@@ -18,12 +18,12 @@ public class BikeModel {
     @JsonView(Views.AdminUi.class)
     @Column(name = "Year")
     private Integer year;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ManufacturerId", nullable = false)
     private Manufacturer manufacturer;
     @Transient
     private Long manufacturerId;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CategoryId")
     private Category category;
     @Transient
@@ -32,7 +32,7 @@ public class BikeModel {
     private String boreStroke;
     @Column(name = "Compression", length = 10)
     private String compression;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CoolingTypeId")
     private CoolingType coolingType;
     @Transient
@@ -43,7 +43,7 @@ public class BikeModel {
     private String engine;
     @Column(name = "EngineEng", length = 255)
     private String engineEng;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "EngineTypeId")
     private EngineType engineType;
     @Transient
@@ -66,7 +66,7 @@ public class BikeModel {
     private String gearbox;
     @Column(name = "GearboxEng", length = 30)
     private String gearboxEng;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FinalDriveTypeId")
     private FinalDriveType finalDriveType;
     @Transient
@@ -119,7 +119,7 @@ public class BikeModel {
     private String ignition;
     @Column(name = "IgnitionEng", length = 255)
     private String ignitionEng;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StarterTypeId")
     private StarterType starterType;
     @Transient

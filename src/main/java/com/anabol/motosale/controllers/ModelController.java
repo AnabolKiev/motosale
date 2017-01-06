@@ -5,6 +5,7 @@ import com.anabol.motosale.model.*;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import org.hibernate.Hibernate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -62,9 +63,15 @@ public class ModelController {
 
     @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody BikeModel showModelAttr(@RequestParam Long modelId) throws ServletException, IOException {
-        return modelDao.findOne(modelId);
+        BikeModel bikeModel = modelDao.findOne(modelId);
+        Hibernate.initialize(bikeModel.getManufacturer());  // initialization of proxy objects
+        Hibernate.initialize(bikeModel.getCategory());
+        Hibernate.initialize(bikeModel.getCoolingType());
+        Hibernate.initialize(bikeModel.getEngineType());
+        Hibernate.initialize(bikeModel.getFinalDriveType());
+        Hibernate.initialize(bikeModel.getStarterType());
+        return bikeModel;
     }
-
 
     @RequestMapping(value = "/ajax/modelAttr/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)

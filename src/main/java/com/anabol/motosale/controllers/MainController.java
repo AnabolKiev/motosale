@@ -6,6 +6,7 @@ import com.anabol.motosale.dao.repository.ModelRepository;
 import com.anabol.motosale.model.BikeModel;
 import com.anabol.motosale.model.Manufacturer;
 import com.google.common.collect.Lists;
+import org.hibernate.Hibernate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -71,6 +72,11 @@ public class MainController {
         Long manufacturerId = manufacturer.getId();
         BikeModel bikeModel = modelRepository.findByManufacturer_IdAndNameAndYearAndManufacturer_ActiveTrue(manufacturerId, modelName, modelYear);
 		if (bikeModel == null) throw new PageNotFoundException(); // validation of model
+		Hibernate.initialize(bikeModel.getCategory());  // initialization of proxy objects
+		Hibernate.initialize(bikeModel.getCoolingType());
+		Hibernate.initialize(bikeModel.getEngineType());
+		Hibernate.initialize(bikeModel.getFinalDriveType());
+		Hibernate.initialize(bikeModel.getStarterType());
 		model.addAttribute("model", bikeModel);
         return "model";
     }
