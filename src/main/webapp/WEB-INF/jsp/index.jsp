@@ -4,9 +4,16 @@
 
 <html>
 <head>
+    <meta charset="UTF-8" />
     <title>Технические характеристики</title>
+    <script src="https://unpkg.com/react@latest/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <script type="text/babel" src="js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+<div id="test"></div>
 <h3>Мотокаталог</h3>
 <table>
     <c:forEach items="${manufacturers}" var="entry">

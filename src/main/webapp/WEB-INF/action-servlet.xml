@@ -16,6 +16,7 @@
     <mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
 	<mvc:resources location="WEB-INF/js/" mapping="/js/**" />
+	<mvc:resources location="WEB-INF/css/" mapping="/css/**" />
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
