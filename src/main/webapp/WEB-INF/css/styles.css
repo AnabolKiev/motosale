@@ -49,3 +49,7 @@ button:hover {
 button:focus {
     outline: none;
 }
+
+td {
+    vertical-align: top;
+}

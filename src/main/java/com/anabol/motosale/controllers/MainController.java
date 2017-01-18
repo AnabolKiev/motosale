@@ -1,6 +1,7 @@
 package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.AdDao;
+import com.anabol.motosale.dao.repository.CategoryRepository;
 import com.anabol.motosale.dao.repository.ManufacturerRepository;
 import com.anabol.motosale.dao.repository.ModelRepository;
 import com.anabol.motosale.model.BikeModel;
@@ -32,6 +33,8 @@ public class MainController {
 	private ManufacturerRepository manufacturerDao;
 	@Inject
 	private ModelRepository modelRepository;
+	@Inject
+	private CategoryRepository categoryDao;
 
 	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such page")  // 404
 	public class PageNotFoundException extends RuntimeException {
@@ -41,6 +44,7 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
 		model.addAttribute("manufacturers", Lists.newArrayList(manufacturerDao.findByActiveTrue()));
+		model.addAttribute("categories", Lists.newArrayList(categoryDao.findAll()));
 		return "index";
 	}
 
