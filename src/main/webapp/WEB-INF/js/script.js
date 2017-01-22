@@ -42,3 +42,24 @@ var Test = React.createClass({
 
 var test = 'Test';
 ReactDOM.render(<Test manufacturers={test} />, document.getElementById('test'));
+
+function searchModels() {
+    event.preventDefault();
+    var data = {};
+    $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
+        data[this.name] = $(this).val();
+    });
+    $.ajax({
+        type: "GET",
+        contentType : "application/json",
+        url: '/ajax/searchModels/',
+        data : data,
+        dataType : "JSON"
+    });
+}
+
+$(document).ready( function() {
+    $('#searchModels').click(function() {
+        searchModels();
+    });
+});

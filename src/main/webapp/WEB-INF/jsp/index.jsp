@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <script type="text/babel" src="js/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
@@ -19,20 +20,20 @@
             <td>
                 Поиск по параметрам
                 <div id="search">
-                    <select id="categorySelect" name="categoryId" required>
-                        <option value="">--- Select ---</option>
-                        <c:forEach items="${categories}" var="entry">
-                            <option value="${entry.id}">${entry.name}</option>
-                        </c:forEach>
-                    </select>
-                    <br>
-                    <input id="searchModels" type="submit" value="Поиск"/>
-
-
+                    <form id="searchForm">
+                        <select id="categorySelect" name="categoryId" required>
+                          <option value="">--- Select ---</option>
+                            <c:forEach items="${categories}" var="entry">
+                                <option value="${entry.id}">${entry.name}</option>
+                            </c:forEach>
+                        </select>
+                        <br>
+                        <input id="searchModels" type="submit" value="Поиск"/>
+                    </form>
                 </div>
             </td>
             <td>
-                <h3>Мотокаталог</h3>
+                <h3>Производители</h3>
                 <table>
                 <c:forEach items="${manufacturers}" var="entry">
                     <tr>
