@@ -7,6 +7,8 @@ import com.anabol.motosale.dao.repository.ModelRepository;
 import com.anabol.motosale.model.BikeModel;
 import com.anabol.motosale.model.Manufacturer;
 import com.google.common.collect.Lists;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -80,8 +82,8 @@ public class MainController {
 
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
-	List<BikeModel> searchModels(@RequestParam Long categoryId) throws ServletException, IOException {
-		return modelDao.findByCategory_IdAndManufacturer_ActiveTrue(categoryId);
+    Page<BikeModel> searchModels(@RequestParam Long categoryId) throws ServletException, IOException {
+		return modelDao.findByCategory_IdAndManufacturer_ActiveTrue(categoryId, new PageRequest(0, 10));
 	}
 
 }

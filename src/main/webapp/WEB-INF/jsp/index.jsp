@@ -6,15 +6,14 @@
 <head>
     <meta charset="UTF-8" />
     <title>Технические характеристики</title>
-    <script src="https://unpkg.com/react@latest/dist/react.min.js"></script>
+<%--<script src="https://unpkg.com/react@latest/dist/react.min.js"></script>
     <script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
-    <script type="text/babel" src="js/script.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script> --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
-    <div id="test"></div>
     <table>
         <tr>
             <td>
@@ -31,8 +30,7 @@
                         <input id="searchModels" type="submit" value="Поиск"/>
                     </form>
                 </div>
-            </td>
-            <td>
+                <br>
                 <h3>Производители</h3>
                 <table>
                 <c:forEach items="${manufacturers}" var="entry">
@@ -41,6 +39,9 @@
                     </tr>
                 </c:forEach>
                 </table>
+            </td>
+            <td>
+                <div id="test"></div>
             </td>
         </tr>
     </table>
