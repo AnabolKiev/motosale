@@ -1,14 +1,18 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import ReactPaginate from 'react-paginate';
+
 var Models = React.createClass({
     render:function(){
-        var models = this.props.data.map(function(model) {
+        var models = this.props.data.map(function(model, i) {
             return (
-                <tr><td>
+                <tr key={i}><td>
                     {model.name}
                 </td></tr>
             );
         });
         return(
-            <div class="modelList">
+            <div className="modelList">
                 <table>
                     <tbody>
                         {models}
@@ -22,7 +26,7 @@ var Models = React.createClass({
 var Test = React.createClass({
     render:function(){
         return(
-            <div class="searchResult">
+            <div className="searchResult">
                 Страница {this.props.data.number} из {this.props.data.totalPages}
                  <Models data={this.props.data.content}/>
             </div>
