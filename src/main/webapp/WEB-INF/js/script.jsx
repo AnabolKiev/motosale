@@ -23,16 +23,32 @@ var Models = React.createClass({
     }
 });
 
-var Test = React.createClass({
-    render:function(){
+export class SearchResult extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {data: [], offset: 0}
+    }
+
+    render() {
         return(
             <div className="searchResult">
                 Страница {this.props.data.number} из {this.props.data.totalPages}
+                <ReactPaginate previousLabel={"previous"}
+                               nextLabel={"next"}
+                               breakLabel={<a href="">...</a>}
+                               breakClassName={"break-me"}
+                               pageCount={this.props.data.number + 1}
+                               marginPagesDisplayed={2}
+                               pageRangeDisplayed={5}
+                             //  onPageChange={this.handlePageClick}
+                               containerClassName={"pagination"}
+                               subContainerClassName={"pages pagination"}
+                               activeClassName={"active"} />
                  <Models data={this.props.data.content}/>
             </div>
         );
     }
-});
+};
 
 function searchModels() {
     event.preventDefault();
@@ -47,7 +63,7 @@ function searchModels() {
         data: data,
         dataType: "JSON",
         success: function (response) {
-            ReactDOM.render(<Test data={response}/>, document.getElementById('test'))
+            ReactDOM.render(<SearchResult data={response}/>, document.getElementById('test'))
         }
     });
 }
