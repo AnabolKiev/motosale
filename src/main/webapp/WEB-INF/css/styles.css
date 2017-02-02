@@ -53,3 +53,17 @@ button:focus {
 td {
     vertical-align: top;
 }
+
+#test ul {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#test li {
+    display: inline-block;
+}
+
+#test .break a {
+    cursor: default;
+}

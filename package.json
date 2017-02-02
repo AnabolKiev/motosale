@@ -35,6 +35,7 @@
     "react-addons-create-fragment": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-paginate": "^4.1.1",
+    "react-paginate-component": "0.0.3",
     "vinyl-source-stream": "^1.1.0"
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
+import Paginator from 'react-paginate-component';
 
 var Models = React.createClass({
     render:function(){
@@ -29,6 +30,41 @@ export class SearchResult extends Component {
         this.state = {data: [], offset: 0}
     }
 
+    loadFromServer() {
+        var data = {};
+        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
+            data[this.name] = $(this).val();
+        });
+
+        $.ajax({
+            url      : '/ajax/searchModels/',
+            data     : data,
+            dataType : 'JSON',
+            type     : 'GET',
+            success: data => {
+                this.setState({data: data.content, pageCount: data.number});
+            },
+            error: (xhr, status, err) => {
+                console.error(this.props.url, status, err.toString());
+            }
+        });
+    }
+
+    componentDidMount() {
+        this.loadFromServer();
+        console.log('did mount');
+    }
+
+    handlePageClick (data) {
+        let selected = data.number;
+        let offset = Math.ceil(selected);
+        console.log(offset);
+
+        this.setState({offset: offset}, () => {
+            this.loadFromServer();
+        });
+    };
+
     render() {
         return(
             <div className="searchResult">
@@ -37,10 +73,10 @@ export class SearchResult extends Component {
                                nextLabel={"next"}
                                breakLabel={<a href="">...</a>}
                                breakClassName={"break-me"}
-                               pageCount={this.props.data.number + 1}
+                               pageCount={5}
                                marginPagesDisplayed={2}
                                pageRangeDisplayed={5}
-                             //  onPageChange={this.handlePageClick}
+                               onPageChange={this.handlePageClick}
                                containerClassName={"pagination"}
                                subContainerClassName={"pages pagination"}
                                activeClassName={"active"} />
@@ -57,11 +93,11 @@ function searchModels() {
         data[this.name] = $(this).val();
     });
     $.ajax({
-        type: "GET",
-        contentType: "application/json",
+        type: 'GET',
+        contentType: 'application/json',
         url: '/ajax/searchModels/',
         data: data,
-        dataType: "JSON",
+        dataType: 'json',
         success: function (response) {
             ReactDOM.render(<SearchResult data={response}/>, document.getElementById('test'))
         }
