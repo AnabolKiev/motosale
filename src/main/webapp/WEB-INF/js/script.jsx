@@ -5,6 +5,7 @@ import Paginator from 'react-paginate-component';
 
 export class Models extends Component{
     render(){
+        console.log('Models rendering');
         var models = this.props.data.map(function(model, i) {
             return (
                 <tr key={i}><td>
@@ -31,13 +32,20 @@ export class SearchResult extends Component {
         this.handlePageClick = this.handlePageClick.bind(this);
     }
 
+    getInitialState() {
+        console.log('Get initial state');
+    }
+
     loadFromServer() {
         var data = {};
-        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
-            data[this.name] = $(this).val();
-        });
+//        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
+//            data[this.name] = $(this).val();
+//        });
+        data['categoryId'] = this.props.categoryId;
         data['sizePerPage'] = this.state.sizePerPage;
         data['pageNumber'] = this.state.offset;
+
+        console.log('CategoryId = ' + this.props.categoryId);
 
         $.ajax({
             url      : this.props.url,
@@ -53,8 +61,18 @@ export class SearchResult extends Component {
         });
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log('Will mount');
         this.loadFromServer();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps');
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        console.log('shouldComponentUpdate');
+        return true;
     }
 
     handlePageClick(data) {
@@ -65,6 +83,7 @@ export class SearchResult extends Component {
     };
 
     render() {
+        console.log('Rendering');
         return(
             <div className="searchResult">
                 <ReactPaginate previousLabel={"previous"}
@@ -86,7 +105,9 @@ export class SearchResult extends Component {
 
 function searchModels() {
     event.preventDefault();
-    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20}/>, document.getElementById('test'))
+    var categoryId = $('#categorySelect').val();
+    console.log("Before render category = " + categoryId);
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20} categoryId={categoryId}/>, document.getElementById('test'))
 }
 
 $(document).ready( function() {
