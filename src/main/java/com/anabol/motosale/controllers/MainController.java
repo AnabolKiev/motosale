@@ -82,8 +82,8 @@ public class MainController {
 
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
-    Page<BikeModel> searchModels(@RequestParam Long categoryId) throws ServletException, IOException {
-		return modelDao.findByCategory_IdAndManufacturer_ActiveTrue(categoryId, new PageRequest(0, 10));
+    Page<BikeModel> searchModels(@RequestParam("categoryId") Long categoryId, @RequestParam("sizePerPage") Integer sizePerPage, @RequestParam("pageNumber") Integer pageNumber) throws ServletException, IOException {
+        return modelDao.findByCategory_IdAndManufacturer_ActiveTrue(categoryId, new PageRequest(pageNumber, sizePerPage));
 	}
 
 }
