@@ -27,17 +27,21 @@ export class Models extends Component{
 export class SearchResult extends Component {
     constructor(props) {
         super(props);
-        this.state = {data: [], offset: 0, sizePerPage: props.sizePerPage};
+        this.state = {data: [], categoryId: props.categoryId, offset: 0, sizePerPage: props.sizePerPage};
         this.handlePageClick = this.handlePageClick.bind(this);
+        //this.loadFromServer();
     }
 
     loadFromServer() {
         var data = {};
-        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
-            data[this.name] = $(this).val();
-        });
+//        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
+//            data[this.name] = $(this).val();
+//        });
+        data['categoryId'] = this.state.categoryId;
         data['sizePerPage'] = this.state.sizePerPage;
         data['pageNumber'] = this.state.offset;
+
+        console.log('loadFromServer CategoryId = ' + data['categoryId']);
 
         $.ajax({
             url      : this.props.url,
@@ -53,9 +57,28 @@ export class SearchResult extends Component {
         });
     }
 
-    componentDidMount() {
+    componentWillMount() {
+        console.log('componentWillMount');
         this.loadFromServer();
     }
+
+    componentWillReceiveProps(nextProps) {
+        console.log('componentWillReceiveProps. nextProprs.categoryId = ' + nextProps.categoryId);
+        if (nextProps.categoryId != this.props.categoryId) {
+            this.setState({categoryId: nextProps.categoryId});
+            this.loadFromServer();
+        }
+    }
+
+    shouldComponentUpdate(nextProps, nextState){
+        console.log('shouldComponentUpdate');
+        return true;
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        console.log('componentWillUpdate');
+    }
+
 
     handlePageClick(data) {
         let selected = data.selected;
@@ -65,6 +88,7 @@ export class SearchResult extends Component {
     };
 
     render() {
+        console.log('Rendering categoryId = ' + this.state.categoryId);
         return(
             <div className="searchResult">
                 <ReactPaginate previousLabel={"previous"}
@@ -86,7 +110,9 @@ export class SearchResult extends Component {
 
 function searchModels() {
     event.preventDefault();
-    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20}/>, document.getElementById('test'))
+    var categoryId = $('#categorySelect').val();
+    console.log('Button pushed. CategoruId = ' + categoryId);
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20} categoryId={categoryId}/>, document.getElementById('test'))
 }
 
 $(document).ready( function() {
