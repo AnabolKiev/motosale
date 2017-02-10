@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
-import Paginator from 'react-paginate-component';
 
 export class Models extends Component{
     render(){
@@ -105,6 +104,7 @@ export class SearchResult extends Component {
                                    pageCount={this.state.pageCount}
                                    marginPagesDisplayed={2}
                                    pageRangeDisplayed={2}
+                                   forcePage={this.state.offset}
                                    onPageChange={this.handlePageClick}
                                    containerClassName={"pagination"}
                                    subContainerClassName={"pages pagination"}
