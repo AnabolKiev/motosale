@@ -27,21 +27,20 @@ export class Models extends Component{
 export class SearchResult extends Component {
     constructor(props) {
         super(props);
-        this.state = {data: [], categoryId: props.categoryId, offset: 0, sizePerPage: props.sizePerPage};
+        this.state = {data: undefined, offset: 0, sizePerPage: props.sizePerPage};
         this.handlePageClick = this.handlePageClick.bind(this);
-        //this.loadFromServer();
     }
 
-    loadFromServer() {
+    loadFromServer(props, offset) {
         var data = {};
 //        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
 //            data[this.name] = $(this).val();
 //        });
-        data['categoryId'] = this.state.categoryId;
+        data['categoryId'] = props.categoryId;
         data['sizePerPage'] = this.state.sizePerPage;
-        data['pageNumber'] = this.state.offset;
+        data['pageNumber'] = offset;
 
-        console.log('loadFromServer CategoryId = ' + data['categoryId']);
+        console.log('loadFromServer ' + data['categoryId'] + ' offset=' + offset);
 
         $.ajax({
             url      : this.props.url,
@@ -49,7 +48,7 @@ export class SearchResult extends Component {
             dataType : 'JSON',
             type     : 'GET',
             success: data => {
-                this.setState({data: data.content, pageCount: data.totalPages});
+                this.setState({data: data.content, pageCount: data.totalPages, offset: offset});
             },
             error: (xhr, status, err) => {
                 console.error(this.props.url, status, err.toString());
@@ -59,14 +58,13 @@ export class SearchResult extends Component {
 
     componentWillMount() {
         console.log('componentWillMount');
-        this.loadFromServer();
+        this.loadFromServer(this.props, 0);
     }
 
     componentWillReceiveProps(nextProps) {
         console.log('componentWillReceiveProps. nextProprs.categoryId = ' + nextProps.categoryId);
         if (nextProps.categoryId != this.props.categoryId) {
-            this.setState({categoryId: nextProps.categoryId});
-            this.loadFromServer();
+            this.loadFromServer(nextProps, 0);
         }
     }
 
@@ -81,37 +79,46 @@ export class SearchResult extends Component {
 
 
     handlePageClick(data) {
-        let selected = data.selected;
-        this.setState({offset: selected}, () => {
-            this.loadFromServer();
+        this.setState({offset: data.selected}, () => {
+            this.loadFromServer(this.props, data.selected);
         });
     };
 
     render() {
-        console.log('Rendering categoryId = ' + this.state.categoryId);
-        return(
-            <div className="searchResult">
-                <ReactPaginate previousLabel={"previous"}
-                               nextLabel={"next"}
-                               breakLabel={<a href="">...</a>}
-                               breakClassName={"break-me"}
-                               pageCount={this.state.pageCount}
-                               marginPagesDisplayed={2}
-                               pageRangeDisplayed={2}
-                               onPageChange={this.handlePageClick}
-                               containerClassName={"pagination"}
-                               subContainerClassName={"pages pagination"}
-                               activeClassName={"active"} />
-                 <Models data={this.state.data}/>
-            </div>
-        );
+        console.log('Rendering ' + this.props.categoryId);
+        if (!this.state.data) {
+            return (
+                <div className="searchResult">Загрузка...</div>
+            );
+        } else
+        if (this.state.data.length == 0) {
+            return (
+                <div className="searchResult">Поиск не дал результатов</div>
+            );
+        } else {
+            return(
+                <div className="searchResult">
+                    <ReactPaginate previousLabel={"previous"}
+                                   nextLabel={"next"}
+                                   breakLabel={<a href="">...</a>}
+                                   breakClassName={"break-me"}
+                                   pageCount={this.state.pageCount}
+                                   marginPagesDisplayed={2}
+                                   pageRangeDisplayed={2}
+                                   onPageChange={this.handlePageClick}
+                                   containerClassName={"pagination"}
+                                   subContainerClassName={"pages pagination"}
+                                   activeClassName={"active"} />
+                    <Models data={this.state.data}/>
+                </div>
+            );
+        }
     }
 };
 
 function searchModels() {
     event.preventDefault();
     var categoryId = $('#categorySelect').val();
-    console.log('Button pushed. CategoruId = ' + categoryId);
     ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20} categoryId={categoryId}/>, document.getElementById('test'))
 }
 
