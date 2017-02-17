@@ -104,6 +104,7 @@ export class SearchResult extends Component {
                                    pageCount={this.state.pageCount}
                                    marginPagesDisplayed={2}
                                    pageRangeDisplayed={2}
+                                   initialPage={this.state.offset}
                                    forcePage={this.state.offset}
                                    onPageChange={this.handlePageClick}
                                    containerClassName={"pagination"}
