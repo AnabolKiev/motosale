@@ -4,10 +4,11 @@ import com.anabol.motosale.model.BikeModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface ModelRepository extends CrudRepository<BikeModel, Long>{
+public interface ModelRepository extends CrudRepository<BikeModel, Long>, JpaSpecificationExecutor<BikeModel> {
     List<BikeModel> findByManufacturer_Id(Long id);
     List<BikeModel> findByManufacturer_IdAndManufacturer_ActiveTrue(Long id);
     BikeModel findByManufacturer_IdAndNameAndYearAndManufacturer_ActiveTrue(Long manufacturerId, String modelName, Integer year);

@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+import static com.anabol.motosale.specification.BikeModelSpecification.*;
+
 @Controller
 @Transactional
 public class MainController {
@@ -83,7 +85,8 @@ public class MainController {
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
     Page<BikeModel> searchModels(@RequestParam("categoryId") Long categoryId, @RequestParam("sizePerPage") Integer sizePerPage, @RequestParam("pageNumber") Integer pageNumber) throws ServletException, IOException {
-        return modelDao.findByCategory_IdAndManufacturer_ActiveTrue(categoryId, new PageRequest(pageNumber, sizePerPage));
+        return //modelDao.findByCategory_IdAndManufacturer_ActiveTrue(categoryId, new PageRequest(pageNumber, sizePerPage));
+				modelDao.findAll(category(categoryId), new PageRequest(pageNumber, sizePerPage));
 	}
 
 }

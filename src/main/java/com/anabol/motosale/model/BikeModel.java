@@ -1,7 +1,6 @@
 package com.anabol.motosale.model;
 
 import com.fasterxml.jackson.annotation.*;
-
 import javax.persistence.*;
 
 @Entity
