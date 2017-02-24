@@ -8,7 +8,7 @@
 	<name>motosale Maven Webapp</name>
 	<url>http://maven.apache.org</url>
     <properties>
-		<jdk.version>1.6</jdk.version>
+		<jdk.version>1.8</jdk.version>
 		<spring.version>4.2.4.RELEASE</spring.version>
 		<springData.version>1.10.4.RELEASE</springData.version>
 		<jstl.version>1.2</jstl.version>
@@ -105,6 +105,14 @@
 					<server>Tomcat8</server>
 					<update>true</update>
 					<path>/</path>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>

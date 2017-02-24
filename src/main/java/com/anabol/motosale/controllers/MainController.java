@@ -62,7 +62,7 @@ public class MainController {
 		Long manufacturerId = manufacturer.getId();
 		List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
 		Iterator<BikeModel> modelIterator = modelList.iterator();
-		Map<String, Set<Integer>> modelMap = new TreeMap(); 	// Sorted map. Key - unique models, Values - years
+		Map<String, Set<Integer>> modelMap = new TreeMap<>(); 	// Sorted map. Key - unique models, Values - years
 		while (modelIterator.hasNext()) {
 			BikeModel bikeModel = modelIterator.next();
 			if (!modelMap.containsKey(bikeModel.getName())) {  	// create new record in map
@@ -89,18 +89,13 @@ public class MainController {
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
     Page<BikeModel> searchModels(@RequestParam("categoryId") final Long categoryId, @RequestParam("sizePerPage") final Integer sizePerPage, @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
-		Specification specCategory = new Specification<BikeModel>() {
+		Specification<BikeModel> spec = new Specification<BikeModel>() {
 			public Predicate toPredicate(Root<BikeModel> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
-				return cb.equal(root.get(BikeModel_.category), categoryId);
+				return cb.and(cb.equal(root.get(BikeModel_.category), categoryId),
+						      cb.equal(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active), true));
 			}
 		};
-		Specification specIsActive = new Specification<BikeModel>() {
-			public Predicate toPredicate(Root<BikeModel> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				return cb.equal(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active), true);
-			}
-		};
-
-		return modelDao.findAll(where(specCategory).and(specIsActive), new PageRequest(pageNumber, sizePerPage));
+		return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}
 
 }
