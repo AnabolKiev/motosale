@@ -129,11 +129,13 @@ $(document).ready( function() {
     });
     $('#categorySelect').multiselect({
         columns: 1,
-        placeholder: 'Выберите тип мотоцикла',
         selectAll: true,
-        checkAllText: 'Выбрать все',
-        uncheckAllText: 'Убрать все',
-        noneSelectedText: 'Не выбрано',
-        selectedText: "Выбрано # из #" //The multiselect knows to display the second # as the total
+        texts: {
+            placeholder : 'Выберите тип мотоцикла',
+            selectAll   : 'Выбрать все',
+            unselectAll : 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано'
+        }
     })
 });
