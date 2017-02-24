@@ -6,13 +6,12 @@
 <head>
     <meta charset="UTF-8" />
     <title>Технические характеристики</title>
-<%--<script src="https://unpkg.com/react@latest/dist/react.min.js"></script>
-    <script src="https://unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script> --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/jquery.multiselect.js"></script>
     <script src="js/script.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link href="css/styles.css" rel="stylesheet" type="text/css" >
+    <link href="css/jquery.multiselect.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <table>
@@ -21,7 +20,7 @@
                 Поиск по параметрам
                 <div id="search">
                     <form id="searchForm">
-                        <select id="categorySelect" name="categoryId" required>
+                        <select id="categorySelect" name="categoryId" required multiple>
                           <option value="">--- Select ---</option>
                             <c:forEach items="${categories}" var="entry">
                                 <option value="${entry.id}">${entry.name}</option>

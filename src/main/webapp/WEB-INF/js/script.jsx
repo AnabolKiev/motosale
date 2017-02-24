@@ -124,7 +124,16 @@ function searchModels() {
 }
 
 $(document).ready( function() {
-    $('#searchModels').click(function() {
+    $('#searchModels').click(function () {
         searchModels();
     });
+    $('#categorySelect').multiselect({
+        columns: 1,
+        placeholder: 'Выберите тип мотоцикла',
+        selectAll: true,
+        checkAllText: 'Выбрать все',
+        uncheckAllText: 'Убрать все',
+        noneSelectedText: 'Не выбрано',
+        selectedText: "Выбрано # из #" //The multiselect knows to display the second # as the total
+    })
 });
