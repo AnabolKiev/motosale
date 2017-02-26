@@ -89,13 +89,9 @@ public class MainController {
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
     Page<BikeModel> searchModels(@RequestParam("categoryId") final Long categoryId, @RequestParam("sizePerPage") final Integer sizePerPage, @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
-		Specification<BikeModel> spec = new Specification<BikeModel>() {
-			public Predicate toPredicate(Root<BikeModel> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
-				return cb.and(cb.equal(root.get(BikeModel_.category), categoryId),
-						      cb.equal(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active), true));
-			}
-		};
-		return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
+        Specification<BikeModel> spec = (root, query, cb) -> cb.and(cb.equal(root.get(BikeModel_.category), categoryId),
+                cb.equal(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active), true));
+        return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}
 
 }
