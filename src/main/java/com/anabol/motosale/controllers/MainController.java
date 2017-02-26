@@ -5,10 +5,13 @@ import com.anabol.motosale.dao.repository.CategoryRepository;
 import com.anabol.motosale.dao.repository.ManufacturerRepository;
 import com.anabol.motosale.dao.repository.ModelRepository;
 import com.anabol.motosale.model.BikeModel;
+import com.anabol.motosale.model.BikeModel_;
 import com.anabol.motosale.model.Manufacturer;
+import com.anabol.motosale.model.Manufacturer_;
 import com.google.common.collect.Lists;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+
+import static org.springframework.data.jpa.domain.Specifications.*;
+import javax.persistence.criteria.*;
 
 @Controller
 @Transactional
@@ -56,7 +62,7 @@ public class MainController {
 		Long manufacturerId = manufacturer.getId();
 		List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
 		Iterator<BikeModel> modelIterator = modelList.iterator();
-		Map<String, Set<Integer>> modelMap = new TreeMap(); 	// Sorted map. Key - unique models, Values - years
+		Map<String, Set<Integer>> modelMap = new TreeMap<>(); 	// Sorted map. Key - unique models, Values - years
 		while (modelIterator.hasNext()) {
 			BikeModel bikeModel = modelIterator.next();
 			if (!modelMap.containsKey(bikeModel.getName())) {  	// create new record in map
@@ -82,8 +88,10 @@ public class MainController {
 
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
-    Page<BikeModel> searchModels(@RequestParam("categoryId") Long categoryId, @RequestParam("sizePerPage") Integer sizePerPage, @RequestParam("pageNumber") Integer pageNumber) throws ServletException, IOException {
-        return modelDao.findByCategory_IdAndManufacturer_ActiveTrue(categoryId, new PageRequest(pageNumber, sizePerPage));
+    Page<BikeModel> searchModels(@RequestParam("categoryId") final Long categoryId, @RequestParam("sizePerPage") final Integer sizePerPage, @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
+        Specification<BikeModel> spec = (root, query, cb) -> cb.and(cb.equal(root.get(BikeModel_.category), categoryId),
+                cb.equal(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active), true));
+        return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}
 
 }
