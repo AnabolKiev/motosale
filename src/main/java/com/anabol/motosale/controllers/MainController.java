@@ -88,9 +88,15 @@ public class MainController {
 
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
-    Page<BikeModel> searchModels(@RequestParam("categoryId") final Long categoryId, @RequestParam("sizePerPage") final Integer sizePerPage, @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
-        Specification<BikeModel> spec = (root, query, cb) -> cb.and(cb.equal(root.get(BikeModel_.category), categoryId),
-                cb.equal(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active), true));
+    Page<BikeModel> searchModels(@RequestParam(name = "categories", required = false) final List<Long> categories, @RequestParam("sizePerPage") final Integer sizePerPage, @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
+		Specification<BikeModel> spec;
+		if (null == categories) {
+			spec = (root, query, cb) -> cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active));
+		} else {
+			spec = (root, query, cb) ->
+					cb.and(root.get(BikeModel_.category).in(categories),
+							cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active)));
+		}
         return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}
 

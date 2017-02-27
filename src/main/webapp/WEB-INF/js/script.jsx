@@ -35,7 +35,7 @@ export class SearchResult extends Component {
 //        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
 //            data[this.name] = $(this).val();
 //        });
-        data['categoryId'] = props.categoryId;
+        data['categories'] = props.categories;
         data['sizePerPage'] = this.state.sizePerPage;
         data['pageNumber'] = offset;
 
@@ -44,6 +44,7 @@ export class SearchResult extends Component {
         $.ajax({
             url      : this.props.url,
             data     : data,
+            traditional: true,
             dataType : 'JSON',
             type     : 'GET',
             success: data => {
@@ -61,8 +62,8 @@ export class SearchResult extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps. nextProprs.categoryId = ' + nextProps.categoryId);
-        if (nextProps.categoryId != this.props.categoryId) {
+        console.log('componentWillReceiveProps. nextProprs.categoryId = ' + nextProps.categories);
+        if (nextProps.categories != this.props.categories) {
             this.loadFromServer(nextProps, 0);
         }
     }
@@ -84,7 +85,7 @@ export class SearchResult extends Component {
     };
 
     render() {
-        console.log('Rendering ' + this.props.categoryId);
+        console.log('Rendering ' + this.props.categories);
         if (!this.state.data) {
             return (
                 <div className="searchResult">Загрузка...</div>
@@ -119,8 +120,8 @@ export class SearchResult extends Component {
 
 function searchModels() {
     event.preventDefault();
-    var categoryId = $('#categorySelect').val();
-    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20} categoryId={categoryId}/>, document.getElementById('test'))
+    var categories = $('#categorySelect').val();
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20} categories={categories}/>, document.getElementById('test'))
 }
 
 $(document).ready( function() {

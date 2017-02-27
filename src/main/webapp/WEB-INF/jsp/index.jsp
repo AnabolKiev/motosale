@@ -21,7 +21,6 @@
                 <div id="search">
                     <form id="searchForm">
                         <select id="categorySelect" name="categoryId" required multiple>
-                          <option value="">--- Select ---</option>
                             <c:forEach items="${categories}" var="entry">
                                 <option value="${entry.id}">${entry.name}</option>
                             </c:forEach>
