@@ -35,11 +35,10 @@ export class SearchResult extends Component {
 //        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
 //            data[this.name] = $(this).val();
 //        });
-        data['categories'] = props.categories;
+        data['category'] = props.categories;
+        data['finalDriveType'] = props.finalDriveTypes;
         data['sizePerPage'] = this.state.sizePerPage;
         data['pageNumber'] = offset;
-
-        console.log('loadFromServer ' + data['categoryId'] + ' offset=' + offset);
 
         $.ajax({
             url      : this.props.url,
@@ -62,8 +61,7 @@ export class SearchResult extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps. nextProprs.categoryId = ' + nextProps.categories);
-        if (nextProps.categories != this.props.categories) {
+        if (nextProps != this.props) {
             this.loadFromServer(nextProps, 0);
         }
     }
@@ -121,7 +119,8 @@ export class SearchResult extends Component {
 function searchModels() {
     event.preventDefault();
     var categories = $('#categorySelect').val();
-    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={20} categories={categories}/>, document.getElementById('test'))
+    var finalDriveTypes = $('#finalDriveTypeSelect').val();
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={30} categories={categories} finalDriveTypes={finalDriveTypes}/>, document.getElementById('test'))
 }
 
 $(document).ready( function() {
@@ -133,6 +132,17 @@ $(document).ready( function() {
         selectAll: true,
         texts: {
             placeholder : 'Выберите тип мотоцикла',
+            selectAll   : 'Выбрать все',
+            unselectAll : 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано'
+        }
+    });
+    $('#finalDriveTypeSelect').multiselect({
+        columns: 1,
+        selectAll: true,
+        texts: {
+            placeholder : 'Выберите тип привода',
             selectAll   : 'Выбрать все',
             unselectAll : 'Убрать все',
             noneSelected: 'Не выбрано',

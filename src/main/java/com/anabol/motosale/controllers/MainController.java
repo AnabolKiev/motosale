@@ -2,6 +2,7 @@ package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.AdDao;
 import com.anabol.motosale.dao.repository.CategoryRepository;
+import com.anabol.motosale.dao.repository.FinalDriveTypeRepository;
 import com.anabol.motosale.dao.repository.ManufacturerRepository;
 import com.anabol.motosale.dao.repository.ModelRepository;
 import com.anabol.motosale.model.BikeModel;
@@ -42,8 +43,11 @@ public class MainController {
 	private ModelRepository modelDao;
 	@Inject
 	private CategoryRepository categoryDao;
+    @Inject
+    private FinalDriveTypeRepository finalDriveTypeDao;
 
-	@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such page")  // 404
+
+    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such page")  // 404
 	public class PageNotFoundException extends RuntimeException {
 		// ...
 	}
@@ -52,6 +56,7 @@ public class MainController {
 	public String index(Model model) {
 		model.addAttribute("manufacturers", Lists.newArrayList(manufacturerDao.findByActiveTrue()));
 		model.addAttribute("categories", Lists.newArrayList(categoryDao.findAll()));
+        model.addAttribute("finalDriveTypes", Lists.newArrayList(finalDriveTypeDao.findAll()));
 		return "index";
 	}
 
@@ -88,15 +93,21 @@ public class MainController {
 
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
-    Page<BikeModel> searchModels(@RequestParam(name = "categories", required = false) final List<Long> categories, @RequestParam("sizePerPage") final Integer sizePerPage, @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
-		Specification<BikeModel> spec;
-		if (null == categories) {
-			spec = (root, query, cb) -> cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active));
-		} else {
-			spec = (root, query, cb) ->
-					cb.and(root.get(BikeModel_.category).in(categories),
-							cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active)));
-		}
+    Page<BikeModel> searchModels(@RequestParam(name = "category", required = false) final List<Long> categories,
+                                 @RequestParam(name = "finalDriveType", required = false) final List<Long> finalDriveTypes,
+                                 @RequestParam("sizePerPage") final Integer sizePerPage,
+                                 @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
+		Specification<BikeModel> spec = (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<Predicate>();   // Constructing list of parameters
+            predicates.add(cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active)));
+            if (categories != null) {
+                predicates.add(cb.and(root.get(BikeModel_.category).in(categories)));
+            }
+            if (finalDriveTypes != null) {
+                predicates.add(cb.and(root.get(BikeModel_.finalDriveType).in(finalDriveTypes)));
+            }
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+        };
         return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}
 

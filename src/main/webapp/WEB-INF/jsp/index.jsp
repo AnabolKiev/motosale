@@ -25,6 +25,11 @@
                                 <option value="${entry.id}">${entry.name}</option>
                             </c:forEach>
                         </select>
+                        <select id="finalDriveTypeSelect" name="finalDriveTypeId" required multiple>
+                            <c:forEach items="${finalDriveTypes}" var="entry">
+                                <option value="${entry.id}">${entry.name}</option>
+                            </c:forEach>
+                        </select>
                         <br>
                         <input id="searchModels" type="submit" value="Поиск"/>
                     </form>
