@@ -45,6 +45,7 @@ export class SearchResult extends Component {
 //            data[this.name] = $(this).val();
 //        });
         data['category'] = props.categories;
+        data['engineType'] = props.engineTypes;
         data['finalDriveType'] = props.finalDriveTypes;
         data['yearFrom'] = props.yearFrom;
         data['yearTo'] = props.yearTo;
@@ -132,12 +133,13 @@ export class SearchResult extends Component {
 function searchModels() {
     event.preventDefault();
     var categories = $('#categorySelect').val();
+    var engineTypes = $('#engineTypeSelect').val();
     var finalDriveTypes = $('#finalDriveTypeSelect').val();
     var yearFrom = $('#yearFromSelect').val();
     var yearTo = $('#yearToSelect').val();
     var displacementFrom = $('#displacementFromSelect').val();
     var displacementTo = $('#displacementToSelect').val();
-    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={30} categories={categories} finalDriveTypes={finalDriveTypes}
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={30} categories={categories} engineTypes={engineTypes} finalDriveTypes={finalDriveTypes}
     yearFrom={yearFrom} yearTo={yearTo} displacementFrom={displacementFrom} displacementTo={displacementTo} />, document.getElementById('test'))
 }
 
@@ -147,6 +149,18 @@ $(document).ready( function() {
         selectAll: true,
         texts: {
             placeholder : 'Выберите тип мотоцикла',
+            selectAll   : 'Выбрать все',
+            unselectAll : 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано'
+        }
+    });
+
+    $('#engineTypeSelect').multiselect({
+        columns: 1,
+        selectAll: true,
+        texts: {
+            placeholder : 'Выберите тип двигателя',
             selectAll   : 'Выбрать все',
             unselectAll : 'Убрать все',
             noneSelected: 'Не выбрано',

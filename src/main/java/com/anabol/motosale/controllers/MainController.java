@@ -1,10 +1,7 @@
 package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.AdDao;
-import com.anabol.motosale.dao.repository.CategoryRepository;
-import com.anabol.motosale.dao.repository.FinalDriveTypeRepository;
-import com.anabol.motosale.dao.repository.ManufacturerRepository;
-import com.anabol.motosale.dao.repository.ModelRepository;
+import com.anabol.motosale.dao.repository.*;
 import com.anabol.motosale.model.BikeModel;
 import com.anabol.motosale.model.BikeModel_;
 import com.anabol.motosale.model.Manufacturer;
@@ -45,7 +42,8 @@ public class MainController {
 	private CategoryRepository categoryDao;
     @Inject
     private FinalDriveTypeRepository finalDriveTypeDao;
-
+    @Inject
+    private EngineTypeRepository engineTypeDao;
 
     @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such page")  // 404
 	public class PageNotFoundException extends RuntimeException {
@@ -57,6 +55,7 @@ public class MainController {
 		model.addAttribute("manufacturers", Lists.newArrayList(manufacturerDao.findByActiveTrue()));
 		model.addAttribute("categories", Lists.newArrayList(categoryDao.findAll()));
         model.addAttribute("finalDriveTypes", Lists.newArrayList(finalDriveTypeDao.findAll()));
+        model.addAttribute("engineTypes", Lists.newArrayList(engineTypeDao.findAll()));
 		return "index";
 	}
 
@@ -94,6 +93,7 @@ public class MainController {
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
     Page<BikeModel> searchModels(@RequestParam(name = "category", required = false) final List<Long> categories,
+                                 @RequestParam(name = "engineType", required = false) final List<Long> engineTypes,
                                  @RequestParam(name = "finalDriveType", required = false) final List<Long> finalDriveTypes,
                                  @RequestParam(name = "yearFrom", required = false) final Integer yearFrom,
                                  @RequestParam(name = "yearTo", required = false) final Integer yearTo,
@@ -107,6 +107,9 @@ public class MainController {
             if (categories != null) {
                 predicates.add(root.get(BikeModel_.category).in(categories));
             }
+            if (engineTypes != null) {
+                predicates.add(root.get(BikeModel_.engineType).in(engineTypes));
+            }
             if (finalDriveTypes != null) {
                 predicates.add(root.get(BikeModel_.finalDriveType).in(finalDriveTypes));
             }
@@ -116,13 +119,13 @@ public class MainController {
             if (yearTo != null) {
                 predicates.add(cb.lessThanOrEqualTo(root.get(BikeModel_.year), yearTo));
             }
-/*            if (displacementFrom != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get(BikeModel_.displacement), displacementFrom));
+            if (displacementFrom != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("displacement"), displacementFrom));
             }
             if (displacementTo != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get(String.valueOf(BikeModel_.displacement)), displacementTo));
+                predicates.add(cb.lessThanOrEqualTo(root.get("displacement"), displacementTo));
             }
-*/            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
         return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}

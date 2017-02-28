@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="js/jquery.multiselect.js"></script>
     <script src="js/script.js"></script>
+    <link rel="shortcut icon" href="favicon.ico">
     <link href="css/styles.css" rel="stylesheet" type="text/css" >
     <link href="css/jquery.multiselect.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -36,6 +37,11 @@
                         </select>
                         <select id="yearToSelect" class="year">
                             <option value="">до</option>
+                        </select>
+                        <select id="engineTypeSelect" name="engineTypeId" required multiple>
+                            <c:forEach items="${engineTypes}" var="entry">
+                                <option value="${entry.id}">${entry.name}</option>
+                            </c:forEach>
                         </select>
                         Объем двигателя
                         <select id="displacementFromSelect" class="displacement">
