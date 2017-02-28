@@ -30,6 +30,20 @@
                                 <option value="${entry.id}">${entry.name}</option>
                             </c:forEach>
                         </select>
+                        Год
+                        <select id="yearFromSelect" class="year">
+                            <option value="">от</option>
+                        </select>
+                        <select id="yearToSelect" class="year">
+                            <option value="">до</option>
+                        </select>
+                        Объем двигателя
+                        <select id="displacementFromSelect" class="displacement">
+                            <option value="">от</option>
+                        </select>
+                        <select id="displacementToSelect" class="displacement">
+                            <option value="">до</option>
+                        </select>
                         <br>
                         <input id="searchModels" type="submit" value="Поиск"/>
                     </form>

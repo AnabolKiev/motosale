@@ -6,9 +6,18 @@ export class Models extends Component{
     render(){
         var models = this.props.data.map(function(model, i) {
             return (
-                <tr key={i}><td>
-                    {model.name}
-                </td></tr>
+                <tr key={i}>
+                    <td>
+                        {model.manufacturer.name}
+                    </td>
+                    <td>
+                        {model.name}
+                    </td>
+                    <td>
+                        {model.year}
+                    </td>
+
+                </tr>
             );
         });
         return(
@@ -37,6 +46,10 @@ export class SearchResult extends Component {
 //        });
         data['category'] = props.categories;
         data['finalDriveType'] = props.finalDriveTypes;
+        data['yearFrom'] = props.yearFrom;
+        data['yearTo'] = props.yearTo;
+        data['displacementFrom'] = props.displacementFrom;
+        data['displacementTo'] = props.displacementTo;
         data['sizePerPage'] = this.state.sizePerPage;
         data['pageNumber'] = offset;
 
@@ -120,13 +133,15 @@ function searchModels() {
     event.preventDefault();
     var categories = $('#categorySelect').val();
     var finalDriveTypes = $('#finalDriveTypeSelect').val();
-    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={30} categories={categories} finalDriveTypes={finalDriveTypes}/>, document.getElementById('test'))
+    var yearFrom = $('#yearFromSelect').val();
+    var yearTo = $('#yearToSelect').val();
+    var displacementFrom = $('#displacementFromSelect').val();
+    var displacementTo = $('#displacementToSelect').val();
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={30} categories={categories} finalDriveTypes={finalDriveTypes}
+    yearFrom={yearFrom} yearTo={yearTo} displacementFrom={displacementFrom} displacementTo={displacementTo} />, document.getElementById('test'))
 }
 
 $(document).ready( function() {
-    $('#searchModels').click(function () {
-        searchModels();
-    });
     $('#categorySelect').multiselect({
         columns: 1,
         selectAll: true,
@@ -138,6 +153,7 @@ $(document).ready( function() {
             selectedOptions: ' выбрано'
         }
     });
+
     $('#finalDriveTypeSelect').multiselect({
         columns: 1,
         selectAll: true,
@@ -148,5 +164,19 @@ $(document).ready( function() {
             noneSelected: 'Не выбрано',
             selectedOptions: ' выбрано'
         }
-    })
+    });
+
+    var thisYear = (new Date()).getFullYear();
+    for (var i = thisYear; i >= 1900; i--) {
+        $('<option>', {value: i, text: i}).appendTo('.year');
+    };
+
+    var displacementArray = [50,125,200,400,600,800,1000];
+    for (var i = 0; i < displacementArray.length; i++) {
+        $('<option>', {value: displacementArray[i], text: displacementArray[i] + ' см3'}).appendTo('.displacement');
+    }
+
+    $('#searchModels').click(function () {
+        searchModels();
+    });
 });

@@ -95,18 +95,34 @@ public class MainController {
 	public @ResponseBody
     Page<BikeModel> searchModels(@RequestParam(name = "category", required = false) final List<Long> categories,
                                  @RequestParam(name = "finalDriveType", required = false) final List<Long> finalDriveTypes,
+                                 @RequestParam(name = "yearFrom", required = false) final Integer yearFrom,
+                                 @RequestParam(name = "yearTo", required = false) final Integer yearTo,
+                                 @RequestParam(name = "displacementFrom", required = false) final Integer displacementFrom,
+                                 @RequestParam(name = "displacementTo", required = false) final Integer displacementTo,
                                  @RequestParam("sizePerPage") final Integer sizePerPage,
                                  @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
 		Specification<BikeModel> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<Predicate>();   // Constructing list of parameters
             predicates.add(cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active)));
             if (categories != null) {
-                predicates.add(cb.and(root.get(BikeModel_.category).in(categories)));
+                predicates.add(root.get(BikeModel_.category).in(categories));
             }
             if (finalDriveTypes != null) {
-                predicates.add(cb.and(root.get(BikeModel_.finalDriveType).in(finalDriveTypes)));
+                predicates.add(root.get(BikeModel_.finalDriveType).in(finalDriveTypes));
             }
-            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
+            if (yearFrom != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get(BikeModel_.year), yearFrom));
+            }
+            if (yearTo != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get(BikeModel_.year), yearTo));
+            }
+/*            if (displacementFrom != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get(BikeModel_.displacement), displacementFrom));
+            }
+            if (displacementTo != null) {
+                predicates.add(cb.lessThanOrEqualTo(root.get(String.valueOf(BikeModel_.displacement)), displacementTo));
+            }
+*/            return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
         return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}
