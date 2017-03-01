@@ -44,6 +44,7 @@ export class SearchResult extends Component {
 //        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
 //            data[this.name] = $(this).val();
 //        });
+        data['manufacturer'] = props.manufacturers;
         data['category'] = props.categories;
         data['engineType'] = props.engineTypes;
         data['finalDriveType'] = props.finalDriveTypes;
@@ -132,6 +133,7 @@ export class SearchResult extends Component {
 
 function searchModels() {
     event.preventDefault();
+    var manufacturers = $('#manufacturerSelect').val();
     var categories = $('#categorySelect').val();
     var engineTypes = $('#engineTypeSelect').val();
     var finalDriveTypes = $('#finalDriveTypeSelect').val();
@@ -139,11 +141,33 @@ function searchModels() {
     var yearTo = $('#yearToSelect').val();
     var displacementFrom = $('#displacementFromSelect').val();
     var displacementTo = $('#displacementToSelect').val();
-    ReactDOM.render(<SearchResult url='/ajax/searchModels/' sizePerPage={30} categories={categories} engineTypes={engineTypes} finalDriveTypes={finalDriveTypes}
-    yearFrom={yearFrom} yearTo={yearTo} displacementFrom={displacementFrom} displacementTo={displacementTo} />, document.getElementById('test'))
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/'
+                                  sizePerPage={30}
+                                  manufacturers={manufacturers}
+                                  categories={categories}
+                                  engineTypes={engineTypes}
+                                  finalDriveTypes={finalDriveTypes}
+                                  yearFrom={yearFrom}
+                                  yearTo={yearTo}
+                                  displacementFrom={displacementFrom}
+                                  displacementTo={displacementTo}
+    />, document.getElementById('test'))
 }
 
 $(document).ready( function() {
+    $('#manufacturerSelect').multiselect({
+        columns: 1,
+        selectAll: true,
+        search: true,
+        texts: {
+            placeholder : 'Выберите производителя',
+            selectAll   : 'Выбрать все',
+            unselectAll : 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано'
+        }
+    });
+
     $('#categorySelect').multiselect({
         columns: 1,
         selectAll: true,

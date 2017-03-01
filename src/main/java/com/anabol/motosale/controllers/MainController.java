@@ -92,7 +92,8 @@ public class MainController {
 
 	@RequestMapping(value = "/ajax/searchModels/", method = RequestMethod.GET)
 	public @ResponseBody
-    Page<BikeModel> searchModels(@RequestParam(name = "category", required = false) final List<Long> categories,
+    Page<BikeModel> searchModels(@RequestParam(name = "manufacturer", required = false) final List<Long> manufacturers,
+                                 @RequestParam(name = "category", required = false) final List<Long> categories,
                                  @RequestParam(name = "engineType", required = false) final List<Long> engineTypes,
                                  @RequestParam(name = "finalDriveType", required = false) final List<Long> finalDriveTypes,
                                  @RequestParam(name = "yearFrom", required = false) final Integer yearFrom,
@@ -104,6 +105,9 @@ public class MainController {
 		Specification<BikeModel> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<Predicate>();   // Constructing list of parameters
             predicates.add(cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active)));
+            if (manufacturers != null) {
+                predicates.add(root.get(BikeModel_.manufacturer).in(manufacturers));
+            }
             if (categories != null) {
                 predicates.add(root.get(BikeModel_.category).in(categories));
             }
@@ -120,10 +124,10 @@ public class MainController {
                 predicates.add(cb.lessThanOrEqualTo(root.get(BikeModel_.year), yearTo));
             }
             if (displacementFrom != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("displacement"), displacementFrom));
+                predicates.add(cb.greaterThanOrEqualTo(root.get(BikeModel_.displacement), displacementFrom.floatValue()));
             }
             if (displacementTo != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("displacement"), displacementTo));
+                predicates.add(cb.lessThanOrEqualTo(root.get(BikeModel_.displacement), displacementTo.floatValue()));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
