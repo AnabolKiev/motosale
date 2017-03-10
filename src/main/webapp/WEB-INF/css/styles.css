@@ -1,6 +1,41 @@
 body {
     margin: 2em;
-    background: #E8E8E8;
+    background: #f5f7f7;
+    font-family: "Source Sans Pro", sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 30px;
+    color: #000;
+}
+
+.specs-table {
+    margin-bottom: 20px;
+}
+
+.specs-table h4 {
+    padding: 6px 15px;
+    background-color: #bec6c8;
+    font-weight: bold;
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.specs-table ul{
+    margin: 0;
+}
+
+.specs-table li{
+    float: left;
+    width: 45%;
+    margin-right: 5%;
+    padding: 6px 0!important;
+    text-align: right;
+    list-style: none;
+    clear: none!important;
+    box-sizing: border-box;
 }
 
 .photo {

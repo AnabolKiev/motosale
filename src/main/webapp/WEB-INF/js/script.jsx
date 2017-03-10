@@ -16,7 +16,6 @@ export class Models extends Component{
                     <td>
                         {model.year}
                     </td>
-
                 </tr>
             );
         });

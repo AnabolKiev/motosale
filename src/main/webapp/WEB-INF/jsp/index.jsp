@@ -7,11 +7,11 @@
     <meta charset="UTF-8" />
     <title>Технические характеристики</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/jquery.multiselect.js"></script>
-    <script src="js/script.js"></script>
-    <link href="img/favicon.ico" rel="shortcut icon">
-    <link href="css/styles.css" rel="stylesheet" type="text/css">
-    <link href="css/jquery.multiselect.css" rel="stylesheet" type="text/css">
+    <script src="/js/jquery.multiselect.js"></script>
+    <script src="/js/script.js"></script>
+    <link href="/img/favicon.ico" rel="shortcut icon">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
