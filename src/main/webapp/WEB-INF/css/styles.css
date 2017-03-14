@@ -10,11 +10,8 @@ h1 {
     color: #000;
 }
 
-.specs-table {
-    margin-bottom: 20px;
-}
-
 .specs-table h4 {
+    margin: 0 0 15px 0 !important;
     padding: 6px 15px;
     background-color: #bec6c8;
     font-weight: bold;
@@ -23,11 +20,16 @@ h1 {
     text-transform: uppercase;
 }
 
-.specs-table ul{
-    margin: 0;
+.specs-table-group {
+    margin-bottom: 20px;
 }
 
-.specs-table li{
+.specs-table ul {
+    margin: 0;
+    padding-left: 0;
+}
+
+.specs-table li {
     float: left;
     width: 45%;
     margin-right: 5%;
@@ -36,16 +38,19 @@ h1 {
     list-style: none;
     clear: none!important;
     box-sizing: border-box;
+    color: #222429;
 }
 
-.photo {
-    font-family: sans-serif;
-    font-size: 14px;
-    color: #232323;
-    margin: 1em auto;
-    padding: 1em 1em 0 1em;
-    background: white;
-    max-width: 200px;
+.specs-item-label {
+    float: left;
+    max-width: 70%;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.specs-item-value {
+    padding-left: 10px;
 }
 
 img {
@@ -62,7 +67,7 @@ img {
 }
 
 span {
-    line-height: 2.4;
+    line-height: 1.5;
 }
 
 button {
