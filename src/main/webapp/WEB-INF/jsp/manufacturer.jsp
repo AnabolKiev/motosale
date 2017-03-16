@@ -4,19 +4,29 @@
 
 <html>
 <head>
-    <title>Технические характеристики</title>
+    <meta charset="UTF-8" />
+    <title>Технические характеристики ${manufacturer}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="/img/favicon.ico" rel="shortcut icon">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h3>Мотокаталог моделей ${manufacturer}</h3>
-<table>
-    <c:forEach items="${modelMap}" var="entry">
-        <tr>
-            <td>${entry.key}</td>
-            <c:forEach items="${entry.value}" var="year">
-                <td><a href="${manufacturer}/${entry.key}/${year}">${year}</a></td>
-            </c:forEach>
-        </tr>
-    </c:forEach>
-</table>
+    <h1>Мотокаталог моделей ${manufacturer}</h1>
+    <table class="model-table">
+        <th>Модель</th>
+        <th>Год выпуска</th>
+        <c:forEach items="${modelMap}" var="entry">
+            <tr>
+                <td>${entry.key}</td>
+                <td>
+                    <ul>
+                        <c:forEach items="${entry.value}" var="year">
+                            <li><a href="/${manufacturer}/${entry.key}/${year}">${year}</a></li>
+                        </c:forEach>
+                    </ul>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>

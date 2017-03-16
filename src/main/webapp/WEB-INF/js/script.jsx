@@ -13,8 +13,10 @@ export class Models extends Component{
                     <td>
                         {model.name}
                     </td>
-                    <td>
-                        {model.year}
+                    <td className="yearColumn">
+                        <a href={'/' + model.manufacturer.name + '/' + model.name + '/' + model.year}>
+                            {model.year}
+                        </a>
                     </td>
                 </tr>
             );
@@ -23,6 +25,9 @@ export class Models extends Component{
             <div className="modelList">
                 <table>
                     <tbody>
+                        <th>Производитель</th>
+                        <th>Модель</th>
+                        <th>Год выпуска</th>
                         {models}
                     </tbody>
                 </table>
@@ -110,8 +115,9 @@ export class SearchResult extends Component {
         } else {
             return(
                 <div className="searchResult">
-                    <ReactPaginate previousLabel={"previous"}
-                                   nextLabel={"next"}
+                    <Models data={this.state.data}/>
+                    <ReactPaginate previousLabel={"назад"}
+                                   nextLabel={"вперед"}
                                    breakLabel={<a href="">...</a>}
                                    breakClassName={"break-me"}
                                    pageCount={this.state.pageCount}
@@ -123,7 +129,6 @@ export class SearchResult extends Component {
                                    containerClassName={"pagination"}
                                    subContainerClassName={"pages pagination"}
                                    activeClassName={"active"} />
-                    <Models data={this.state.data}/>
                 </div>
             );
         }
@@ -150,7 +155,7 @@ function searchModels() {
                                   yearTo={yearTo}
                                   displacementFrom={displacementFrom}
                                   displacementTo={displacementTo}
-    />, document.getElementById('test'))
+    />, document.getElementById('searchResult'))
 }
 
 $(document).ready( function() {

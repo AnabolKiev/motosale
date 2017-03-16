@@ -49,16 +49,28 @@
                                     <span class="specs-item-value">${model.compression}</span>
                                 </li>
                             </c:if>
-                            <c:if test="${not empty model.valverPerCylinder}">
+                            <c:if test="${not empty model.fuelSystem}">
                                 <li>
-                                    <span class="specs-item-label">Клапанов на цилиндр</span>
-                                    <span class="specs-item-value">${model.valverPerCylinder}</span>
+                                    <span class="specs-item-label">Топливная система</span>
+                                    <span class="specs-item-value">${model.fuelSystem}</span>
                                 </li>
                             </c:if>
                             <c:if test="${not empty model.coolingType.name}">
                                 <li>
                                     <span class="specs-item-label">Охлаждение</span>
                                     <span class="specs-item-value">${model.coolingType.name}</span>
+                                </li>
+                            </c:if>
+                            <c:if test="${not empty model.fuelControl}">
+                                <li>
+                                    <span class="specs-item-label">ГРМ</span>
+                                    <span class="specs-item-value">${model.fuelControl}</span>
+                                </li>
+                            </c:if>
+                            <c:if test="${not empty model.valverPerCylinder}">
+                                <li>
+                                    <span class="specs-item-label">Клапанов на цилиндр</span>
+                                    <span class="specs-item-value">${model.valverPerCylinder}</span>
                                 </li>
                             </c:if>
                             <c:if test="${not empty model.lubrications}">
@@ -81,7 +93,7 @@
         <tr>
             <td>
                 <div class="specs-table-group">
-                    <h4>Динамика</h4>
+                    <h4>Производительность</h4>
                     <div class="specs-value-list">
                         <ul>
                             <c:if test="${not empty model.power}">
@@ -217,13 +229,13 @@
                             </c:if>
                             <c:if test="${not empty model.rake}">
                                 <li>
-                                    <span class="specs-item-label">rake</span>
+                                    <span class="specs-item-label">Угол наклона вилки, °</span>
                                     <span class="specs-item-value">${model.rake}</span>
                                 </li>
                             </c:if>
                             <c:if test="${not empty model.trail}">
                                 <li>
-                                    <span class="specs-item-label">trail</span>
+                                    <span class="specs-item-label">Трейл, мм</span>
                                     <span class="specs-item-value">${model.trail}</span>
                                 </li>
                             </c:if>
@@ -240,26 +252,26 @@
                         <ul>
                             <c:if test="${not empty model.frontBrakes}">
                             <li>
-                                <span class="specs-item-label">Передний тормоз</span>
+                                <span class="specs-item-label">Передний</span>
                                 <span class="specs-item-value">${model.frontBrakes}</span>
                             </li>
                             <c:if test="${not empty model.rearBrakes}">
                                     <li>
-                                        <span class="specs-item-label">Задний тормоз</span>
+                                        <span class="specs-item-label">Задний</span>
                                         <span class="specs-item-value">${model.rearBrakes}</span>
                                     </li>
                                 </c:if>
                             </c:if>
                             <c:if test="${not empty model.frontBrakesDiameter}">
                                 <li>
-                                    <span class="specs-item-label">Диаметр переднего тормозного диска, мм</span>
+                                    <span class="specs-item-label">Диаметр переднего диска, мм</span>
                                     <span class="specs-item-value">${model.frontBrakesDiameter}</span>
                                 </li>
                             </c:if>
 
                             <c:if test="${not empty model.rearBrakesDiameter}">
                                 <li>
-                                    <span class="specs-item-label">Диаметр заднего тормозного диска, мм</span>
+                                    <span class="specs-item-label">Диаметр заднего диска, мм</span>
                                     <span class="specs-item-value">${model.rearBrakesDiameter}</span>
                                 </li>
                             </c:if>
@@ -276,13 +288,13 @@
                         <ul>
                             <c:if test="${not empty model.frontSuspension}">
                                 <li>
-                                    <span class="specs-item-label">Передняя подвеска</span>
+                                    <span class="specs-item-label">Передняя</span>
                                     <span class="specs-item-value">${model.frontSuspension}</span>
                                 </li>
                             </c:if>
                             <c:if test="${not empty model.rearSuspension}">
                                 <li>
-                                    <span class="specs-item-label">Задняя подвеска</span>
+                                    <span class="specs-item-label">Задняя</span>
                                     <span class="specs-item-value">${model.rearSuspension}</span>
                                 </li>
                             </c:if>
@@ -409,18 +421,6 @@
                                 <li>
                                     <span class="specs-item-label">Выхлоп</span>
                                     <span class="specs-item-value">${model.exhaust}</span>
-                                </li>
-                            </c:if>
-                            <c:if test="${not empty model.fuelControl}">
-                                <li>
-                                    <span class="specs-item-label">Контроль топлива</span>
-                                    <span class="specs-item-value">${model.fuelControl}</span>
-                                </li>
-                            </c:if>
-                            <c:if test="${not empty model.fuelSystem}">
-                                <li>
-                                    <span class="specs-item-label">Топливная система</span>
-                                    <span class="specs-item-value">${model.fuelSystem}</span>
                                 </li>
                             </c:if>
                             <c:if test="${not empty model.fuelCapacity}">
