@@ -71,9 +71,9 @@ create table ms.finaldrivetype (
 drop table if exists ms.model;
 create table ms.model (
   id					int primary key not null auto_increment,
-  name					varchar(100), 		-- 'Model:' 
-  year					smallint, 			-- 'Year:'
-  manufacturerId		int,
+  name					varchar(100) not null, 		-- 'Model:' 
+  year					smallint not null, 			-- 'Year:'
+  manufacturerId		int not null,
   categoryID			int, 				-- 'Category:'
   borestroke			varchar(30), 		-- 'Bore x stroke:'
   compression			varchar(10), 		-- 'Compression:'
@@ -116,7 +116,7 @@ create table ms.model (
   quotertime			decimal(6,3) unsigned, 	-- '1/4 mile (0.4 km):'
   ignition				varchar(255), 		-- 'Ignition:'
   ignitioneng			varchar(255), 		-- 'Ignition:'
-  starterTypeID				int, 				-- 'Starter:'
+  starterTypeIDstarterTypeID				int, 				-- 'Starter:'
   light					varchar(255), 		-- 'Light:'
   lighteng				varchar(255), 		-- 'Light:'
   emission				varchar(255), 		-- 'Emission details:'
@@ -177,7 +177,12 @@ create table ms.model (
 drop index model_manufacturer_name_year_I on ms.model;
 create unique index model_manufacturer_name_year_I ON ms.model (manufacturerId, name, year);
 
-alter table model change column starterID starterTypeID int;
+alter table model change column coolingID coolingTypeID int;
+alter table model drop foreign key starterTypeID;
+alter table model change column name name varchar(100) not null;
+alter table model change column year year smallint not null;
+alter table model change column manufacturerId manufacturerId int not null;
+
 
 drop table if exists ms.ad;
 create table ms.ad (

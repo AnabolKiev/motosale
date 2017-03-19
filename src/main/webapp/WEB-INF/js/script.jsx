@@ -105,30 +105,32 @@ export class SearchResult extends Component {
         console.log('Rendering ' + this.props.categories);
         if (!this.state.data) {
             return (
-                <div className="searchResult">Загрузка...</div>
+                <div>Загрузка...</div>
             );
         } else
         if (this.state.data.length == 0) {
             return (
-                <div className="searchResult">Поиск не дал результатов</div>
+                <div>Поиск не дал результатов</div>
             );
         } else {
             return(
-                <div className="searchResult">
+                <div>
                     <Models data={this.state.data}/>
-                    <ReactPaginate previousLabel={"назад"}
-                                   nextLabel={"вперед"}
-                                   breakLabel={<a href="">...</a>}
-                                   breakClassName={"break-me"}
-                                   pageCount={this.state.pageCount}
-                                   marginPagesDisplayed={2}
-                                   pageRangeDisplayed={2}
-                                   initialPage={this.state.offset}
-                                   forcePage={this.state.offset}
-                                   onPageChange={this.handlePageClick}
-                                   containerClassName={"pagination"}
-                                   subContainerClassName={"pages pagination"}
-                                   activeClassName={"active"} />
+                    <div className="pagination">
+                        <ReactPaginate previousLabel={"назад"}
+                                       nextLabel={"вперед"}
+                                       breakLabel={<a href="">...</a>}
+                                       breakClassName={"break-me"}
+                                       pageCount={this.state.pageCount}
+                                       marginPagesDisplayed={2}
+                                       pageRangeDisplayed={2}
+                                       initialPage={this.state.offset}
+                                       forcePage={this.state.offset}
+                                       onPageChange={this.handlePageClick}
+                                       containerClassName={"pagination"}
+                                       subContainerClassName={"pages pagination"}
+                                       activeClassName={"active"} />
+                    </div>
                 </div>
             );
         }
