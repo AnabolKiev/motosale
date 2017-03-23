@@ -177,12 +177,6 @@ create table ms.model (
 drop index model_manufacturer_name_year_I on ms.model;
 create unique index model_manufacturer_name_year_I ON ms.model (manufacturerId, name, year);
 
-alter table model change column coolingID coolingTypeID int;
-alter table model drop foreign key starterTypeID;
-alter table model change column name name varchar(100) not null;
-alter table model change column year year smallint not null;
-alter table model change column manufacturerId manufacturerId int not null;
-
 
 drop table if exists ms.ad;
 create table ms.ad (

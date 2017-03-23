@@ -116,7 +116,7 @@ export class SearchResult extends Component {
             return(
                 <div>
                     <Models data={this.state.data}/>
-                    <div className="pagination">
+                    <div className="paginationDiv">
                         <ReactPaginate previousLabel={"назад"}
                                        nextLabel={"вперед"}
                                        breakLabel={<a href="">...</a>}
