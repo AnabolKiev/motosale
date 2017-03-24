@@ -14,75 +14,81 @@
     <link href="/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <table>
-        <tr>
-            <td>
-                <h3>Поиск по параметрам</h3>
-                <form class="searchForm">
-                    <div>
-                        <select id="manufacturerSelect" name="manufacturerId" required multiple>
-                            <c:forEach items="${manufacturers}" var="entry">
-                                <option value="${entry.id}">${entry.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div>
-                        <select id="categorySelect" name="categoryId" required multiple>
-                            <c:forEach items="${categories}" var="entry">
-                                <option value="${entry.id}">${entry.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div>
-                        <select id="finalDriveTypeSelect" name="finalDriveTypeId" required multiple>
-                            <c:forEach items="${finalDriveTypes}" var="entry">
-                                <option value="${entry.id}">${entry.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div>
-                        Год
-                        <select id="yearFromSelect" class="year">
-                            <option value="">от</option>
-                        </select>
-                        <select id="yearToSelect" class="year">
-                            <option value="">до</option>
-                        </select>
-                    </div>
-                    <div>
-                        <select id="engineTypeSelect" name="engineTypeId" required multiple>
-                            <c:forEach items="${engineTypes}" var="entry">
-                                <option value="${entry.id}">${entry.name}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div>
-                        Объем двигателя
-                        <select id="displacementFromSelect" class="displacement">
-                            <option value="">от</option>
-                        </select>
-                        <select id="displacementToSelect" class="displacement">
-                            <option value="">до</option>
-                        </select>
-                    </div>
-                    <div>
-                        <input id="searchModels" type="submit" value="Поиск"/>
-                    </div>
-                </form>
-                <br>
-                <h3>Производители</h3>
-                <table>
-                <c:forEach items="${manufacturers}" var="entry">
-                    <tr>
-                        <td><a href="<c:url value="/${entry.name}"/>">${entry.name}</a></td>
-                    </tr>
-                </c:forEach>
-                </table>
-            </td>
-            <td id="searchResult">
-                <%--<div id="searchResult"></div>--%>
-            </td>
-        </tr>
-    </table>
+    <div class="wrapper">
+        <header>header</header>
+        <div class="content">
+            <table>
+                <tr>
+                    <td>
+                        <h3>Поиск по параметрам</h3>
+                        <form class="searchForm">
+                            <div>
+                                <select id="manufacturerSelect" name="manufacturerId" required multiple>
+                                    <c:forEach items="${manufacturers}" var="entry">
+                                        <option value="${entry.id}">${entry.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="categorySelect" name="categoryId" required multiple>
+                                    <c:forEach items="${categories}" var="entry">
+                                        <option value="${entry.id}">${entry.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="finalDriveTypeSelect" name="finalDriveTypeId" required multiple>
+                                    <c:forEach items="${finalDriveTypes}" var="entry">
+                                        <option value="${entry.id}">${entry.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                Год
+                                <select id="yearFromSelect" class="year">
+                                    <option value="">от</option>
+                                </select>
+                                <select id="yearToSelect" class="year">
+                                    <option value="">до</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="engineTypeSelect" name="engineTypeId" required multiple>
+                                    <c:forEach items="${engineTypes}" var="entry">
+                                        <option value="${entry.id}">${entry.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                Объем двигателя
+                                <select id="displacementFromSelect" class="displacement">
+                                    <option value="">от</option>
+                                </select>
+                                <select id="displacementToSelect" class="displacement">
+                                    <option value="">до</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input id="searchModels" type="submit" value="Поиск"/>
+                            </div>
+                        </form>
+                        <br>
+                        <h3>Производители</h3>
+                        <table>
+                        <c:forEach items="${manufacturers}" var="entry">
+                            <tr>
+                                <td><a href="<c:url value="/${entry.name}"/>">${entry.name}</a></td>
+                            </tr>
+                        </c:forEach>
+                        </table>
+                    </td>
+                    <td id="searchResult">
+                        <%--<div id="searchResult"></div>--%>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <footer>footer</footer>
+    </div>
 </body>
 </html>

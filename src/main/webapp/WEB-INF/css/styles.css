@@ -1,5 +1,5 @@
 body {
-    margin: 2em;
+    margin: 0;
     background: #f5f7f7;
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
 }
@@ -16,6 +16,24 @@ h1 {
     font-size: 30px;
     color: #000;
 }
+footer {
+    background-color: #bec6c8;
+    flex: 0 0 auto;
+}
+header {
+    background-color: #bec6c8;
+    height: 50px;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.content {
+    margin: 2em;
+    flex: 1 0 auto;
+}
+
 
 .pagination {
     display: inline-block;
