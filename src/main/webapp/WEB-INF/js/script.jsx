@@ -25,9 +25,11 @@ export class Models extends Component{
             <div className="modelList">
                 <table>
                     <tbody>
-                        <th>Производитель</th>
-                        <th>Модель</th>
-                        <th>Год выпуска</th>
+                        <tr>
+                            <th>Производитель</th>
+                            <th>Модель</th>
+                            <th>Год выпуска</th>
+                        </tr>
                         {models}
                     </tbody>
                 </table>
