@@ -45,9 +45,6 @@ export class SearchResult extends Component {
 
     loadFromServer(props, offset) {
         var data = {};
-//        $('#searchForm').find(':input').not(':button, :submit, :reset').each(function() {
-//            data[this.name] = $(this).val();
-//        });
         data['manufacturer'] = props.manufacturers;
         data['category'] = props.categories;
         data['engineType'] = props.engineTypes;
@@ -75,7 +72,6 @@ export class SearchResult extends Component {
     }
 
     componentWillMount() {
-        console.log('componentWillMount');
         this.loadFromServer(this.props, 0);
     }
 
@@ -85,16 +81,6 @@ export class SearchResult extends Component {
         }
     }
 
-    shouldComponentUpdate(nextProps, nextState){
-        console.log('shouldComponentUpdate');
-        return true;
-    }
-
-    componentWillUpdate(nextProps, nextState) {
-        console.log('componentWillUpdate');
-    }
-
-
     handlePageClick(data) {
         this.setState({offset: data.selected}, () => {
             this.loadFromServer(this.props, data.selected);
@@ -102,7 +88,6 @@ export class SearchResult extends Component {
     };
 
     render() {
-        console.log('Rendering ' + this.props.categories);
         if (!this.state.data) {
             return (
                 <div>Загрузка...</div>
