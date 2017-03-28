@@ -4,10 +4,10 @@ import ReactPaginate from 'react-paginate';
 
 export class Models extends Component{
     render(){
-        var models;
-        this.props.data.forEach(function(value, key, index) {
-            models = models +
-                <tr key={index}>
+        var models = '';
+        this.props.data.forEach(function(key, value) {
+            models = {models} +
+                <tr key={key}>
                     <td>{key}</td>
                     <td></td>
                 </tr>;
@@ -100,5 +100,20 @@ function searchModels() {
 }
 
 $(document).ready( function() {
-    searchModels();
+    $.ajax({
+        url      : '/ajax/searchModelsByManufacturer/',
+        data     : {manufacturerId: manufacturerId},
+        traditional: true,
+        dataType : 'JSON',
+        type     : 'GET',
+        success: data => {
+            var obj = data;
+            console.log(obj);
+            searchModels();
+        },
+        error: (xhr, status, err) => {
+            console.error(status, err.toString());
+        }
+    });
+
 });

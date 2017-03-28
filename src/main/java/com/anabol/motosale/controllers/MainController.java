@@ -75,6 +75,7 @@ public class MainController {
 			modelMap.get(bikeModel.getName()).add(bikeModel.getYear());  // adding year
 		}
 		model.addAttribute("modelMap", modelMap);
+        model.addAttribute("manufacturerId", manufacturerId);
 		model.addAttribute("manufacturer", manufacturerName);
 		return "manufacturer";
 	}
@@ -133,5 +134,22 @@ public class MainController {
         };
         return modelDao.findAll(spec, new PageRequest(pageNumber, sizePerPage));
 	}
+
+    @RequestMapping(value = "/ajax/searchModelsByManufacturer/", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Set<Integer>> searchModelsByManufacturer(@RequestParam final Long manufacturerId) throws ServletException, IOException {
+        if (manufacturerId == null) throw new PageNotFoundException(); // validation of manufacturer`s name
+        List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
+        Iterator<BikeModel> modelIterator = modelList.iterator();
+        Map<String, Set<Integer>> modelMap = new TreeMap<>(); 	// Sorted map. Key - unique models, Values - years
+        while (modelIterator.hasNext()) {
+            BikeModel bikeModel = modelIterator.next();
+            if (!modelMap.containsKey(bikeModel.getName())) {  	// create new record in map
+                modelMap.put(bikeModel.getName(), new TreeSet<Integer>());
+            }
+            modelMap.get(bikeModel.getName()).add(bikeModel.getYear());  // adding year
+        }
+        return modelMap;
+    }
 
 }

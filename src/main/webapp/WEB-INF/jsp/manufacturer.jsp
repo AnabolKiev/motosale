@@ -12,6 +12,7 @@
                 var years = new Set(${entry.value});
                 modelMap.set("${entry.key}", years);
             </c:forEach>
+            var manufacturerId = ${manufacturerId}
     </script>
     <script src="/js/scriptManufacturer.js"></script>
     <link href="/img/favicon.ico" rel="shortcut icon">
