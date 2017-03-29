@@ -7,12 +7,8 @@
     <meta charset="UTF-8" />
     <title>Технические характеристики ${manufacturer}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script>var modelMap = new Map();
-            <c:forEach items="${modelMap}" var="entry">
-                var years = new Set(${entry.value});
-                modelMap.set("${entry.key}", years);
-            </c:forEach>
-            var manufacturerId = ${manufacturerId}
+    <script>var manufacturerId = ${manufacturerId};
+            var manufacturer = '${manufacturer}';
     </script>
     <script src="/js/scriptManufacturer.js"></script>
     <link href="/img/favicon.ico" rel="shortcut icon">
@@ -21,6 +17,7 @@
 <body>
     <h1>Мотокаталог моделей ${manufacturer}</h1>
     <div id="searchResult"></div>
+<%--
     <table class="model-table">
         <th>Модель</th>
         <th>Год выпуска</th>
@@ -37,5 +34,6 @@
             </tr>
         </c:forEach>
     </table>
+--%>
 </body>
 </html>

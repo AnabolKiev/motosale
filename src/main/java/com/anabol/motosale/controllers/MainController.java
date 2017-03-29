@@ -2,6 +2,7 @@ package com.anabol.motosale.controllers;
 
 import com.anabol.motosale.dao.AdDao;
 import com.anabol.motosale.dao.repository.*;
+import com.anabol.motosale.form.ModelWrapper;
 import com.anabol.motosale.model.BikeModel;
 import com.anabol.motosale.model.BikeModel_;
 import com.anabol.motosale.model.Manufacturer;
@@ -76,7 +77,7 @@ public class MainController {
 		}
 		model.addAttribute("modelMap", modelMap);
         model.addAttribute("manufacturerId", manufacturerId);
-		model.addAttribute("manufacturer", manufacturerName);
+		model.addAttribute("manufacturer", manufacturer.getName());
 		return "manufacturer";
 	}
 
@@ -137,17 +138,22 @@ public class MainController {
 
     @RequestMapping(value = "/ajax/searchModelsByManufacturer/", method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Set<Integer>> searchModelsByManufacturer(@RequestParam final Long manufacturerId) throws ServletException, IOException {
-        if (manufacturerId == null) throw new PageNotFoundException(); // validation of manufacturer`s name
+    Map<Integer, ModelWrapper> searchModelsByManufacturer(@RequestParam final Long manufacturerId) throws ServletException, IOException {
         List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
         Iterator<BikeModel> modelIterator = modelList.iterator();
-        Map<String, Set<Integer>> modelMap = new TreeMap<>(); 	// Sorted map. Key - unique models, Values - years
+        Map<Integer, ModelWrapper> modelMap = new TreeMap<>(); 	// Sorted map. Key - index, Values - unique models
+        Set<String> addedModels = new HashSet<>();
+        int i = -1;
         while (modelIterator.hasNext()) {
             BikeModel bikeModel = modelIterator.next();
-            if (!modelMap.containsKey(bikeModel.getName())) {  	// create new record in map
-                modelMap.put(bikeModel.getName(), new TreeSet<Integer>());
+            if (!addedModels.contains((bikeModel.getName()))) {  	// create new record in map
+                i++;
+                ModelWrapper modelWrapper = new ModelWrapper();
+                modelWrapper.setName(bikeModel.getName());
+                modelMap.put(i, modelWrapper);
+                addedModels.add(bikeModel.getName());
             }
-            modelMap.get(bikeModel.getName()).add(bikeModel.getYear());  // adding year
+            modelMap.get(i).getYears().add(bikeModel.getYear());  // adding year
         }
         return modelMap;
     }

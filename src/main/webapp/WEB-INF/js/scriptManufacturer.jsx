@@ -4,14 +4,30 @@ import ReactPaginate from 'react-paginate';
 
 export class Models extends Component{
     render(){
-        var models = '';
-        this.props.data.forEach(function(key, value) {
-            models = {models} +
-                <tr key={key}>
-                    <td>{key}</td>
-                    <td></td>
-                </tr>;
-        });
+        var modelRows = [];
+        var models = this.props.data; // Object with indexed array of Models (name and array of years)
+        for (var key in models) {
+            if (models.hasOwnProperty(key)) {
+                let years = models[key].years.map(function(year, i) {
+                    return(
+                        <li key={i}><a href={'/' + manufacturer + '/' + models[key].name + '/' + year}>{year}</a></li>
+                    )
+                });
+                modelRows.push(
+                    <tr key={key}>
+                        <td>
+                            {models[key].name}
+                        </td>
+                        <td>
+                            <ul>
+                                {years}
+                            </ul>
+                        </td>
+                    </tr>
+                );
+            }
+        }
+
         return(
             <table className="model-table">
                 <tbody>
@@ -19,7 +35,7 @@ export class Models extends Component{
                         <th>Модель</th>
                         <th>Год выпуска</th>
                     </tr>
-                    {models}
+                    {modelRows}
                 </tbody>
             </table>
         );
@@ -29,15 +45,14 @@ export class Models extends Component{
 export class SearchResult extends Component {
     constructor(props) {
         super(props);
-        this.state = {data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(modelMap.size/props.sizePerPage)};
+        this.state = {data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(Object.keys(this.props.modelMap).length/props.sizePerPage)};
         this.handlePageClick = this.handlePageClick.bind(this);
     }
 
     loadFromServer(props, offset) {
-        let partOfData = new Map;
-        // find part of data here
-        for(let model of modelMap.keys()) {
-            partOfData.set(model, modelMap.get(model))
+        let partOfData = {};
+        for (var i = offset * props.sizePerPage; i < props.keys.length && i < (offset + 1) * props.sizePerPage; i++) {
+            partOfData[i] = props.modelMap[props.keys[i]];
         }
         this.setState({data: partOfData, offset: offset});
     }
@@ -93,13 +108,15 @@ export class SearchResult extends Component {
     }
 };
 
-function searchModels() {
-    ReactDOM.render(<SearchResult modelMap={modelMap}
+function showModels(models, keys) {
+    ReactDOM.render(<SearchResult modelMap={models}
+                                  keys={keys}
                                   sizePerPage={30}
     />, document.getElementById('searchResult'))
 }
 
 $(document).ready( function() {
+    var models ={};
     $.ajax({
         url      : '/ajax/searchModelsByManufacturer/',
         data     : {manufacturerId: manufacturerId},
@@ -107,13 +124,15 @@ $(document).ready( function() {
         dataType : 'JSON',
         type     : 'GET',
         success: data => {
-            var obj = data;
-            console.log(obj);
-            searchModels();
+            var models = data;
+            var keys = [];
+            for (var key in data) {
+                if (data.hasOwnProperty(key)) keys.push(key);
+            }
+            showModels(models, keys);
         },
         error: (xhr, status, err) => {
             console.error(status, err.toString());
         }
     });
-
 });
