@@ -5,18 +5,18 @@ import ReactPaginate from 'react-paginate';
 export class Models extends Component{
     render(){
         var modelRows = [];
-        var models = this.props.data; // Object with indexed array of Models (name and array of years)
+        var models = this.props.data; // Object with array of Models (name as a key and array of years)
         for (var key in models) {
             if (models.hasOwnProperty(key)) {
-                let years = models[key].years.map(function(year, i) {
+                let years = models[key].map(function(year, i) {
                     return(
-                        <li key={i}><a href={'/' + manufacturer + '/' + models[key].name + '/' + year}>{year}</a></li>
+                        <li key={i}><a href={'/' + manufacturer + '/' + key + '/' + year}>{year}</a></li>
                     )
                 });
                 modelRows.push(
                     <tr key={key}>
                         <td>
-                            {models[key].name}
+                            {key}
                         </td>
                         <td>
                             <ul>
@@ -40,7 +40,7 @@ export class Models extends Component{
             </table>
         );
     }
-};
+}
 
 export class SearchResult extends Component {
     constructor(props) {
@@ -49,27 +49,27 @@ export class SearchResult extends Component {
         this.handlePageClick = this.handlePageClick.bind(this);
     }
 
-    loadFromServer(props, offset) {
-        let partOfData = {};
+    getPageOfData(props, offset) {
+        let pageOfData = {};
         for (var i = offset * props.sizePerPage; i < props.keys.length && i < (offset + 1) * props.sizePerPage; i++) {
-            partOfData[i] = props.modelMap[props.keys[i]];
+            pageOfData[props.keys[i]] = props.modelMap[props.keys[i]];
         }
-        this.setState({data: partOfData, offset: offset});
+        this.setState({data: pageOfData, offset: offset});
     }
 
     componentWillMount() {
-        this.loadFromServer(this.props, 0);
+        this.getPageOfData(this.props, 0);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps != this.props) {
-            this.loadFromServer(nextProps, 0);
+            this.getPageOfData(nextProps, 0);
         }
     }
 
     handlePageClick(data) {
         this.setState({offset: data.selected}, () => {
-            this.loadFromServer(this.props, data.selected);
+            this.getPageOfData(this.props, data.selected);
         });
     };
 
@@ -106,17 +106,13 @@ export class SearchResult extends Component {
             );
         }
     }
-};
+}
 
 function showModels(models, keys) {
-    ReactDOM.render(<SearchResult modelMap={models}
-                                  keys={keys}
-                                  sizePerPage={30}
-    />, document.getElementById('searchResult'))
+    ReactDOM.render(<SearchResult modelMap={models} keys={keys} sizePerPage={30}/>, document.getElementById('searchResult'))
 }
 
 $(document).ready( function() {
-    var models ={};
     $.ajax({
         url      : '/ajax/searchModelsByManufacturer/',
         data     : {manufacturerId: manufacturerId},

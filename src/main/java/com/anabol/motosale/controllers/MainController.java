@@ -47,7 +47,7 @@ public class MainController {
     private EngineTypeRepository engineTypeDao;
 
     @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="No such page")  // 404
-	public class PageNotFoundException extends RuntimeException {
+	private class PageNotFoundException extends RuntimeException {
 		// ...
 	}
 
@@ -66,16 +66,7 @@ public class MainController {
 		if (manufacturer == null) throw new PageNotFoundException(); // validation of manufacturer`s name
 		Long manufacturerId = manufacturer.getId();
 		List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
-		Iterator<BikeModel> modelIterator = modelList.iterator();
-		Map<String, Set<Integer>> modelMap = new TreeMap<>(); 	// Sorted map. Key - unique models, Values - years
-		while (modelIterator.hasNext()) {
-			BikeModel bikeModel = modelIterator.next();
-			if (!modelMap.containsKey(bikeModel.getName())) {  	// create new record in map
-				modelMap.put(bikeModel.getName(), new TreeSet<Integer>());
-			}
-			modelMap.get(bikeModel.getName()).add(bikeModel.getYear());  // adding year
-		}
-		model.addAttribute("modelMap", modelMap);
+		model.addAttribute("modelMap", getAggregatedModels(modelList));
         model.addAttribute("manufacturerId", manufacturerId);
 		model.addAttribute("manufacturer", manufacturer.getName());
 		return "manufacturer";
@@ -105,7 +96,7 @@ public class MainController {
                                  @RequestParam("sizePerPage") final Integer sizePerPage,
                                  @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
 		Specification<BikeModel> spec = (root, query, cb) -> {
-            List<Predicate> predicates = new ArrayList<Predicate>();   // Constructing list of parameters
+            List<Predicate> predicates = new ArrayList<>();   // Constructing list of parameters
             predicates.add(cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active)));
             if (manufacturers != null) {
                 predicates.add(root.get(BikeModel_.manufacturer).in(manufacturers));
@@ -138,8 +129,8 @@ public class MainController {
 
     @RequestMapping(value = "/ajax/searchModelsByManufacturer/", method = RequestMethod.GET)
     public @ResponseBody
-    Map<Integer, ModelWrapper> searchModelsByManufacturer(@RequestParam final Long manufacturerId) throws ServletException, IOException {
-        List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
+    Map<String, Set<Integer>> searchModelsByManufacturer(@RequestParam final Long manufacturerId) throws ServletException, IOException {
+/*        List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
         Iterator<BikeModel> modelIterator = modelList.iterator();
         Map<Integer, ModelWrapper> modelMap = new TreeMap<>(); 	// Sorted map. Key - index, Values - unique models
         Set<String> addedModels = new HashSet<>();
@@ -154,8 +145,21 @@ public class MainController {
                 addedModels.add(bikeModel.getName());
             }
             modelMap.get(i).getYears().add(bikeModel.getYear());  // adding year
+        }*/
+        List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
+        return getAggregatedModels(modelList);
+    }
+
+    private Map<String, Set<Integer>> getAggregatedModels (List<BikeModel> modelList) {
+        Iterator<BikeModel> modelIterator = modelList.iterator();
+        Map<String, Set<Integer>> modelMap = new TreeMap<>(); 	// Sorted map. Key - unique models, Values - years
+        while (modelIterator.hasNext()) {
+            BikeModel bikeModel = modelIterator.next();
+            if (!modelMap.containsKey(bikeModel.getName())) {  	// create new record in map
+                modelMap.put(bikeModel.getName(), new TreeSet<>());
+            }
+            modelMap.get(bikeModel.getName()).add(bikeModel.getYear());  // adding year
         }
         return modelMap;
     }
-
 }
