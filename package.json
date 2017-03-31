@@ -30,6 +30,7 @@
     "babelify": "^7.3.0",
     "browserify": "^14.0.0",
     "browserify-gulp": "^1.0.0",
+    "browserify-shim": "^3.8.14",
     "gulp": "^3.9.1",
     "react": "^15.4.2",
     "react-addons-create-fragment": "^15.4.2",
@@ -37,5 +38,9 @@
     "react-paginate": "^4.1.1",
     "react-paginate-component": "0.0.3",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "browserify-shim": {
+    "react": "global:React",
+    "react-dom": "global:ReactDOM"
   }
 }
