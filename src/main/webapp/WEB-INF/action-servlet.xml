@@ -12,7 +12,7 @@
  	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
     http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.8.xsd">
 	<context:annotation-config/>
-	<context:component-scan base-package="com.anabol.motosale"/>
+	<context:component-scan base-package="com.anabol.motosearch"/>
     <mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
 	<mvc:resources location="WEB-INF/js/" mapping="/js/**" />
@@ -29,12 +29,12 @@
     </bean> -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dbDataSource"></property>
-		<property name="persistenceUnitName" value="MotoSaleJPA" />
+		<property name="persistenceUnitName" value="MotoSearchJPA" />
 		<property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory"/>
 	</bean>
-	<jpa:repositories base-package="com.anabol.motosale.dao.repository" transaction-manager-ref="transactionManager"/>
+	<jpa:repositories base-package="com.anabol.motosearch.dao.repository" transaction-manager-ref="transactionManager"/>
 </beans>

@@ -15,7 +15,13 @@
 </head>
 <body>
     <div class="wrapper">
-        <header>header</header>
+        <div class="header">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.jpg"/>
+                </a>
+            </h1>
+        </div>
         <div class="content">
             <table>
                 <tr>
@@ -88,7 +94,12 @@
                 </tr>
             </table>
         </div>
-        <footer>footer</footer>
+        <div class="footer">
+            <div class="copyright">© 2017</div>
+            <div class="contact">Пожелания и предложения -
+                <a href="mailto: anabol.ua@gmail.com"> Александр Ковальчук</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>
