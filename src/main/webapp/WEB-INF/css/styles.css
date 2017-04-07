@@ -24,7 +24,7 @@ h1 {
 }
 .header {
     background-color: #79b8b0;
-    height: 150px;
+    flex: 0 0 auto;
 }
 .header .logo {
     float: left;
@@ -33,14 +33,18 @@ h1 {
 .footer {
     background-color: #79b8b0;
     flex: 0 0 auto;
-    padding: 1em;
+    padding: 0.2em 1em;
     font-family: "Source Sans Pro", Helvetica, Arial, sans-serif;
+    font-size: 0.8em;
+}
+.footer a {
+    font-size: 0.8em;
 }
 .footer .copyright {
-    text-align: left;
+    display: inline;
 }
 .footer .contact {
-    text-align: right;
+    float: right;
 }
 .content {
     margin: 2em;
