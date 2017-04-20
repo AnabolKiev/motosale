@@ -5,7 +5,7 @@
 	<artifactId>motosearch</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>motosale Maven Webapp</name>
+	<name>MotoSearch</name>
 	<url>http://maven.apache.org</url>
     <properties>
 		<jdk.version>1.8</jdk.version>
@@ -94,7 +94,7 @@
 		</dependency>
     </dependencies>
 	<build>
-		<finalName>motosale</finalName>
+		<finalName>motosearch</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>

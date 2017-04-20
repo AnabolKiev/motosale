@@ -15,6 +15,7 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    //= templates/header.jsp
     <h1>Мотокаталог моделей ${manufacturer}</h1>
     <div id="searchResult"></div>
 <%--
@@ -35,5 +36,6 @@
         </c:forEach>
     </table>
 --%>
+    //= templates/footer.jsp
 </body>
 </html>

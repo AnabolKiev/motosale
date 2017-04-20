@@ -1,5 +1,5 @@
 {
-  "name": "motosale",
+  "name": "motosearch",
   "version": "1.0.0",
   "description": "motorcycle database",
   "main": "index.jsp",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnabolKiev/motosale.git"
+    "url": "git+https://github.com/AnabolKiev/motosearch.git"
   },
   "keywords": [
     "moto"
@@ -16,9 +16,9 @@
   "author": "Anabol",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AnabolKiev/motosale/issues"
+    "url": "https://github.com/AnabolKiev/motosearch/issues"
   },
-  "homepage": "https://github.com/AnabolKiev/motosale#readme",
+  "homepage": "https://github.com/AnabolKiev/motosearch#readme",
   "dependencies": {
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
@@ -32,6 +32,7 @@
     "browserify-gulp": "^1.0.0",
     "browserify-shim": "^3.8.14",
     "gulp": "^3.9.1",
+    "gulp-rigger": "^0.5.8",
     "react": "^15.4.2",
     "react-addons-create-fragment": "^15.4.2",
     "react-dom": "^15.4.2",

@@ -11,6 +11,7 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    //= templates/header.jsp
     <h1>Характеристики ${model.manufacturer.name} ${model.name} ${model.year}</h1>
     <table class="specs-table">
         <c:if test="${!(empty model.engine &&
@@ -560,5 +561,6 @@
             </tr>
         </c:if>
     </table>
+    //= templates/footer.jsp
 </body>
 </html>
