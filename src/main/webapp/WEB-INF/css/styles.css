@@ -16,6 +16,9 @@ h1 {
     font-size: 30px;
     color: #000;
 }
+h1.title {
+    text-align: center;
+}
 
 .wrapper {
     display: flex;
@@ -50,6 +53,7 @@ h1 {
     margin: 2em;
     flex: 1 0 auto;
 }
+
 
 
 .pagination {
@@ -201,9 +205,10 @@ h1 {
     display: list-item;
 }
 
-
-.specs-table {
+.specs-table, .model-table {
     max-width: 800px;
+    width: 800px;
+    margin: auto;
 }
 .specs-table h4 {
     margin: 0 0 15px 0 !important;

@@ -15,7 +15,13 @@
 </head>
 <body>
     <div class="wrapper">
-        //= templates/header.jsp
+        <div class="header">
+            <h1 class="logo">
+                <a href="/">
+                    <img src="/img/logo.png"/>
+                </a>
+            </h1>
+        </div>
         <div class="content">
             <table>
                 <tr>
@@ -83,12 +89,17 @@
                         </table>
                     </td>
                     <td id="searchResult">
-                        <%--<div id="searchResult"></div>--%>
+                        <h1 class="title">MotoSearch - это справочник технических характеристик мотоциклов</h1>
                     </td>
                 </tr>
             </table>
         </div>
-        //= templates/footer.jsp
+        <div class="footer">
+            <div class="copyright">© 2017</div>
+            <div class="contact">Пожелания и предложения -
+                <a href="mailto: anabol.ua@gmail.com"> Александр Ковальчук</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

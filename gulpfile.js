@@ -22,9 +22,9 @@ gulp.task('build2', function () {
 });
 
 gulp.task('jsp', function () {
-    gulp.src('src/main/webapp/WEB-INF/jsp/*.jsp')
+    gulp.src('src/main/webapp/WEB-INF/jsp/rigger/*.jsp')
         .pipe(rigger())
-        .pipe(gulp.dest('target/motosearch/WEB-INF/jsp'));
+        .pipe(gulp.dest('src/main/webapp/WEB-INF/jsp'));
 });
 
 gulp.task('watch', ['build'], function () {
