@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Производители и модели</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/js/ajax.js" type="text/javascript"></script>
+    <script src="/resources/js/ajax.js" type="text/javascript"></script>
 </head>
 <body>
 <h3>Модели</h3>

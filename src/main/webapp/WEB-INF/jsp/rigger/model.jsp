@@ -12,13 +12,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <div class="header">
-            <h1 class="logo">
-                <a href="/">
-                    <img src="/resources/img/logo.png"/>
-                </a>
-            </h1>
-        </div>
+        //= templates/header.jsp
         <div class="content">
             <h1 class="title">Характеристики ${model.manufacturer.name} ${model.name} ${model.year}</h1>
             <table class="specs-table">
@@ -570,12 +564,7 @@
                 </c:if>
             </table>
         </div>
-        <div class="footer">
-            <div class="copyright">© 2017</div>
-            <div class="contact">Пожелания и предложения -
-                <a href="mailto: anabol.ua@gmail.com"> Александр Ковальчук</a>
-            </div>
-        </div>
+        //= templates/footer.jsp
     </div>
 </body>
 </html>

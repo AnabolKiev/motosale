@@ -14,7 +14,7 @@ export class Models extends Component{
                         {model.name}
                     </td>
                     <td className="yearColumn">
-                        <a href={'/' + model.manufacturer.name + '/' + model.name + '/' + model.year}>
+                        <a href={'/bike/' + model.manufacturer.name + '/' + model.name + '/' + model.year}>
                             {model.year}
                         </a>
                     </td>

@@ -55,7 +55,7 @@ public class MainController {
 		return "index";
 	}
 
-	@RequestMapping(value = "/{manufacturerName}", method = RequestMethod.GET)
+	@RequestMapping(value = "/bike/{manufacturerName}", method = RequestMethod.GET)
 	public String showManufacturerModels(@PathVariable("manufacturerName") String manufacturerName, Model model) {
 		Manufacturer manufacturer = manufacturerDao.findByNameAndActiveTrue(manufacturerName);
 		if (manufacturer == null) throw new PageNotFoundException(); // validation of manufacturer`s name
@@ -67,7 +67,7 @@ public class MainController {
 		return "manufacturer";
 	}
 
-    @RequestMapping(value = "/{manufacturerName}/{modelName}/{modelYear}", method = RequestMethod.GET)
+    @RequestMapping(value = "/bike/{manufacturerName}/{modelName}/{modelYear}", method = RequestMethod.GET)
     public String showModelSpecs(@PathVariable("manufacturerName") String manufacturerName, @PathVariable("modelName") String modelName, @PathVariable("modelYear") Integer modelYear, Model model) {
         Manufacturer manufacturer = manufacturerDao.findByNameAndActiveTrue(manufacturerName);
         if (manufacturer == null) throw new PageNotFoundException(); // validation of manufacturer`s name

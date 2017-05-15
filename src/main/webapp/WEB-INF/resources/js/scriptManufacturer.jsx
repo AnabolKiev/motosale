@@ -10,7 +10,7 @@ export class Models extends Component{
             if (models.hasOwnProperty(key)) {
                 let years = models[key].map(function(year, i) {
                     return(
-                        <li key={i}><a href={'/' + manufacturer + '/' + key + '/' + year}>{year}</a></li>
+                        <li key={i}><a href={'/bike/' + manufacturer + '/' + key + '/' + year}>{year}</a></li>
                     )
                 });
                 modelRows.push(

@@ -6,19 +6,19 @@ var source = require('vinyl-source-stream');
 var rigger = require('gulp-rigger');
 
 gulp.task('build', function () {
-    return browserify({entries: './src/main/webapp/WEB-INF/js/script.jsx', extensions: ['.jsx'], debug: false})
+    return browserify({entries: './src/main/webapp/WEB-INF/resources/js/script.jsx', extensions: ['.jsx'], debug: false})
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
         .pipe(source('script.js'))
-        .pipe(gulp.dest('src/main/webapp/WEB-INF/js'));
+        .pipe(gulp.dest('src/main/webapp/WEB-INF/resources/js'));
 });
 
 gulp.task('build2', function () {
-    return browserify({entries: './src/main/webapp/WEB-INF/js/scriptManufacturer.jsx', extensions: ['.jsx'], debug: false})
+    return browserify({entries: './src/main/webapp/WEB-INF/resources/js/scriptManufacturer.jsx', extensions: ['.jsx'], debug: false})
         .transform('babelify', {presets: ['es2015', 'react']})
         .bundle()
         .pipe(source('scriptManufacturer.js'))
-        .pipe(gulp.dest('src/main/webapp/WEB-INF/js'));
+        .pipe(gulp.dest('src/main/webapp/WEB-INF/resources/js'));
 });
 
 gulp.task('jsp', function () {

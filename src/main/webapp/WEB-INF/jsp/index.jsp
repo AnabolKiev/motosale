@@ -7,18 +7,18 @@
     <meta charset="UTF-8" />
     <title>Технические характеристики</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/js/jquery.multiselect.js"></script>
-    <script src="/js/script.js"></script>
-    <link href="/img/favicon.ico" rel="shortcut icon">
-    <link href="/css/styles.css" rel="stylesheet" type="text/css">
-    <link href="/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
+    <script src="/resources/js/jquery.multiselect.js"></script>
+    <script src="/resources/js/script.js"></script>
+    <link href="/resources/img/favicon.ico" rel="shortcut icon">
+    <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="wrapper">
         <div class="header">
             <h1 class="logo">
                 <a href="/">
-                    <img src="/img/logo.png"/>
+                    <img src="/resources/img/logo.png"/>
                 </a>
             </h1>
         </div>
@@ -83,14 +83,196 @@
                         <table>
                         <c:forEach items="${manufacturers}" var="entry">
                             <tr>
-                                <td><a href="<c:url value="/${entry.name}"/>">${entry.name}</a></td>
+                                <td><a href="<c:url value="/bike/${entry.name}"/>">${entry.name}</a></td>
                             </tr>
                         </c:forEach>
                         </table>
                     </td>
-                    <td id="searchResult">
-                        <h1 class="title">MotoSearch - это справочник технических характеристик мотоциклов</h1>
-                    </td>
+		    <td id="searchResult">
+		        <h1 class="title">MotoSearch - это справочник технических характеристик мотоциклов</h1>
+		        <ul id="mainManufacturers">
+		            <li>
+		                <div>
+		                    <a href="/bike/Aprilia">
+		                        <img src="/resources/img/bikes/Aprilia.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Aprilia">Aprilia</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/BMW">
+		                        <img src="/resources/img/bikes/BMW.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/BMW">BMW</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Ducati">
+		                        <img src="/resources/img/bikes/Ducati.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Ducati">BMW</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Harley-Davidson">
+		                        <img src="/resources/img/bikes/Harley-Davidson.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Harley-Davidson">Harley-Davidson</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Honda">
+		                        <img src="/resources/img/bikes/Honda.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Honda">Honda</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Husqvarna">
+		                        <img src="/resources/img/bikes/Husqvarna.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Husqvarna">Husqvarna</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Hyosung">
+		                        <img src="/resources/img/bikes/Hyosung.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Hyosung">Hyosung</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Indian">
+		                        <img src="/resources/img/bikes/Indian.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Indian">Indian</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Kawasaki">
+		                        <img src="/resources/img/bikes/Kawasaki.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Kawasaki">Kawasaki</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/KTM">
+		                        <img src="/resources/img/bikes/KTM.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/KTM">KTM</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Moto Guzzi">
+		                        <img src="/resources/img/bikes/MotoGuzzi.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Moto Guzzi">Moto Guzzi</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/MV Agusta">
+		                        <img src="/resources/img/bikes/MVAgusta.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/MV Agusta">MV Agusta</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Royal Enfield">
+		                        <img src="/resources/img/bikes/RoyalEnfield.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Royal Enfield">Royal Enfield</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Suzuki">
+		                        <img src="/resources/img/bikes/Suzuki.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Suzuki">Suzuki</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Triumph">
+		                        <img src="/resources/img/bikes/Triumph.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Triumph">Triumph</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Vespa">
+		                        <img src="/resources/img/bikes/Vespa.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Vespa">Vespa</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Victory">
+		                        <img src="/resources/img/bikes/Victory.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Victory">Victory</a>
+		                </div>
+		            </li>
+		            <li>
+		                <div>
+		                    <a href="/bike/Yamaha">
+		                        <img src="/resources/img/bikes/Yamaha.jpg"/>
+		                    </a>
+		                </div>
+		                <div>
+		                    <a href="/bike/Yamaha">Yamaha</a>
+		                </div>
+		            </li>
+		        </ul>
+		    </td>
                 </tr>
             </table>
         </div>
