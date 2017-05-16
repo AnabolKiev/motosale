@@ -55,7 +55,6 @@ h1.title {
 }
 
 
-
 .pagination {
     display: inline-block;
     padding-left: 0;
@@ -171,7 +170,6 @@ h1.title {
     text-align: center;
     width: 100%;
 }
-
 .modelList > table {
     width: 100%;
     max-width: 1000px;
@@ -286,18 +284,32 @@ button:focus {
 
 #searchResult {
     width: 100%;
+    margin: auto;
 }
 #searchResult > div {
     text-align: center;
+    margin: auto;
     margin-left: 20px;
 }
 
+
 #mainManufacturers {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
     list-style: none;
+    padding: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 }
 #mainManufacturers > li {
     display: inline-block;
-    width: 25%;
+    padding: 1em;
+    max-width: 30%;
+}
+.mainManufacturers-link {
+    text-align: center;
 }
 
 
