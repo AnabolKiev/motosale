@@ -23,21 +23,21 @@
                         <h3>Поиск по параметрам</h3>
                         <form class="searchForm">
                             <div>
-                                <select id="manufacturerSelect" name="manufacturerId" required multiple>
+                                <select id="manufacturerSelect" name="manufacturerId" multiple>
                                     <c:forEach items="${manufacturers}" var="entry">
                                         <option value="${entry.id}">${entry.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div>
-                                <select id="categorySelect" name="categoryId" required multiple>
+                                <select id="categorySelect" name="categoryId" multiple>
                                     <c:forEach items="${categories}" var="entry">
                                         <option value="${entry.id}">${entry.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div>
-                                <select id="finalDriveTypeSelect" name="finalDriveTypeId" required multiple>
+                                <select id="finalDriveTypeSelect" name="finalDriveTypeId" multiple>
                                     <c:forEach items="${finalDriveTypes}" var="entry">
                                         <option value="${entry.id}">${entry.name}</option>
                                     </c:forEach>
@@ -53,7 +53,7 @@
                                 </select>
                             </div>
                             <div>
-                                <select id="engineTypeSelect" name="engineTypeId" required multiple>
+                                <select id="engineTypeSelect" name="engineTypeId" multiple>
                                     <c:forEach items="${engineTypes}" var="entry">
                                         <option value="${entry.id}">${entry.name}</option>
                                     </c:forEach>

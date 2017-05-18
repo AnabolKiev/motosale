@@ -51,7 +51,8 @@ drop table if exists ms.enginetype;
 create table ms.enginetype (
   id int primary key not null auto_increment,
   name varchar(50) unique,
-  nameeng varchar(50) unique
+  nameeng varchar(50) unique,
+  groupname varchar(50)
 );
 
 drop table if exists ms.startertype;

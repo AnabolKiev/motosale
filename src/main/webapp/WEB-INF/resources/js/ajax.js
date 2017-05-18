@@ -23,6 +23,28 @@ function submitDictionary(source) {
     return false;
 };
 
+function submitEngineTypes(source) {
+    var et = {};
+    var data = [];
+    $('#engineType').find("tr").each(function() {
+/*        et['id'] = $(this).find("input[name=id]").val();*/
+        et['name'] = $(this).find("input[name=name]").val();
+        et['groupName'] = $(this).find("input[name=groupName]").val();
+        data[$(this).find("input[name=id]").val()] = et;
+    });
+    console.log(data);
+/*
+    $.ajax({
+        type: "POST",
+        contentType : "application/json",
+        url: '/ajax/engineType/',
+        data : JSON.stringify(data),
+        dataType : "JSON"
+    });
+*/
+    return false;
+};
+
 function submitModelAttr() {
     event.preventDefault();
     var data = {};

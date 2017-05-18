@@ -157,7 +157,8 @@ $(document).ready( function() {
             selectAll   : 'Выбрать все',
             unselectAll : 'Убрать все',
             noneSelected: 'Не выбрано',
-            selectedOptions: ' выбрано'
+            selectedOptions: ' выбрано',
+            search: 'Поиск'
         }
     });
 
@@ -174,7 +175,7 @@ $(document).ready( function() {
     });
 
     $('#engineTypeSelect').multiselect({
-        columns: 1,
+        columns: 4,
         selectAll: true,
         texts: {
             placeholder : 'Выберите тип двигателя',

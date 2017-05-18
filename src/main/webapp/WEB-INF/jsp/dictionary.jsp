@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Справочники</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/js/ajax.js" type="text/javascript"></script>
+    <script src="/resources/js/ajax.js" type="text/javascript"></script>
 </head>
 <body>
 <h3>Справочники</h3>
@@ -53,22 +53,26 @@
                         <th>ID</th>
                         <th>Тип</th>
                         <th>English</th>
+                        <th>Группа</th>
                     </tr>
                     </thead>
                     <c:forEach items="${engineTypes}" var="entry">
                         <tr>
-                            <td>${entry.id}</td>
-                            <td><input name="${entry.id}" value="${entry.name}"/></td>
+                            <td><input name="id" type="hidden" value="${entry.id}"/>${entry.id}</td>
+                            <td><input name="name" value="${entry.name}"/></td>
                             <td>${entry.nameEng}</td>
+                            <td><input name="groupName" value="${entry.groupName}"/></td>
                         </tr>
                     </c:forEach>
                 </table>
                 <br>
-                <input id="saveEngineTypes" type="button" value="Сохранить" onclick="submitDictionary(this)"/>
+                <input id="saveEngineTypes" type="button" value="Сохранить" onclick="submitEngineTypes(this)"/>
             </form:form>
         </c:if>
         <c:if test="${empty engineTypes}">No records found</c:if>
         </td>
+    </tr>
+    <tr>
         <td>
             <h3>Типы охлаждения</h3>
             <c:if test="${not empty coolingTypes}">

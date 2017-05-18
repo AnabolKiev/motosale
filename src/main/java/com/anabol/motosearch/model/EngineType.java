@@ -13,6 +13,8 @@ public class EngineType {
     private String name;
     @Column(name = "NAMEENG", unique = true, nullable = false, length = 50)
     private String nameEng;
+    @Column(name = "GROUPNAME", nullable = false, length = 50)
+    private String groupName;
 
     public Long getId() {
         return id;
@@ -37,4 +39,13 @@ public class EngineType {
     public void setNameEng(String nameEng) {
         this.nameEng = nameEng;
     }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
 }
