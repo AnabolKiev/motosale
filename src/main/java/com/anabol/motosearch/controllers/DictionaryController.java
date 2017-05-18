@@ -14,6 +14,8 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Map;
 
+import static com.anabol.motosearch.model.BikeModel_.id;
+
 @Controller
 @Transactional
 public class DictionaryController {
@@ -52,11 +54,11 @@ public class DictionaryController {
 
     @RequestMapping(value = "/ajax/engineType/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void saveEngineTypes(@RequestBody Map<String, String> engineTypesMap, BindingResult bindingResult) throws ServletException, IOException {
-        for (String id: engineTypesMap.keySet()) {
-            String engineTypeName = engineTypesMap.get(id);
-            EngineType engineType = engineTypeDao.findOne(Long.valueOf(id));
-            engineType.setName(engineTypeName);
+    public void saveEngineTypes(@RequestBody Map<String, String>[] engineTypesMapArray, BindingResult bindingResult) throws ServletException, IOException {
+        for (Map<String, String> engineTypesMap: engineTypesMapArray) {
+            EngineType engineType = engineTypeDao.findOne(Long.valueOf(engineTypesMap.get("id")));
+            engineType.setName(engineTypesMap.get("name"));
+            engineType.setGroupName(engineTypesMap.get("groupName"));
             engineTypeDao.save(engineType);
         }
     }

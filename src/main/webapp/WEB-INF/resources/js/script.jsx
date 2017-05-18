@@ -175,7 +175,7 @@ $(document).ready( function() {
     });
 
     $('#engineTypeSelect').multiselect({
-        columns: 4,
+        columns: 1,
         selectAll: true,
         texts: {
             placeholder : 'Выберите тип двигателя',

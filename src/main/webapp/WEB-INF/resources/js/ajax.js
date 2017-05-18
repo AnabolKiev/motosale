@@ -24,16 +24,12 @@ function submitDictionary(source) {
 };
 
 function submitEngineTypes(source) {
-    var et = {};
     var data = [];
-    $('#engineType').find("tr").each(function() {
-/*        et['id'] = $(this).find("input[name=id]").val();*/
-        et['name'] = $(this).find("input[name=name]").val();
-        et['groupName'] = $(this).find("input[name=groupName]").val();
-        data[$(this).find("input[name=id]").val()] = et;
+    $('#engineType').find("tr:has(:input)").each(function() {
+        data.push({ id: $(this).find("input[name=id]").val(),
+                  name: $(this).find("input[name=name]").val(),
+             groupName: $(this).find("input[name=groupName]").val() });
     });
-    console.log(data);
-/*
     $.ajax({
         type: "POST",
         contentType : "application/json",
@@ -41,7 +37,6 @@ function submitEngineTypes(source) {
         data : JSON.stringify(data),
         dataType : "JSON"
     });
-*/
     return false;
 };
 
