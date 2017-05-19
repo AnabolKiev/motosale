@@ -54,8 +54,14 @@
                             </div>
                             <div>
                                 <select id="engineTypeSelect" name="engineTypeId" multiple>
-                                    <c:forEach items="${engineTypes}" var="entry">
-                                        <option value="${entry.id}">${entry.name}</option>
+                                    <c:forEach items="${engineTypeGroups}" var="group">
+                                        <optgroup label="${group}">
+                                            <c:forEach items="${engineTypes}" var="entry">
+                                                <c:if test="${entry.groupName == group}">
+                                                    <option value="${entry.id}">${entry.name}</option>
+                                                </c:if>
+                                            </c:forEach>
+                                        </optgroup>
                                     </c:forEach>
                                 </select>
                             </div>

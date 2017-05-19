@@ -58,7 +58,9 @@ public class DictionaryController {
         for (Map<String, String> engineTypesMap: engineTypesMapArray) {
             EngineType engineType = engineTypeDao.findOne(Long.valueOf(engineTypesMap.get("id")));
             engineType.setName(engineTypesMap.get("name"));
+            engineType.setShortName(engineTypesMap.get("shortName"));
             engineType.setGroupName(engineTypesMap.get("groupName"));
+            engineType.setGroupOrder(Integer.valueOf(engineTypesMap.get("groupOrder")));
             engineTypeDao.save(engineType);
         }
     }

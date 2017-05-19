@@ -28,7 +28,9 @@ function submitEngineTypes(source) {
     $('#engineType').find("tr:has(:input)").each(function() {
         data.push({ id: $(this).find("input[name=id]").val(),
                   name: $(this).find("input[name=name]").val(),
-             groupName: $(this).find("input[name=groupName]").val() });
+             shortName: $(this).find("input[name=shortName]").val(),
+             groupName: $(this).find("input[name=groupName]").val(),
+            groupOrder: $(this).find("input[name=groupOrder]").val() });
     });
     $.ajax({
         type: "POST",

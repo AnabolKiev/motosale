@@ -11,10 +11,14 @@ public class EngineType {
     private Long id;
     @Column(name = "NAME", unique = true, nullable = false, length = 50)
     private String name;
+    @Column(name = "SHORTNAME", nullable = false, length = 50)
+    private String shortName;
     @Column(name = "NAMEENG", unique = true, nullable = false, length = 50)
     private String nameEng;
     @Column(name = "GROUPNAME", nullable = false, length = 50)
     private String groupName;
+    @Column(name = "GROUPORDER")
+    private Integer groupOrder;
 
     public Long getId() {
         return id;
@@ -48,4 +52,19 @@ public class EngineType {
         this.groupName = groupName;
     }
 
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
+    }
+
+    public Integer getGroupOrder() {
+        return groupOrder;
+    }
+
+    public void setGroupOrder(Integer groupOrder) {
+        this.groupOrder = groupOrder;
+    }
 }

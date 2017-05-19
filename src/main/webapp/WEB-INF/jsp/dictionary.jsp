@@ -52,16 +52,20 @@
                     <tr>
                         <th>ID</th>
                         <th>Тип</th>
+                        <th>Короткое название</th>
                         <th>English</th>
                         <th>Группа</th>
+                        <th>Порядок группы (ID)</th>
                     </tr>
                     </thead>
                     <c:forEach items="${engineTypes}" var="entry">
                         <tr>
                             <td><input name="id" type="hidden" value="${entry.id}"/>${entry.id}</td>
                             <td><input name="name" value="${entry.name}"/></td>
+                            <td><input name="shortName" value="${entry.shortName}"/></td>
                             <td>${entry.nameEng}</td>
                             <td><input name="groupName" value="${entry.groupName}"/></td>
+                            <td><input name="groupOrder" value="${entry.groupOrder}"/></td>
                         </tr>
                     </c:forEach>
                 </table>

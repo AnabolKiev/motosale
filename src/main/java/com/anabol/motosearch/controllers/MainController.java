@@ -52,6 +52,7 @@ public class MainController {
 		model.addAttribute("categories", Lists.newArrayList(categoryDao.findAll()));
         model.addAttribute("finalDriveTypes", Lists.newArrayList(finalDriveTypeDao.findAll()));
         model.addAttribute("engineTypes", Lists.newArrayList(engineTypeDao.findAll()));
+        model.addAttribute("engineTypeGroups", Lists.newArrayList(engineTypeDao.findDistinctGroupNameOrderByGroupNameAsc()));
 		return "index";
 	}
 
