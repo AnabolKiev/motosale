@@ -54,6 +54,7 @@
                         <th>Тип</th>
                         <th>Короткое название</th>
                         <th>English</th>
+                        <th>Порядок</th>
                         <th>Группа</th>
                         <th>Порядок группы (ID)</th>
                     </tr>
@@ -64,6 +65,7 @@
                             <td><input name="name" value="${entry.name}"/></td>
                             <td><input name="shortName" value="${entry.shortName}"/></td>
                             <td>${entry.nameEng}</td>
+                            <td><input name="engineOrder" value="${entry.engineOrder}"/></td>
                             <td><input name="groupName" value="${entry.groupName}"/></td>
                             <td><input name="groupOrder" value="${entry.groupOrder}"/></td>
                         </tr>

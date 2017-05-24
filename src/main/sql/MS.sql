@@ -53,13 +53,12 @@ create table ms.enginetype (
   name varchar(50) unique,
   shortname varchar(50),
   nameeng varchar(50) unique,
+  engineorder smallint,
   groupname varchar(50),
   grouporder smallint
 );
 alter table ms.enginetype
-add column shortname varchar(50); 
-alter table ms.enginetype
-add column grouporder smallint;
+add column engineorder smallint;
 
 drop table if exists ms.startertype;
 create table ms.startertype (

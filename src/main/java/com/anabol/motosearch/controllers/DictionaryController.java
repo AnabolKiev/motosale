@@ -59,8 +59,15 @@ public class DictionaryController {
             EngineType engineType = engineTypeDao.findOne(Long.valueOf(engineTypesMap.get("id")));
             engineType.setName(engineTypesMap.get("name"));
             engineType.setShortName(engineTypesMap.get("shortName"));
+            if (engineTypesMap.get("engineOrder") == "")
+                engineType.setEngineOrder(0);
+            else
+                engineType.setEngineOrder(Integer.valueOf(engineTypesMap.get("engineOrder")));
             engineType.setGroupName(engineTypesMap.get("groupName"));
-            engineType.setGroupOrder(Integer.valueOf(engineTypesMap.get("groupOrder")));
+            if (engineTypesMap.get("groupOrder") == "")
+                engineType.setGroupOrder(0);
+            else
+                engineType.setGroupOrder(Integer.valueOf(engineTypesMap.get("groupOrder")));
             engineTypeDao.save(engineType);
         }
     }

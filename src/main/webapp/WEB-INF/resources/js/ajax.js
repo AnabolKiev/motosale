@@ -29,6 +29,7 @@ function submitEngineTypes(source) {
         data.push({ id: $(this).find("input[name=id]").val(),
                   name: $(this).find("input[name=name]").val(),
              shortName: $(this).find("input[name=shortName]").val(),
+           engineOrder: $(this).find("input[name=engineOrder]").val(),
              groupName: $(this).find("input[name=groupName]").val(),
             groupOrder: $(this).find("input[name=groupOrder]").val() });
     });

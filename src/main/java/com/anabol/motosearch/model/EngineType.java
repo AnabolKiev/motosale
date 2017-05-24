@@ -15,6 +15,8 @@ public class EngineType {
     private String shortName;
     @Column(name = "NAMEENG", unique = true, nullable = false, length = 50)
     private String nameEng;
+    @Column(name = "ENGINEORDER")
+    private Integer engineOrder;
     @Column(name = "GROUPNAME", nullable = false, length = 50)
     private String groupName;
     @Column(name = "GROUPORDER")
@@ -42,6 +44,14 @@ public class EngineType {
 
     public void setNameEng(String nameEng) {
         this.nameEng = nameEng;
+    }
+
+    public Integer getEngineOrder() {
+        return engineOrder;
+    }
+
+    public void setEngineOrder(Integer engineOrder) {
+        this.engineOrder = engineOrder;
     }
 
     public String getGroupName() {

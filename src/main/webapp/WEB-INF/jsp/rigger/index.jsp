@@ -58,7 +58,7 @@
                                         <optgroup label="${group}">
                                             <c:forEach items="${engineTypes}" var="entry">
                                                 <c:if test="${entry.groupName == group}">
-                                                    <option value="${entry.id}">${entry.name}</option>
+                                                    <option value="${entry.id}">${entry.shortName}</option>
                                                 </c:if>
                                             </c:forEach>
                                         </optgroup>
