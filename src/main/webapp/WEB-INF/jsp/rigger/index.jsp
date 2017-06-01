@@ -54,14 +54,16 @@
                             </div>
                             <div>
                                 <select id="engineTypeSelect" name="engineTypeId" multiple>
-                                    <c:forEach items="${engineTypeGroups}" var="group">
-                                        <optgroup label="${group}">
-                                            <c:forEach items="${engineTypes}" var="entry">
-                                                <c:if test="${entry.groupName == group}">
-                                                    <option value="${entry.id}">${entry.shortName}</option>
+                                    <c:set var="prevGroupOrder" scope="session" value=''/>
+                                    <c:forEach items="${engineTypes}" var="entry">
+                                            <c:if test="${entry.groupOrder != prevGroupOrder}">
+                                                <c:if test="${prevGroupOrder != ''}">
+                                                    </optgroup>
                                                 </c:if>
-                                            </c:forEach>
-                                        </optgroup>
+                                                <optgroup label="${entry.groupName}">
+                                                <c:set var="prevGroupOrder" scope="session" value="${entry.groupOrder}"/>
+                                            </c:if>
+                                                    <option value="${entry.id}">${entry.shortName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
