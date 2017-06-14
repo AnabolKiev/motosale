@@ -10,8 +10,8 @@
     <script>var manufacturerId = ${manufacturerId};
             var manufacturer = '${manufacturer}';
     </script>
-    <script src="//unpkg.com/react@15.6.0/dist/react.min.js"></script>
-    <script src="//unpkg.com/react-dom@15.6.0/dist/react-dom.min.js"></script>
+    <script src="//unpkg.com/react@latest/dist/react.min.js"></script>
+    <script src="//unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
     <script src="/resources/js/scriptManufacturer.js"></script>
     <link href="/resources/img/favicon.ico" rel="shortcut icon">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
@@ -28,24 +28,6 @@
         <div class="content">
             <h1 class="title">Мотокаталог моделей ${manufacturer}</h1>
             <div id="searchResult"></div>
-            <%--
-                <table class="model-table">
-                    <th>Модель</th>
-                    <th>Год выпуска</th>
-                    <c:forEach items="${modelMap}" var="entry">
-                        <tr>
-                            <td>${entry.key}</td>
-                            <td>
-                                <ul>
-                                    <c:forEach items="${entry.value}" var="year">
-                                        <li><a href="/${manufacturer}/${entry.key}/${year}">${year}</a></li>
-                                    </c:forEach>
-                                </ul>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            --%>
         </div>
         <div class="footer">
             <div class="copyright">© 2017</div>

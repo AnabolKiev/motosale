@@ -203,7 +203,7 @@ $(document).ready( function() {
         $('<option>', {value: i, text: i}).appendTo('.year');
     };
 
-    var displacementArray = [50,125,200,400,600,800,1000];
+    var displacementArray = [50,125,250,400,600,800,1000];
     for (var i = 0; i < displacementArray.length; i++) {
         $('<option>', {value: displacementArray[i], text: displacementArray[i] + ' см3'}).appendTo('.displacement');
     }

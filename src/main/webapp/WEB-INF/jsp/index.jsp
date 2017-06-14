@@ -8,8 +8,8 @@
     <title>Технические характеристики</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/resources/js/jquery.multiselect.js"></script>
-	<script src="//unpkg.com/react@15.6.0/dist/react.min.js"></script>
-	<script src="//unpkg.com/react-dom@15.6.0/dist/react-dom.min.js"></script>
+	<script src="//unpkg.com/react@latest/dist/react.min.js"></script>
+	<script src="//unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
 	<script src="/resources/js/script.js"></script>
     <link href="/resources/img/favicon.ico" rel="shortcut icon">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
