@@ -53,7 +53,7 @@
                                         </c:if>
                                         <c:if test="${not empty model.displacement}">
                                             <li>
-                                                <span class="specs-item-label">Объем двигателя, см3</span>
+                                                <span class="specs-item-label">Объем двигателя, см<sup>3</sup></span>
                                                 <span class="specs-item-value">${model.displacement}</span>
                                             </li>
                                         </c:if>
