@@ -66,7 +66,7 @@
                                     <c:forEach items="${engineTypes}" var="entry">
                                             <c:if test="${entry.groupOrder != prevGroupOrder}">
                                                 <c:if test="${prevGroupOrder != ''}">
-                                                </optgroup>
+                                                    </optgroup>
                                                 </c:if>
                                                 <optgroup label="${entry.groupName}">
                                                 <c:set var="prevGroupOrder" scope="session" value="${entry.groupOrder}"/>
