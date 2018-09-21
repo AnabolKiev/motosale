@@ -1,5 +1,3 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 
 export class Models extends Component{

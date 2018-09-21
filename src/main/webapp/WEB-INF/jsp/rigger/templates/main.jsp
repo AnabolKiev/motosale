@@ -29,7 +29,7 @@
                     </a>
                 </div>
                 <div class="mainManufacturers-link">
-                    <a href="/bike/Ducati">BMW</a>
+                    <a href="/bike/Ducati">Ducati</a>
                 </div>
             </li>
             <li>

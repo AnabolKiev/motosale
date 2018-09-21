@@ -10,6 +10,8 @@
     <script>var manufacturerId = ${manufacturerId};
             var manufacturer = '${manufacturer}';
     </script>
+    <script src="//unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+    <script src="//unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
     <script src="/resources/js/scriptManufacturer.js"></script>
     <link href="/resources/img/favicon.ico" rel="shortcut icon">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">

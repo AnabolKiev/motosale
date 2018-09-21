@@ -8,9 +8,9 @@
     <title>Технические характеристики</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/resources/js/jquery.multiselect.js"></script>
-	<script src="//unpkg.com/react@latest/dist/react.min.js"></script>
-	<script src="//unpkg.com/react-dom@latest/dist/react-dom.min.js"></script>
-	<script src="/resources/js/script.js"></script>
+    <script src="//unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+    <script src="//unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+    <script src="/resources/js/script.js"></script>
     <link href="/resources/img/favicon.ico" rel="shortcut icon">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
     <link href="/resources/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
@@ -129,7 +129,7 @@
 		                        </a>
 		                    </div>
 		                    <div class="mainManufacturers-link">
-		                        <a href="/bike/Ducati">BMW</a>
+		                        <a href="/bike/Ducati">Ducati</a>
 		                    </div>
 		                </li>
 		                <li>
