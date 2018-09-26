@@ -1,6 +1,8 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 
-export class Models extends Component{
+export class AggregatedModels extends Component{
     render(){
         var modelRows = [];
         var models = this.props.data; // Object with array of Models (name as a key and array of years)
@@ -40,7 +42,7 @@ export class Models extends Component{
     }
 }
 
-export class SearchResult extends Component {
+export class SearchAggregatedResult extends Component {
     constructor(props) {
         super(props);
         this.state = {data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(Object.keys(this.props.modelMap).length/props.sizePerPage)};
@@ -84,7 +86,7 @@ export class SearchResult extends Component {
         } else {
             return(
                 <div>
-                    <Models data={this.state.data}/>
+                    <AggregatedModels data={this.state.data}/>
                     <div className="paginationDiv">
                         <ReactPaginate previousLabel={"назад"}
                                        nextLabel={"вперед"}
@@ -106,12 +108,12 @@ export class SearchResult extends Component {
     }
 }
 
-function showModels(models, keys) {
-    ReactDOM.render(<SearchResult modelMap={models} keys={keys} sizePerPage={30}/>, document.getElementById('searchResult'))
+function showAggregatedModels(models, keys) {
+    ReactDOM.render(<SearchAggregatedResult modelMap={models} keys={keys} sizePerPage={30}/>, document.getElementById('searchResult'))
 }
 
 $(document).ready( function() {
-    $.ajax({
+    $.ajax({  // load all data
         url      : '/ajax/searchModelsByManufacturer/',
         data     : {manufacturerId: manufacturerId},
         traditional: true,
@@ -123,7 +125,7 @@ $(document).ready( function() {
             for (var key in data) {
                 if (data.hasOwnProperty(key)) keys.push(key);
             }
-            showModels(models, keys);
+            showAggregatedModels(models, keys);
         },
         error: (xhr, status, err) => {
             console.error(status, err.toString());

@@ -1,7 +1,7 @@
-package com.anabol.motosearch.dao;
+package com.anabol.motosearch.dao.old;
 
-import com.anabol.motosearch.dao.repository.AdRepository;
-import com.anabol.motosearch.model.Ad;
+import com.anabol.motosearch.dao.repository.old.AdRepository;
+import com.anabol.motosearch.model.old.Ad;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;

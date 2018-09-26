@@ -136,7 +136,7 @@ create table ms.model (
   fuelsystemeng			varchar(300), 		-- 'Fuel system:'
   fuelcapacity			decimal(6,2) unsigned, 	-- 'Fuel capacity:'
   reservefuel			decimal(6,2) unsigned, 	-- 'Reserve fuel capacity:'
-  consumtion			decimal(6,2) unsigned, 	-- 'Fuel consumption:'
+  consumption			decimal(6,2) unsigned, 	-- 'Fuel consumption:'
   frontbrakesdiameter	smallint unsigned, 	-- 'Front brakes diameter:'
   frontbrakes			varchar(255), 		-- 'Front brakes:'
   frontbrakeseng		varchar(255), 		-- 'Front brakes:'

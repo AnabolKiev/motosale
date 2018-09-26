@@ -6,7 +6,7 @@
             maxIdle="2"
             maxWaitMillis="5000"
             removeAbandonedOnBorrow="true"
-            name="jdbc/AdsDS"
+            name="jdbc/MotoSearch"
             username="root"
             password="root"
             type="javax.sql.DataSource"

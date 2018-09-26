@@ -16,7 +16,7 @@
         <div class="content">
             <h1 class="title">Характеристики ${model.manufacturer.name} ${model.name} ${model.year}</h1>
             <table class="specs-table">
-                <c:if test="${!(empty model.engine &&
+                <c:if test="${!(
                                 empty model.engineType.name &&
                                 empty model.displacement &&
                                 empty model.boreStroke &&
@@ -33,12 +33,12 @@
                                 <h4>Двигатель</h4>
                                 <div class="specs-value-list">
                                     <ul>
-                                        <c:if test="${not empty model.engine}">
+                                        <%--<c:if test="${not empty model.engine}">
                                             <li>
                                                 <span class="specs-item-label">Двигатель</span>
                                                 <span class="specs-item-value">${model.engine}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.engineType.name}">
                                             <li>
                                                 <span class="specs-item-label">Тип</span>
@@ -47,7 +47,7 @@
                                         </c:if>
                                         <c:if test="${not empty model.displacement}">
                                             <li>
-                                                <span class="specs-item-label">Объем двигателя, см3</span>
+                                                <span class="specs-item-label">Объем двигателя, см<sup>3</sup></span>
                                                 <span class="specs-item-value">${model.displacement}</span>
                                             </li>
                                         </c:if>
@@ -182,7 +182,6 @@
                                 empty model.wetWeight &&
                                 empty model.seatHeight &&
                                 empty model.altSeatHeight &&
-                                empty model.seat &&
                                 empty model.wheelbase &&
                                 empty model.clearance &&
                                 empty model.frontWeightPerc &&
@@ -237,12 +236,12 @@
                                                 <span class="specs-item-value">${model.altSeatHeight}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.seat}">
+                                        <%--<c:if test="${not empty model.seat}">
                                             <li>
                                                 <span class="specs-item-label">Сиденье</span>
                                                 <span class="specs-item-value">${model.seat}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.wheelbase}">
                                             <li>
                                                 <span class="specs-item-label">Колесная база, мм</span>
@@ -298,12 +297,12 @@
                                     <ul>
                                         <c:if test="${not empty model.frontBrakes}">
                                         <li>
-                                            <span class="specs-item-label">Передний</span>
+                                            <span class="specs-item-label">Передние</span>
                                             <span class="specs-item-value">${model.frontBrakes}</span>
                                         </li>
                                         <c:if test="${not empty model.rearBrakes}">
                                                 <li>
-                                                    <span class="specs-item-label">Задний</span>
+                                                    <span class="specs-item-label">Задние</span>
                                                     <span class="specs-item-value">${model.rearBrakes}</span>
                                                 </li>
                                             </c:if>
@@ -370,8 +369,7 @@
                 </c:if>
 
                 <c:if test="${!(empty model.frontTyre &&
-                                empty model.rearTyre &&
-                                empty model.wheels)}">
+                                empty model.rearTyre)}">
                     <tr>
                         <td>
                             <div class="specs-table-group">
@@ -390,12 +388,12 @@
                                                 <span class="specs-item-value">${model.rearTyre}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.wheels}">
+                                        <%--<c:if test="${not empty model.wheels}">
                                             <li>
                                                 <span class="specs-item-label">Колеса</span>
                                                 <span class="specs-item-value">${model.wheels}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                     </ul>
                                 </div>
                             </div>
@@ -405,25 +403,14 @@
 
                 <c:if test="${!(empty model.gearbox &&
                                 empty model.finalDriveType.name &&
-                                empty model.frame &&
                                 empty model.clutch &&
-                                empty model.ignition &&
                                 empty model.starterType.name &&
-                                empty model.light &&
-                                empty model.driveline &&
                                 empty model.electrical &&
-                                empty model.emission &&
                                 empty model.co2 &&
-                                empty model.exhaust &&
                                 empty model.fuelCapacity &&
                                 empty model.reserveFuel &&
                                 empty model.consumption &&
-                                empty model.carrying &&
-                                empty model.instruments &&
-                                empty model.modifications &&
-                                empty model.price &&
-                                empty model.colors &&
-                                empty model.comments)}">
+                                empty model.price)}">
                     <tr>
                         <td>
                             <div class="specs-table-group">
@@ -442,66 +429,66 @@
                                                 <span class="specs-item-value">${model.finalDriveType.name}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.frame}">
+                                        <%--<c:if test="${not empty model.frame}">
                                             <li>
                                                 <span class="specs-item-label">Рама</span>
                                                 <span class="specs-item-value">${model.frame}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.clutch}">
                                             <li>
                                                 <span class="specs-item-label">Сцепление</span>
                                                 <span class="specs-item-value">${model.clutch}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.ignition}">
+                                        <%--<c:if test="${not empty model.ignition}">
                                             <li>
                                                 <span class="specs-item-label">Зажигание</span>
                                                 <span class="specs-item-value">${model.ignition}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.starterType.name}">
                                             <li>
                                                 <span class="specs-item-label">Стартер</span>
                                                 <span class="specs-item-value">${model.starterType.name}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.light}">
+                                        <%--<c:if test="${not empty model.light}">
                                             <li>
                                                 <span class="specs-item-label">Фара</span>
                                                 <span class="specs-item-value">${model.light}</span>
                                             </li>
-                                        </c:if>
-                                        <c:if test="${not empty model.driveline}">
+                                        </c:if>--%>
+                                        <%--<c:if test="${not empty model.driveline}">
                                             <li>
                                                 <span class="specs-item-label">Трансмиссия</span>
                                                 <span class="specs-item-value">${model.driveline}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.electrical}">
                                             <li>
                                                 <span class="specs-item-label">Электроника</span>
                                                 <span class="specs-item-value">${model.electrical}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.emission}">
+                                        <%--<c:if test="${not empty model.emission}">
                                             <li>
                                                 <span class="specs-item-label">Выхлопные газы</span>
                                                 <span class="specs-item-value">${model.emission}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.co2}">
                                             <li>
-                                                <span class="specs-item-label">СО2</span>
+                                                <span class="specs-item-label">Выброс СО<sub>2</sub>, г/км</span>
                                                 <span class="specs-item-value">${model.co2}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.exhaust}">
+                                        <%--<c:if test="${not empty model.exhaust}">
                                             <li>
                                                 <span class="specs-item-label">Выхлоп</span>
                                                 <span class="specs-item-value">${model.exhaust}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.fuelCapacity}">
                                             <li>
                                                 <span class="specs-item-label">Вместимость бака, л</span>
@@ -520,42 +507,42 @@
                                                 <span class="specs-item-value">${model.consumption}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.carrying}">
+                                        <%--<c:if test="${not empty model.carrying}">
                                             <li>
                                                 <span class="specs-item-label">Багажник</span>
                                                 <span class="specs-item-value">${model.carrying}</span>
                                             </li>
-                                        </c:if>
-                                        <c:if test="${not empty model.instruments}">
+                                        </c:if>--%>
+                                        <%--<c:if test="${not empty model.instruments}">
                                             <li>
                                                 <span class="specs-item-label">Приборная панель</span>
                                                 <span class="specs-item-value">${model.instruments}</span>
                                             </li>
-                                        </c:if>
-                                        <c:if test="${not empty model.modifications}">
+                                        </c:if>--%>
+                                        <%--<c:if test="${not empty model.modifications}">
                                             <li>
                                                 <span class="specs-item-label">Модификации</span>
                                                 <span class="specs-item-value">${model.modifications}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                         <c:if test="${not empty model.price}">
                                             <li>
                                                 <span class="specs-item-label">Цена</span>
                                                 <span class="specs-item-value">${model.price}</span>
                                             </li>
                                         </c:if>
-                                        <c:if test="${not empty model.colors}">
+                                        <%--<c:if test="${not empty model.colors}">
                                             <li>
                                                 <span class="specs-item-label">Цвета</span>
                                                 <span class="specs-item-value">${model.colors}</span>
                                             </li>
-                                        </c:if>
-                                        <c:if test="${not empty model.comments}">
+                                        </c:if>--%>
+                                        <%--<c:if test="${not empty model.comments}">
                                             <li>
                                                 <span class="specs-item-label">Комментарии</span>
                                                 <span class="specs-item-value">${model.comments}</span>
                                             </li>
-                                        </c:if>
+                                        </c:if>--%>
                                     </ul>
                                 </div>
                             </div>

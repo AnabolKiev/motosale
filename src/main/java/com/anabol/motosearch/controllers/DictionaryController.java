@@ -14,8 +14,6 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.Map;
 
-import static com.anabol.motosearch.model.BikeModel_.id;
-
 @Controller
 @Transactional
 public class DictionaryController {
@@ -38,7 +36,7 @@ public class DictionaryController {
         model.addAttribute("engineTypes", engineTypeDao.findAll());
         model.addAttribute("finalDriveTypes", finalDriveTypeDao.findAll());
         model.addAttribute("starterTypes", starterTypeDao.findAll());
-        return "dictionary";
+        return "admin/dictionary";
     }
 
     @RequestMapping(value = "/ajax/category/", method = RequestMethod.POST)

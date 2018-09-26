@@ -20,13 +20,13 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-	<jee:jndi-lookup expected-type="javax.sql.DataSource" id="dbDataSource" jndi-name="jdbc/AdsDS"/>
+	<jee:jndi-lookup expected-type="javax.sql.DataSource" id="dbDataSource" jndi-name="jdbc/MotoSearch"/>
 <!--	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 	    <property name="dataSource" ref="dbDataSource"/>
         <property name="packagesToScan" value="com.anabol.motosearch.model"/>
     </bean> -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="dbDataSource"></property>
+		<property name="dataSource" ref="dbDataSource" />
 		<property name="persistenceUnitName" value="MotoSearchJPA" />
 		<property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
 	</bean>

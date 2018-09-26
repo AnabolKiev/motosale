@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminIndex(Model model) {
-        return "admin";
+        return "admin/admin";
     }
 }

@@ -116,7 +116,8 @@ insert into ms.model(
   colors,
   colorseng,
   comments,
-  commentseng
+  commentseng,
+  consumption
 )
 select	trim(substring(m.modelname, length(mf.name)+1)),
 		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Year:'),
@@ -212,7 +213,8 @@ select	trim(substring(m.modelname, length(mf.name)+1)),
    		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Color options:'),
 		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Color options:'), 
    		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Comments:'),
-		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Comments:')
+		(select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Comments:'),
+        (select CAST(substring(attrValue, 1, position('litres' in attrValue)-1) AS DECIMAL(6,2)) from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Fuel consumption:')
 from ms.model_hold_bikez m
 left outer join ms.manufacturer mf on mf.name = TRIM(TRAILING ' motorcycles' FROM m.manufacturer)
 left outer join ms.category c on c.nameeng = (select attrValue from modelattribute_hold_bikez ma where ma.url = m.url and ma.attrName = 'Category:')

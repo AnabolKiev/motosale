@@ -43,7 +43,7 @@ public class ModelController {
         model.addAttribute("engineTypes", Lists.newArrayList(engineTypeDao.findAll()));
         model.addAttribute("finalDriveTypes", Lists.newArrayList(finalDriveTypeDao.findAll()));
         model.addAttribute("starterTypes", Lists.newArrayList(starterTypeDao.findAll()));
-        return "modelEdit";
+        return "admin/modelEdit";
     }
 
     @JsonView(Views.AdminUi.class)

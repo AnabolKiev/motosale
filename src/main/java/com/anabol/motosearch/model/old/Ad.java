@@ -1,4 +1,6 @@
-package com.anabol.motosearch.model;
+package com.anabol.motosearch.model.old;
+
+import com.anabol.motosearch.model.Manufacturer;
 
 import java.util.Date;
 import javax.persistence.*;

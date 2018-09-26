@@ -24,7 +24,7 @@ public class ParserController {
         model.addAttribute("manufacturers", dao.getManufacturers());
         model.addAttribute("models", dao.getModels());
         //model.addAttribute("bikeModel", dao.getModelAttr());
-        return "parser";
+        return "admin/parser";
     }
 
     @RequestMapping(value = "/admin/parser/getManufacturerList", method = RequestMethod.GET)

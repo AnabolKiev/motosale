@@ -1,6 +1,5 @@
 package com.anabol.motosearch.controllers;
 
-import com.anabol.motosearch.dao.AdDao;
 import com.anabol.motosearch.dao.repository.*;
 import com.anabol.motosearch.model.BikeModel;
 import com.anabol.motosearch.model.BikeModel_;
@@ -28,8 +27,6 @@ import javax.persistence.criteria.*;
 @Transactional
 public class MainController {
 
-	@Resource(name = "adDaoImpl")
-    private AdDao dao;
 	@Inject
 	private ManufacturerRepository manufacturerDao;
 	@Inject

@@ -1,3 +1,5 @@
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import ReactPaginate from 'react-paginate';
 
 export class Models extends Component{
@@ -56,7 +58,7 @@ export class SearchResult extends Component {
         data['sizePerPage'] = this.state.sizePerPage;
         data['pageNumber'] = offset;
 
-        $.ajax({
+        $.ajax({  //load only needed page
             url      : this.props.url,
             data     : data,
             traditional: true,
@@ -122,8 +124,7 @@ export class SearchResult extends Component {
     }
 };
 
-function searchModels() {
-    event.preventDefault();
+function searchModelsByFilters() {
     var manufacturers = $('#manufacturerSelect').val();
     var categories = $('#categorySelect').val();
     var engineTypes = $('#engineTypeSelect').val();
@@ -143,7 +144,8 @@ function searchModels() {
                                   displacementFrom={displacementFrom}
                                   displacementTo={displacementTo}
     />, document.getElementById('searchResult'))
-}
+};
+
 
 $(document).ready( function() {
     $('#manufacturerSelect').multiselect({
@@ -207,6 +209,7 @@ $(document).ready( function() {
     }
 
     $('#searchModels').click(function () {
-        searchModels();
+        event.preventDefault();
+        searchModelsByFilters();
     });
 });

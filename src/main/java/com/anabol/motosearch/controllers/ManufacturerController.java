@@ -26,7 +26,7 @@ public class ManufacturerController {
     public String indexManufacturer(Model model) {
         model.addAttribute("manufacturers", Lists.newArrayList(dao.findAll()));
         model.addAttribute("manufacturer", new Manufacturer());
-        return "manufacturerEdit";
+        return "admin/manufacturerEdit";
     }
 
     @RequestMapping(value = "/admin/manufacturer/delete/{id}", method = RequestMethod.GET)
@@ -39,7 +39,7 @@ public class ManufacturerController {
     public String updateManufacturer(@PathVariable("id") Long id, Model model) {
         model.addAttribute("manufacturers", Lists.newArrayList(dao.findAll()));
         model.addAttribute("manufacturer", dao.findOne(id));
-        return "manufacturerEdit";
+        return "admin/manufacturerEdit";
     }
     @RequestMapping(value = "/admin/manufacturer/", method = RequestMethod.POST)
     public String saveManufacturer(@ModelAttribute Manufacturer manufacturer, BindingResult bindingResult, Model model) {
