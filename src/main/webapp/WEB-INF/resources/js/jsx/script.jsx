@@ -55,6 +55,7 @@ export class SearchResult extends Component {
         data['yearTo'] = props.yearTo;
         data['displacementFrom'] = props.displacementFrom;
         data['displacementTo'] = props.displacementTo;
+        data['searchText'] = props.searchText;
         data['sizePerPage'] = this.state.sizePerPage;
         data['pageNumber'] = offset;
 
@@ -114,6 +115,7 @@ export class SearchResult extends Component {
                                        initialPage={this.state.offset}
                                        forcePage={this.state.offset}
                                        onPageChange={this.handlePageClick}
+                                       disableInitialCallback="true"
                                        containerClassName={"pagination"}
                                        subContainerClassName={"pages pagination"}
                                        activeClassName={"active"} />
@@ -146,6 +148,13 @@ function searchModelsByFilters() {
     />, document.getElementById('searchResult'))
 };
 
+function searchModelsByText() {
+    var searchText = $('#searchText').val();
+    ReactDOM.render(<SearchResult url='/ajax/searchModels/'
+                                  sizePerPage={30}
+                                  searchText={searchText}
+    />, document.getElementById('searchResult'))
+};
 
 $(document).ready( function() {
     $('#manufacturerSelect').multiselect({
@@ -211,5 +220,10 @@ $(document).ready( function() {
     $('#searchModels').click(function () {
         event.preventDefault();
         searchModelsByFilters();
+    });
+
+    $('#searchButton').click(function () {
+        event.preventDefault();
+        searchModelsByText();
     });
 });

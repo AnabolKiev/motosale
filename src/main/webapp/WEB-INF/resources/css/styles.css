@@ -33,6 +33,14 @@ h1.title {
     float: left;
     margin-left: 2em;
 }
+.header .search {
+    float: right;
+    margin-right: 3em;
+}
+.header #searchText {
+    height: 2em;
+    border-radius: 0.5em;
+}
 .footer {
     background-color: #79b8b0;
     flex: 0 0 auto;

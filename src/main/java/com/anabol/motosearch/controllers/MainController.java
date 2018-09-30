@@ -57,8 +57,8 @@ public class MainController {
 		Manufacturer manufacturer = manufacturerDao.findByNameAndActiveTrue(manufacturerName);
 		if (manufacturer == null) throw new PageNotFoundException(); // validation of manufacturer`s name
 		Long manufacturerId = manufacturer.getId();
-		List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
-		model.addAttribute("modelMap", getAggregatedModels(modelList));
+		//List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
+		//model.addAttribute("modelMap", getAggregatedModels(modelList)); // models data uploads by ajax request now
         model.addAttribute("manufacturerId", manufacturerId);
 		model.addAttribute("manufacturer", manufacturer.getName());
 		return "manufacturer";
@@ -85,11 +85,13 @@ public class MainController {
                                  @RequestParam(name = "yearTo", required = false) final Integer yearTo,
                                  @RequestParam(name = "displacementFrom", required = false) final Integer displacementFrom,
                                  @RequestParam(name = "displacementTo", required = false) final Integer displacementTo,
+                                 @RequestParam(name = "searchText", required = false) final String searchText,
                                  @RequestParam("sizePerPage") final Integer sizePerPage,
                                  @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
 		Specification<BikeModel> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();   // Constructing list of parameters
-            predicates.add(cb.isTrue(root.join(BikeModel_.manufacturer, JoinType.LEFT).get(Manufacturer_.active)));
+            Join<BikeModel,Manufacturer> manufacturerJoin= root.join(BikeModel_.manufacturer); // to avoid duplicated joins of Manufacturer for text search
+            predicates.add(cb.isTrue(manufacturerJoin.get(Manufacturer_.active)));
             if (manufacturers != null) {
                 predicates.add(root.get(BikeModel_.manufacturer).in(manufacturers));
             }
@@ -113,6 +115,12 @@ public class MainController {
             }
             if (displacementTo != null) {
                 predicates.add(cb.lessThanOrEqualTo(root.get(BikeModel_.displacement), displacementTo.floatValue()));
+            }
+            if (searchText != null) {
+                String searchExpr = '%' + searchText.replace(' ', '%') + '%';
+                Expression<String> expr1 = cb.concat(manufacturerJoin.get(Manufacturer_.name), root.get(BikeModel_.name));
+                Expression<String> expr2 = cb.concat(root.get(BikeModel_.name), manufacturerJoin.get(Manufacturer_.name));
+                predicates.add(cb.or(cb.like(expr1, searchExpr), cb.like(expr2, searchExpr)));
             }
             return cb.and(predicates.toArray(new Predicate[predicates.size()]));
         };
@@ -140,6 +148,12 @@ public class MainController {
         }*/
         List<BikeModel> modelList = modelDao.findByManufacturer_IdAndManufacturer_ActiveTrue(manufacturerId);
         return getAggregatedModels(modelList);
+    }
+
+    @RequestMapping(value = "/ajax/searchModelsByText/", method = RequestMethod.GET)
+    public @ResponseBody
+    List<BikeModel> searchModelsByText(@RequestParam final String searchString) throws ServletException, IOException {
+        return modelDao.findByNameLikeOrManufacturer_NameLike(searchString, searchString);
     }
 
     private Map<String, Set<Integer>> getAggregatedModels (List<BikeModel> modelList) {

@@ -8,7 +8,7 @@ var rigger = require('gulp-rigger');
 var uglify = require('gulp-uglify');
 
 gulp.task('index', function () {
-    return browserify({entries: 'src/main/webapp/WEB-INF/resources/js/script.jsx', extensions: ['.jsx'], debug: false})
+    return browserify({entries: 'src/main/webapp/WEB-INF/resources/js/jsx/script.jsx', extensions: ['.jsx'], debug: false})
         .transform('babelify', {presets: ['es2015', 'react']})
 	.transform(browserifyshim)
         .bundle()
@@ -18,7 +18,7 @@ gulp.task('index', function () {
 });
 
 gulp.task('manufacturer', function () {
-    return browserify({entries: 'src/main/webapp/WEB-INF/resources/js/scriptManufacturer.jsx', extensions: ['.jsx'], debug: false})
+    return browserify({entries: 'src/main/webapp/WEB-INF/resources/js/jsx/scriptManufacturer.jsx', extensions: ['.jsx'], debug: false})
         .transform('babelify', {presets: ['es2015', 'react']})
 	.transform(browserifyshim)
         .bundle()
@@ -34,9 +34,9 @@ gulp.task('jsp', function () {
 });
 
 gulp.task('watch', function () {
-    gulp.watch('src/main/webapp/WEB-INF/resources/js/script.jsx', ['index']);
-    gulp.watch('src/main/webapp/WEB-INF/resources/js/scriptManufacturer.jsx', ['manufacturer']);
-    gulp.watch('src/main/webapp/WEB-INF/jsp/rigger/*.jsp', ['jsp']);
+    gulp.watch('src/main/webapp/WEB-INF/resources/js/jsx/script.jsx', ['index']);
+    gulp.watch('src/main/webapp/WEB-INF/resources/js/jsx/scriptManufacturer.jsx', ['manufacturer']);
+    gulp.watch('src/main/webapp/WEB-INF/jsp/rigger/**/*.jsp', ['jsp']);
 
 });
 

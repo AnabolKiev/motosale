@@ -5545,6 +5545,7 @@ var SearchResult = exports.SearchResult = function (_Component2) {
             data['yearTo'] = props.yearTo;
             data['displacementFrom'] = props.displacementFrom;
             data['displacementTo'] = props.displacementTo;
+            data['searchText'] = props.searchText;
             data['sizePerPage'] = this.state.sizePerPage;
             data['pageNumber'] = offset;
 
@@ -5620,6 +5621,7 @@ var SearchResult = exports.SearchResult = function (_Component2) {
                             initialPage: this.state.offset,
                             forcePage: this.state.offset,
                             onPageChange: this.handlePageClick,
+                            disableInitialCallback: 'true',
                             containerClassName: "pagination",
                             subContainerClassName: "pages pagination",
                             activeClassName: "active" })
@@ -5653,6 +5655,14 @@ function searchModelsByFilters() {
         yearTo: yearTo,
         displacementFrom: displacementFrom,
         displacementTo: displacementTo
+    }), document.getElementById('searchResult'));
+};
+
+function searchModelsByText() {
+    var searchText = $('#searchText').val();
+    _reactDom2.default.render(_react2.default.createElement(SearchResult, { url: '/ajax/searchModels/',
+        sizePerPage: 30,
+        searchText: searchText
     }), document.getElementById('searchResult'));
 };
 
@@ -5720,6 +5730,11 @@ $(document).ready(function () {
     $('#searchModels').click(function () {
         event.preventDefault();
         searchModelsByFilters();
+    });
+
+    $('#searchButton').click(function () {
+        event.preventDefault();
+        searchModelsByText();
     });
 });
 
