@@ -5417,7 +5417,7 @@ module.exports = require('./lib/React');
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.SearchAggregatedResult = exports.AggregatedModels = undefined;
+exports.SearchResult = exports.AggregatedModels = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -5453,41 +5453,43 @@ var AggregatedModels = exports.AggregatedModels = function (_Component) {
     _createClass(AggregatedModels, [{
         key: 'render',
         value: function render() {
-            var modelRows = [];
-            var models = this.props.data; // Object with array of Models (name as a key and array of years)
-            for (var key in models) {
-                if (models.hasOwnProperty(key)) {
-                    var years = models[key].map(function (year, i) {
-                        return _react2.default.createElement(
-                            'li',
-                            { key: i },
-                            _react2.default.createElement(
-                                'a',
-                                { href: '/bike/' + manufacturer + '/' + key + '/' + year },
-                                year
-                            )
-                        );
-                    });
-                    modelRows.push(_react2.default.createElement(
-                        'tr',
-                        { key: key },
+            var modelRows = this.props.data.map(function (model, i) {
+                var years = model[2].split(",").map(function (year, j) {
+                    // build horizontal list of model years
+                    return _react2.default.createElement(
+                        'li',
+                        { key: j },
                         _react2.default.createElement(
-                            'td',
-                            null,
-                            key
-                        ),
-                        _react2.default.createElement(
-                            'td',
-                            null,
-                            _react2.default.createElement(
-                                'ul',
-                                null,
-                                years
-                            )
+                            'a',
+                            { href: '/bike/' + model[0] + '/' + model[1] + '/' + year },
+                            year
                         )
-                    ));
-                }
-            }
+                    );
+                });
+                return _react2.default.createElement(
+                    'tr',
+                    { key: i },
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        model[0]
+                    ),
+                    _react2.default.createElement(
+                        'td',
+                        null,
+                        model[1]
+                    ),
+                    _react2.default.createElement(
+                        'td',
+                        { className: 'yearColumn' },
+                        _react2.default.createElement(
+                            'ul',
+                            null,
+                            years
+                        )
+                    )
+                );
+            });
 
             return _react2.default.createElement(
                 'table',
@@ -5498,6 +5500,11 @@ var AggregatedModels = exports.AggregatedModels = function (_Component) {
                     _react2.default.createElement(
                         'tr',
                         null,
+                        _react2.default.createElement(
+                            'th',
+                            null,
+                            '\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C'
+                        ),
                         _react2.default.createElement(
                             'th',
                             null,
@@ -5518,26 +5525,23 @@ var AggregatedModels = exports.AggregatedModels = function (_Component) {
     return AggregatedModels;
 }(_react.Component);
 
-var SearchAggregatedResult = exports.SearchAggregatedResult = function (_Component2) {
-    _inherits(SearchAggregatedResult, _Component2);
+var SearchResult = exports.SearchResult = function (_Component2) {
+    _inherits(SearchResult, _Component2);
 
-    function SearchAggregatedResult(props) {
-        _classCallCheck(this, SearchAggregatedResult);
+    function SearchResult(props) {
+        _classCallCheck(this, SearchResult);
 
-        var _this2 = _possibleConstructorReturn(this, (SearchAggregatedResult.__proto__ || Object.getPrototypeOf(SearchAggregatedResult)).call(this, props));
+        var _this2 = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props));
 
-        _this2.state = { data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(Object.keys(_this2.props.modelMap).length / props.sizePerPage) };
+        _this2.state = { data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(props.models.length / props.sizePerPage) };
         _this2.handlePageClick = _this2.handlePageClick.bind(_this2);
         return _this2;
     }
 
-    _createClass(SearchAggregatedResult, [{
+    _createClass(SearchResult, [{
         key: 'getPageOfData',
         value: function getPageOfData(props, offset) {
-            var pageOfData = {};
-            for (var i = offset * props.sizePerPage; i < props.keys.length && i < (offset + 1) * props.sizePerPage; i++) {
-                pageOfData[props.keys[i]] = props.modelMap[props.keys[i]];
-            }
+            var pageOfData = props.models.slice(offset * props.sizePerPage, (offset + 1) * props.sizePerPage);
             this.setState({ data: pageOfData, offset: offset });
         }
     }, {
@@ -5550,6 +5554,7 @@ var SearchAggregatedResult = exports.SearchAggregatedResult = function (_Compone
         value: function componentWillReceiveProps(nextProps) {
             if (nextProps != this.props) {
                 this.getPageOfData(nextProps, 0);
+                this.setState({ pageCount: Math.ceil(nextProps.models.length / nextProps.sizePerPage) });
             }
         }
     }, {
@@ -5607,12 +5612,8 @@ var SearchAggregatedResult = exports.SearchAggregatedResult = function (_Compone
         }
     }]);
 
-    return SearchAggregatedResult;
+    return SearchResult;
 }(_react.Component);
-
-function showAggregatedModels(models, keys) {
-    _reactDom2.default.render(_react2.default.createElement(SearchAggregatedResult, { modelMap: models, keys: keys, sizePerPage: 30 }), document.getElementById('searchResult'));
-}
 
 $(document).ready(function () {
     $.ajax({ // load all data
@@ -5622,12 +5623,7 @@ $(document).ready(function () {
         dataType: 'JSON',
         type: 'GET',
         success: function success(data) {
-            var models = data;
-            var keys = [];
-            for (var key in data) {
-                if (data.hasOwnProperty(key)) keys.push(key);
-            }
-            showAggregatedModels(models, keys);
+            _reactDom2.default.render(_react2.default.createElement(SearchResult, { models: data, sizePerPage: 30 }), document.getElementById('searchResult'));
         },
         error: function error(xhr, status, err) {
             console.error(status, err.toString());

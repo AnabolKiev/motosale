@@ -4,56 +4,53 @@ import ReactPaginate from 'react-paginate';
 
 export class AggregatedModels extends Component{
     render(){
-        var modelRows = [];
-        var models = this.props.data; // Object with array of Models (name as a key and array of years)
-        for (var key in models) {
-            if (models.hasOwnProperty(key)) {
-                let years = models[key].map(function(year, i) {
-                    return(
-                        <li key={i}><a href={'/bike/' + manufacturer + '/' + key + '/' + year}>{year}</a></li>
-                    )
-                });
-                modelRows.push(
-                    <tr key={key}>
-                        <td>
-                            {key}
-                        </td>
-                        <td>
-                            <ul>
-                                {years}
-                            </ul>
-                        </td>
-                    </tr>
-                );
-            }
-        }
+        var modelRows = this.props.data.map((model, i) => {
+            let years = model[2].split(",").map((year, j) => { // build horizontal list of model years
+                return(
+                    <li key={j}><a href={'/bike/' + model[0] + '/' + model[1] + '/' + year}>{year}</a></li>
+                )
+            });
+            return(
+                <tr key={i}>
+                    <td>
+                        {model[0]}
+                    </td>
+                    <td>
+                        {model[1]}
+                    </td>
+                    <td className="yearColumn">
+                        <ul>
+                            {years}
+                        </ul>
+                    </td>
+                </tr>
+            );
+        });
 
         return(
             <table className="model-table">
                 <tbody>
-                    <tr>
-                        <th>Модель</th>
-                        <th>Год выпуска</th>
-                    </tr>
-                    {modelRows}
+                <tr>
+                    <th>Производитель</th>
+                    <th>Модель</th>
+                    <th>Год выпуска</th>
+                </tr>
+                {modelRows}
                 </tbody>
             </table>
         );
     }
 }
 
-export class SearchAggregatedResult extends Component {
+export class SearchResult extends Component {
     constructor(props) {
         super(props);
-        this.state = {data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(Object.keys(this.props.modelMap).length/props.sizePerPage)};
+        this.state = {data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(props.models.length/props.sizePerPage)};
         this.handlePageClick = this.handlePageClick.bind(this);
     }
 
     getPageOfData(props, offset) {
-        let pageOfData = {};
-        for (var i = offset * props.sizePerPage; i < props.keys.length && i < (offset + 1) * props.sizePerPage; i++) {
-            pageOfData[props.keys[i]] = props.modelMap[props.keys[i]];
-        }
+        let pageOfData = props.models.slice(offset * props.sizePerPage, (offset + 1) * props.sizePerPage);
         this.setState({data: pageOfData, offset: offset});
     }
 
@@ -64,6 +61,7 @@ export class SearchAggregatedResult extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps != this.props) {
             this.getPageOfData(nextProps, 0);
+            this.setState({pageCount: Math.ceil(nextProps.models.length/nextProps.sizePerPage)})
         }
     }
 
@@ -108,10 +106,6 @@ export class SearchAggregatedResult extends Component {
     }
 }
 
-function showAggregatedModels(models, keys) {
-    ReactDOM.render(<SearchAggregatedResult modelMap={models} keys={keys} sizePerPage={30}/>, document.getElementById('searchResult'))
-}
-
 $(document).ready( function() {
     $.ajax({  // load all data
         url      : '/ajax/searchModelsByManufacturer/',
@@ -120,12 +114,7 @@ $(document).ready( function() {
         dataType : 'JSON',
         type     : 'GET',
         success: data => {
-            var models = data;
-            var keys = [];
-            for (var key in data) {
-                if (data.hasOwnProperty(key)) keys.push(key);
-            }
-            showAggregatedModels(models, keys);
+            ReactDOM.render(<SearchResult models={data} sizePerPage={30}/>, document.getElementById('searchResult'))
         },
         error: (xhr, status, err) => {
             console.error(status, err.toString());

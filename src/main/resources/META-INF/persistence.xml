@@ -4,9 +4,12 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
         version="2.0">
 <persistence-unit name="MotoSearchJPA">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <properties>
         <property name="hibernate.show_sql" value="true" />
         <property name="hibernate.hbm2ddl.auto" value="update" />
+        <property name="hibernate.dialect" value="com.anabol.motosearch.MyOwnSQLDialect" />
+        <property name="hibernate.connection.pool_size" value="10" />
     </properties>
 </persistence-unit>
 </persistence>

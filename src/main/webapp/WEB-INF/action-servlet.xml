@@ -21,14 +21,10 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 	<jee:jndi-lookup expected-type="javax.sql.DataSource" id="dbDataSource" jndi-name="jdbc/MotoSearch"/>
-<!--	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-	    <property name="dataSource" ref="dbDataSource"/>
-        <property name="packagesToScan" value="com.anabol.motosearch.model"/>
-    </bean> -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dbDataSource" />
 		<property name="persistenceUnitName" value="MotoSearchJPA" />
-		<property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider"/>
+		<property name="persistenceProviderClass" value="org.hibernate.jpa.HibernatePersistenceProvider" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

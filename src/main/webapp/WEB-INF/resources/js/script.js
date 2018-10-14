@@ -5417,7 +5417,7 @@ module.exports = require('./lib/React');
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.SearchResult = exports.Models = undefined;
+exports.SearchResult = exports.AggregatedModels = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -5441,82 +5441,89 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Models = exports.Models = function (_Component) {
-    _inherits(Models, _Component);
+var AggregatedModels = exports.AggregatedModels = function (_Component) {
+    _inherits(AggregatedModels, _Component);
 
-    function Models() {
-        _classCallCheck(this, Models);
+    function AggregatedModels() {
+        _classCallCheck(this, AggregatedModels);
 
-        return _possibleConstructorReturn(this, (Models.__proto__ || Object.getPrototypeOf(Models)).apply(this, arguments));
+        return _possibleConstructorReturn(this, (AggregatedModels.__proto__ || Object.getPrototypeOf(AggregatedModels)).apply(this, arguments));
     }
 
-    _createClass(Models, [{
+    _createClass(AggregatedModels, [{
         key: 'render',
         value: function render() {
-            var models = this.props.data.map(function (model, i) {
+            var modelRows = this.props.data.map(function (model, i) {
+                var years = model[2].split(",").map(function (year, j) {
+                    // build horizontal list of model years
+                    return _react2.default.createElement(
+                        'li',
+                        { key: j },
+                        _react2.default.createElement(
+                            'a',
+                            { href: '/bike/' + model[0] + '/' + model[1] + '/' + year },
+                            year
+                        )
+                    );
+                });
                 return _react2.default.createElement(
                     'tr',
                     { key: i },
                     _react2.default.createElement(
                         'td',
                         null,
-                        model.manufacturer.name
+                        model[0]
                     ),
                     _react2.default.createElement(
                         'td',
                         null,
-                        model.name
+                        model[1]
                     ),
                     _react2.default.createElement(
                         'td',
                         { className: 'yearColumn' },
                         _react2.default.createElement(
-                            'a',
-                            { href: '/bike/' + model.manufacturer.name + '/' + model.name + '/' + model.year },
-                            model.year
+                            'ul',
+                            null,
+                            years
                         )
                     )
                 );
             });
+
             return _react2.default.createElement(
-                'div',
-                { className: 'modelList' },
+                'table',
+                { className: 'model-table' },
                 _react2.default.createElement(
-                    'table',
+                    'tbody',
                     null,
                     _react2.default.createElement(
-                        'tbody',
+                        'tr',
                         null,
                         _react2.default.createElement(
-                            'tr',
+                            'th',
                             null,
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                '\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                '\u041C\u043E\u0434\u0435\u043B\u044C'
-                            ),
-                            _react2.default.createElement(
-                                'th',
-                                null,
-                                '\u0413\u043E\u0434 \u0432\u044B\u043F\u0443\u0441\u043A\u0430'
-                            )
+                            '\u041F\u0440\u043E\u0438\u0437\u0432\u043E\u0434\u0438\u0442\u0435\u043B\u044C'
                         ),
-                        models
-                    )
+                        _react2.default.createElement(
+                            'th',
+                            null,
+                            '\u041C\u043E\u0434\u0435\u043B\u044C'
+                        ),
+                        _react2.default.createElement(
+                            'th',
+                            null,
+                            '\u0413\u043E\u0434 \u0432\u044B\u043F\u0443\u0441\u043A\u0430'
+                        )
+                    ),
+                    modelRows
                 )
             );
         }
     }]);
 
-    return Models;
+    return AggregatedModels;
 }(_react.Component);
-
-;
 
 var SearchResult = exports.SearchResult = function (_Component2) {
     _inherits(SearchResult, _Component2);
@@ -5526,62 +5533,37 @@ var SearchResult = exports.SearchResult = function (_Component2) {
 
         var _this2 = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props));
 
-        _this2.state = { data: undefined, offset: 0, sizePerPage: props.sizePerPage };
+        _this2.state = { data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(props.models.length / props.sizePerPage) };
         _this2.handlePageClick = _this2.handlePageClick.bind(_this2);
         return _this2;
     }
 
     _createClass(SearchResult, [{
-        key: 'loadFromServer',
-        value: function loadFromServer(props, offset) {
-            var _this3 = this;
-
-            var data = {};
-            data['manufacturer'] = props.manufacturers;
-            data['category'] = props.categories;
-            data['engineType'] = props.engineTypes;
-            data['finalDriveType'] = props.finalDriveTypes;
-            data['yearFrom'] = props.yearFrom;
-            data['yearTo'] = props.yearTo;
-            data['displacementFrom'] = props.displacementFrom;
-            data['displacementTo'] = props.displacementTo;
-            data['searchText'] = props.searchText;
-            data['sizePerPage'] = this.state.sizePerPage;
-            data['pageNumber'] = offset;
-
-            $.ajax({ //load only needed page
-                url: this.props.url,
-                data: data,
-                traditional: true,
-                dataType: 'JSON',
-                type: 'GET',
-                success: function success(data) {
-                    _this3.setState({ data: data.content, pageCount: data.totalPages, offset: offset });
-                },
-                error: function error(xhr, status, err) {
-                    console.error(_this3.props.url, status, err.toString());
-                }
-            });
+        key: 'getPageOfData',
+        value: function getPageOfData(props, offset) {
+            var pageOfData = props.models.slice(offset * props.sizePerPage, (offset + 1) * props.sizePerPage);
+            this.setState({ data: pageOfData, offset: offset });
         }
     }, {
         key: 'componentWillMount',
         value: function componentWillMount() {
-            this.loadFromServer(this.props, 0);
+            this.getPageOfData(this.props, 0);
         }
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (nextProps != this.props) {
-                this.loadFromServer(nextProps, 0);
+                this.getPageOfData(nextProps, 0);
+                this.setState({ pageCount: Math.ceil(nextProps.models.length / nextProps.sizePerPage) });
             }
         }
     }, {
         key: 'handlePageClick',
         value: function handlePageClick(data) {
-            var _this4 = this;
+            var _this3 = this;
 
             this.setState({ offset: data.selected }, function () {
-                _this4.loadFromServer(_this4.props, data.selected);
+                _this3.getPageOfData(_this3.props, data.selected);
             });
         }
     }, {
@@ -5603,7 +5585,7 @@ var SearchResult = exports.SearchResult = function (_Component2) {
                 return _react2.default.createElement(
                     'div',
                     null,
-                    _react2.default.createElement(Models, { data: this.state.data }),
+                    _react2.default.createElement(AggregatedModels, { data: this.state.data }),
                     _react2.default.createElement(
                         'div',
                         { className: 'paginationDiv' },
@@ -5621,7 +5603,6 @@ var SearchResult = exports.SearchResult = function (_Component2) {
                             initialPage: this.state.offset,
                             forcePage: this.state.offset,
                             onPageChange: this.handlePageClick,
-                            disableInitialCallback: 'true',
                             containerClassName: "pagination",
                             subContainerClassName: "pages pagination",
                             activeClassName: "active" })
@@ -5634,37 +5615,44 @@ var SearchResult = exports.SearchResult = function (_Component2) {
     return SearchResult;
 }(_react.Component);
 
-;
-
 function searchModelsByFilters() {
-    var manufacturers = $('#manufacturerSelect').val();
-    var categories = $('#categorySelect').val();
-    var engineTypes = $('#engineTypeSelect').val();
-    var finalDriveTypes = $('#finalDriveTypeSelect').val();
-    var yearFrom = $('#yearFromSelect').val();
-    var yearTo = $('#yearToSelect').val();
-    var displacementFrom = $('#displacementFromSelect').val();
-    var displacementTo = $('#displacementToSelect').val();
-    _reactDom2.default.render(_react2.default.createElement(SearchResult, { url: '/ajax/searchModels/',
-        sizePerPage: 30,
-        manufacturers: manufacturers,
-        categories: categories,
-        engineTypes: engineTypes,
-        finalDriveTypes: finalDriveTypes,
-        yearFrom: yearFrom,
-        yearTo: yearTo,
-        displacementFrom: displacementFrom,
-        displacementTo: displacementTo
-    }), document.getElementById('searchResult'));
-};
+    $.ajax({ // load all data
+        url: '/ajax/searchModelsAll/',
+        data: { manufacturer: $('#manufacturerSelect').val(),
+            category: $('#categorySelect').val(),
+            engineType: $('#engineTypeSelect').val(),
+            finalDriveType: $('#finalDriveTypeSelect').val(),
+            yearFrom: $('#yearFromSelect').val(),
+            yearTo: $('#yearToSelect').val(),
+            displacementFrom: $('#displacementFromSelect').val(),
+            displacementTo: $('#displacementToSelect').val() },
+        traditional: true,
+        dataType: 'JSON',
+        type: 'GET',
+        success: function success(data) {
+            _reactDom2.default.render(_react2.default.createElement(SearchResult, { models: data, sizePerPage: 30 }), document.getElementById('searchResult'));
+        },
+        error: function error(xhr, status, err) {
+            console.error(status, err.toString());
+        }
+    });
+}
 
 function searchModelsByText() {
-    var searchText = $('#searchText').val();
-    _reactDom2.default.render(_react2.default.createElement(SearchResult, { url: '/ajax/searchModels/',
-        sizePerPage: 30,
-        searchText: searchText
-    }), document.getElementById('searchResult'));
-};
+    $.ajax({ // load all data
+        url: '/ajax/searchModelsAll/',
+        data: { searchText: $('#searchText').val() },
+        traditional: true,
+        dataType: 'JSON',
+        type: 'GET',
+        success: function success(data) {
+            _reactDom2.default.render(_react2.default.createElement(SearchResult, { models: data, sizePerPage: 30 }), document.getElementById('searchResult'));
+        },
+        error: function error(xhr, status, err) {
+            console.error(status, err.toString());
+        }
+    });
+}
 
 $(document).ready(function () {
     $('#manufacturerSelect').multiselect({
@@ -5720,7 +5708,7 @@ $(document).ready(function () {
     var thisYear = new Date().getFullYear();
     for (var i = thisYear; i >= 1900; i--) {
         $('<option>', { value: i, text: i }).appendTo('.year');
-    };
+    }
 
     var displacementArray = [50, 125, 250, 400, 600, 800, 1000];
     for (var i = 0; i < displacementArray.length; i++) {
