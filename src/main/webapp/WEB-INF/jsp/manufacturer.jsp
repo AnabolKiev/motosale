@@ -4,17 +4,19 @@
 
 <html>
 <head>
-    <meta charset="UTF-8" />
     <title>Технические характеристики ${manufacturer}</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script>var manufacturerId = ${manufacturerId};
             var manufacturer = '${manufacturer}';
     </script>
+    <meta charset="UTF-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/resources/js/lib/jquery.multiselect.js"></script>
     <script src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
-    <script src="/resources/js/scriptManufacturer.js"></script>
+    <script src="/resources/js/script.js"></script>
     <link href="/resources/img/favicon.ico" rel="shortcut icon">
     <link href="/resources/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/jquery.multiselect.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <div class="wrapper">
@@ -34,26 +36,103 @@
             </form>
         </div>
         <div class="content">
-            <h1 class="title">Мотокаталог моделей ${manufacturer}</h1>
-            <div id="searchResult"></div>
-            <%--
-                <table class="model-table">
-                    <th>Модель</th>
-                    <th>Год выпуска</th>
-                    <c:forEach items="${modelMap}" var="entry">
-                        <tr>
-                            <td>${entry.key}</td>
-                            <td>
-                                <ul>
-                                    <c:forEach items="${entry.value}" var="year">
-                                        <li><a href="/${manufacturer}/${entry.key}/${year}">${year}</a></li>
+            <table>
+                <tr>
+                    <td>
+                        <h3>Поиск по параметрам</h3>
+                        <form class="searchForm">
+                            <div>
+                                <select id="manufacturerSelect" name="manufacturerId" multiple>
+                                    <c:forEach items="${manufacturers}" var="entry">
+                                        <option value="${entry.id}">${entry.name}</option>
                                     </c:forEach>
-                                </ul>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            --%>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="categorySelect" name="categoryId" multiple>
+                                    <c:forEach items="${categories}" var="entry">
+                                        <option value="${entry.id}">${entry.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="finalDriveTypeSelect" name="finalDriveTypeId" multiple>
+                                    <c:forEach items="${finalDriveTypes}" var="entry">
+                                        <option value="${entry.id}">${entry.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                Год
+                                <select id="yearFromSelect" class="year">
+                                    <option value="">от</option>
+                                </select>
+                                <select id="yearToSelect" class="year">
+                                    <option value="">до</option>
+                                </select>
+                            </div>
+                            <div>
+                                <select id="engineTypeSelect" name="engineTypeId" multiple>
+                                    <c:set var="prevGroupOrder" scope="session" value=''/>
+                                    <c:forEach items="${engineTypes}" var="entry">
+                                        <c:if test="${entry.groupOrder != prevGroupOrder}">
+                                            <c:if test="${prevGroupOrder != ''}">
+                                            </optgroup>
+                                        </c:if>
+                                        <optgroup label="${entry.groupName}">
+                                            <c:set var="prevGroupOrder" scope="session" value="${entry.groupOrder}"/>
+                                        </c:if>
+                                        <option value="${entry.id}">${entry.shortName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                Объем двигателя
+                                <select id="displacementFromSelect" class="displacement">
+                                    <option value="">от</option>
+                                </select>
+                                <select id="displacementToSelect" class="displacement">
+                                    <option value="">до</option>
+                                </select>
+                            </div>
+                            <div>
+                                <input id="searchModels" type="submit" value="Поиск"/>
+                            </div>
+                        </form>
+                        <br>
+                        <h3>Производители</h3>
+                        <table>
+                            <c:forEach items="${manufacturers}" var="entry">
+                                <tr>
+                                    <td><a href="<c:url value="/bike/${entry.name}"/>">${entry.name}</a></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </td>
+                    <td id="searchResult">
+                        <h1 class="title">Мотокаталог моделей ${manufacturer}</h1>
+                        <div id="searchResultAfterTitle"></div>
+                        <%--
+                            <table class="model-table">
+                                <th>Модель</th>
+                                <th>Год выпуска</th>
+                                <c:forEach items="${modelMap}" var="entry">
+                                    <tr>
+                                        <td>${entry.key}</td>
+                                        <td>
+                                            <ul>
+                                                <c:forEach items="${entry.value}" var="year">
+                                                    <li><a href="/${manufacturer}/${entry.key}/${year}">${year}</a></li>
+                                                </c:forEach>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </table>
+                        --%>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="footer">
             <div class="copyright">© 2017</div>

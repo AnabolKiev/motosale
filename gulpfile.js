@@ -17,13 +17,13 @@ gulp.task('index', function () {
         .pipe(gulp.dest('src/main/webapp/WEB-INF/resources/js'));
 });
 
-gulp.task('manufacturer', function () {
-    return browserify({entries: 'src/main/webapp/WEB-INF/resources/js/jsx/scriptManufacturer.jsx', extensions: ['.jsx'], debug: false})
+gulp.task('search', function () {
+    return browserify({entries: 'src/main/webapp/WEB-INF/resources/js/jsx/searchResult.jsx', extensions: ['.jsx'], debug: false})
         .transform('babelify', {presets: ['es2015', 'react']})
-	.transform(browserifyshim)
         .bundle()
-        .pipe(source('scriptManufacturer.js'))
+        .pipe(source('searchResult.js'))
 	.pipe(buffer())
+	.pipe(uglify())
         .pipe(gulp.dest('src/main/webapp/WEB-INF/resources/js'));
 });
 
@@ -34,8 +34,8 @@ gulp.task('jsp', function () {
 });
 
 gulp.task('watch', function () {
+    gulp.watch('src/main/webapp/WEB-INF/resources/js/jsx/searchResult.jsx', ['search']);
     gulp.watch('src/main/webapp/WEB-INF/resources/js/jsx/script.jsx', ['index']);
-    gulp.watch('src/main/webapp/WEB-INF/resources/js/jsx/scriptManufacturer.jsx', ['manufacturer']);
     gulp.watch('src/main/webapp/WEB-INF/jsp/rigger/**/*.jsp', ['jsp']);
 
 });

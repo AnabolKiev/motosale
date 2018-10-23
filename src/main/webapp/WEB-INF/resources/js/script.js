@@ -5414,13 +5414,6 @@ module.exports = require('./lib/React');
 (function (global){
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.SearchResult = exports.AggregatedModels = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
 
 var _react2 = _interopRequireDefault(_react);
@@ -5428,6 +5421,154 @@ var _react2 = _interopRequireDefault(_react);
 var _reactDom = (typeof window !== "undefined" ? window['ReactDOM'] : typeof global !== "undefined" ? global['ReactDOM'] : null);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _searchResult = require('./searchResult');
+
+var _searchResult2 = _interopRequireDefault(_searchResult);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function searchModelsByFilters() {
+    $.ajax({ // load all data
+        url: '/ajax/searchModelsAll/',
+        data: { manufacturer: $('#manufacturerSelect').val(),
+            category: $('#categorySelect').val(),
+            engineType: $('#engineTypeSelect').val(),
+            finalDriveType: $('#finalDriveTypeSelect').val(),
+            yearFrom: $('#yearFromSelect').val(),
+            yearTo: $('#yearToSelect').val(),
+            displacementFrom: $('#displacementFromSelect').val(),
+            displacementTo: $('#displacementToSelect').val() },
+        traditional: true,
+        dataType: 'JSON',
+        type: 'GET',
+        success: function success(data) {
+            _reactDom2.default.render(_react2.default.createElement(_searchResult2.default, { models: data, sizePerPage: 30 }), document.getElementById('searchResult'));
+        },
+        error: function error(xhr, status, err) {
+            console.error(status, err.toString());
+        }
+    });
+}
+
+function searchModelsByText() {
+    $.ajax({ // load all data
+        url: '/ajax/searchModelsAll/',
+        data: { searchText: $('#searchText').val() },
+        traditional: true,
+        dataType: 'JSON',
+        type: 'GET',
+        success: function success(data) {
+            _reactDom2.default.render(_react2.default.createElement(_searchResult2.default, { models: data, sizePerPage: 30 }), document.getElementById('searchResult'));
+        },
+        error: function error(xhr, status, err) {
+            console.error(status, err.toString());
+        }
+    });
+}
+
+$(document).ready(function () {
+    $('#manufacturerSelect').multiselect({
+        columns: 1,
+        selectAll: true,
+        search: true,
+        texts: {
+            placeholder: 'Выберите производителя',
+            selectAll: 'Выбрать все',
+            unselectAll: 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано',
+            search: 'Поиск'
+        }
+    });
+
+    $('#categorySelect').multiselect({
+        columns: 1,
+        selectAll: true,
+        texts: {
+            placeholder: 'Выберите тип мотоцикла',
+            selectAll: 'Выбрать все',
+            unselectAll: 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано'
+        }
+    });
+
+    $('#engineTypeSelect').multiselect({
+        columns: 1,
+        selectAll: true,
+        texts: {
+            placeholder: 'Выберите тип двигателя',
+            selectAll: 'Выбрать все',
+            unselectAll: 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано'
+        }
+    });
+
+    $('#finalDriveTypeSelect').multiselect({
+        columns: 1,
+        selectAll: true,
+        texts: {
+            placeholder: 'Выберите тип привода',
+            selectAll: 'Выбрать все',
+            unselectAll: 'Убрать все',
+            noneSelected: 'Не выбрано',
+            selectedOptions: ' выбрано'
+        }
+    });
+
+    var thisYear = new Date().getFullYear();
+    for (var i = thisYear; i >= 1900; i--) {
+        $('<option>', { value: i, text: i }).appendTo('.year');
+    }
+
+    var displacementArray = [50, 125, 250, 400, 600, 800, 1000];
+    for (var i = 0; i < displacementArray.length; i++) {
+        $('<option>', { value: displacementArray[i], text: displacementArray[i] + ' см3' }).appendTo('.displacement');
+    }
+
+    $('#searchModels').click(function () {
+        event.preventDefault();
+        searchModelsByFilters();
+    });
+
+    $('#searchButton').click(function () {
+        event.preventDefault();
+        searchModelsByText();
+    });
+
+    if (manufacturerId != null) {
+        $.ajax({ // load all data
+            url: '/ajax/searchModelsByManufacturer/',
+            data: { manufacturerId: manufacturerId },
+            traditional: true,
+            dataType: 'JSON',
+            type: 'GET',
+            success: function success(data) {
+                _reactDom2.default.render(_react2.default.createElement(_searchResult2.default, { models: data, sizePerPage: 30 }), document.getElementById('searchResultAfterTitle'));
+            },
+            error: function error(xhr, status, err) {
+                console.error(status, err.toString());
+            }
+        });
+    }
+});
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./searchResult":46}],46:[function(require,module,exports){
+(function (global){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
+
+var _react2 = _interopRequireDefault(_react);
 
 var _reactPaginate = require('react-paginate');
 
@@ -5441,7 +5582,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AggregatedModels = exports.AggregatedModels = function (_Component) {
+var AggregatedModels = function (_Component) {
     _inherits(AggregatedModels, _Component);
 
     function AggregatedModels() {
@@ -5525,7 +5666,7 @@ var AggregatedModels = exports.AggregatedModels = function (_Component) {
     return AggregatedModels;
 }(_react.Component);
 
-var SearchResult = exports.SearchResult = function (_Component2) {
+var SearchResult = function (_Component2) {
     _inherits(SearchResult, _Component2);
 
     function SearchResult(props) {
@@ -5615,116 +5756,7 @@ var SearchResult = exports.SearchResult = function (_Component2) {
     return SearchResult;
 }(_react.Component);
 
-function searchModelsByFilters() {
-    $.ajax({ // load all data
-        url: '/ajax/searchModelsAll/',
-        data: { manufacturer: $('#manufacturerSelect').val(),
-            category: $('#categorySelect').val(),
-            engineType: $('#engineTypeSelect').val(),
-            finalDriveType: $('#finalDriveTypeSelect').val(),
-            yearFrom: $('#yearFromSelect').val(),
-            yearTo: $('#yearToSelect').val(),
-            displacementFrom: $('#displacementFromSelect').val(),
-            displacementTo: $('#displacementToSelect').val() },
-        traditional: true,
-        dataType: 'JSON',
-        type: 'GET',
-        success: function success(data) {
-            _reactDom2.default.render(_react2.default.createElement(SearchResult, { models: data, sizePerPage: 30 }), document.getElementById('searchResult'));
-        },
-        error: function error(xhr, status, err) {
-            console.error(status, err.toString());
-        }
-    });
-}
-
-function searchModelsByText() {
-    $.ajax({ // load all data
-        url: '/ajax/searchModelsAll/',
-        data: { searchText: $('#searchText').val() },
-        traditional: true,
-        dataType: 'JSON',
-        type: 'GET',
-        success: function success(data) {
-            _reactDom2.default.render(_react2.default.createElement(SearchResult, { models: data, sizePerPage: 30 }), document.getElementById('searchResult'));
-        },
-        error: function error(xhr, status, err) {
-            console.error(status, err.toString());
-        }
-    });
-}
-
-$(document).ready(function () {
-    $('#manufacturerSelect').multiselect({
-        columns: 1,
-        selectAll: true,
-        search: true,
-        texts: {
-            placeholder: 'Выберите производителя',
-            selectAll: 'Выбрать все',
-            unselectAll: 'Убрать все',
-            noneSelected: 'Не выбрано',
-            selectedOptions: ' выбрано',
-            search: 'Поиск'
-        }
-    });
-
-    $('#categorySelect').multiselect({
-        columns: 1,
-        selectAll: true,
-        texts: {
-            placeholder: 'Выберите тип мотоцикла',
-            selectAll: 'Выбрать все',
-            unselectAll: 'Убрать все',
-            noneSelected: 'Не выбрано',
-            selectedOptions: ' выбрано'
-        }
-    });
-
-    $('#engineTypeSelect').multiselect({
-        columns: 1,
-        selectAll: true,
-        texts: {
-            placeholder: 'Выберите тип двигателя',
-            selectAll: 'Выбрать все',
-            unselectAll: 'Убрать все',
-            noneSelected: 'Не выбрано',
-            selectedOptions: ' выбрано'
-        }
-    });
-
-    $('#finalDriveTypeSelect').multiselect({
-        columns: 1,
-        selectAll: true,
-        texts: {
-            placeholder: 'Выберите тип привода',
-            selectAll: 'Выбрать все',
-            unselectAll: 'Убрать все',
-            noneSelected: 'Не выбрано',
-            selectedOptions: ' выбрано'
-        }
-    });
-
-    var thisYear = new Date().getFullYear();
-    for (var i = thisYear; i >= 1900; i--) {
-        $('<option>', { value: i, text: i }).appendTo('.year');
-    }
-
-    var displacementArray = [50, 125, 250, 400, 600, 800, 1000];
-    for (var i = 0; i < displacementArray.length; i++) {
-        $('<option>', { value: displacementArray[i], text: displacementArray[i] + ' см3' }).appendTo('.displacement');
-    }
-
-    $('#searchModels').click(function () {
-        event.preventDefault();
-        searchModelsByFilters();
-    });
-
-    $('#searchButton').click(function () {
-        event.preventDefault();
-        searchModelsByText();
-    });
-});
+exports.default = SearchResult;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"react-paginate":19}]},{},[45]);

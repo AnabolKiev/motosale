@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import SearchResult from './searchResult';
+import SearchResult from '../searchResult';
 
 function searchModelsByFilters() {
     $.ajax({  // load all data
         url      : '/ajax/searchModelsAll/',
         data     : {manufacturer: $('#manufacturerSelect').val(),
-                    category: $('#categorySelect').val(),
-                    engineType: $('#engineTypeSelect').val(),
-                    finalDriveType: $('#finalDriveTypeSelect').val(),
-                    yearFrom: $('#yearFromSelect').val(),
-                    yearTo: $('#yearToSelect').val(),
-                    displacementFrom: $('#displacementFromSelect').val(),
-                    displacementTo: $('#displacementToSelect').val()},
+            category: $('#categorySelect').val(),
+            engineType: $('#engineTypeSelect').val(),
+            finalDriveType: $('#finalDriveTypeSelect').val(),
+            yearFrom: $('#yearFromSelect').val(),
+            yearTo: $('#yearToSelect').val(),
+            displacementFrom: $('#displacementFromSelect').val(),
+            displacementTo: $('#displacementToSelect').val()},
         traditional: true,
         dataType : 'JSON',
         type     : 'GET',
@@ -112,19 +112,18 @@ $(document).ready( function() {
         searchModelsByText();
     });
 
-    if (manufacturerId != null) {
-        $.ajax({  // load all data
-            url      : '/ajax/searchModelsByManufacturer/',
-            data     : {manufacturerId: manufacturerId},
-            traditional: true,
-            dataType : 'JSON',
-            type     : 'GET',
-            success: data => {
-                ReactDOM.render(<SearchResult models={data} sizePerPage={30}/>, document.getElementById('searchResultAfterTitle'))
-            },
-            error: (xhr, status, err) => {
-                console.error(status, err.toString());
-            }
-        })
-    }
+    if (manufacturerId != null)
+    $.ajax({  // load all data
+        url      : '/ajax/searchModelsByManufacturer/',
+        data     : {manufacturerId: manufacturerId},
+        traditional: true,
+        dataType : 'JSON',
+        type     : 'GET',
+        success: data => {
+            ReactDOM.render(<SearchResult models={data} sizePerPage={30}/>, document.getElementById('searchResultAfterTitle'))
+        },
+        error: (xhr, status, err) => {
+            console.error(status, err.toString());
+        }
+    });
 });

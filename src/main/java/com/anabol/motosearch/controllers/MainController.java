@@ -56,6 +56,10 @@ public class MainController {
 		//model.addAttribute("modelMap", getAggregatedModels(modelList)); // models data uploads by ajax request now
         model.addAttribute("manufacturerId", manufacturerId);
 		model.addAttribute("manufacturer", manufacturer.getName());
+        model.addAttribute("manufacturers", Lists.newArrayList(manufacturerDao.findByActiveTrue()));
+        model.addAttribute("categories", Lists.newArrayList(categoryDao.findAll()));
+        model.addAttribute("finalDriveTypes", Lists.newArrayList(finalDriveTypeDao.findAll()));
+        model.addAttribute("engineTypes", Lists.newArrayList(engineTypeDao.findAllByOrderByGroupOrderAscEngineOrderAsc()));
 		return "manufacturer";
 	}
 
@@ -82,10 +86,10 @@ public class MainController {
                                  @RequestParam(name = "displacementTo", required = false) final Integer displacementTo,
                                  @RequestParam(name = "searchText", required = false) final String searchText,
                                  @RequestParam("sizePerPage") final Integer sizePerPage,
-                                 @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
-        return modelService.findByFilters(manufacturers, categories, engineTypes, finalDriveTypes, yearFrom, yearTo, displacementFrom, displacementTo, searchText, sizePerPage, pageNumber);
-	}
 
+    @RequestParam("pageNumber") final Integer pageNumber) throws ServletException, IOException {
+        return modelService.findByFilters(manufacturers, categories, engineTypes, finalDriveTypes, yearFrom, yearTo, displacementFrom, displacementTo, searchText, sizePerPage, pageNumber);
+    }
     @RequestMapping(value = "/ajax/searchModelsAll/", method = RequestMethod.GET)
     public @ResponseBody
     List<Object[]> searchModelsAll(@RequestParam(name = "manufacturer", required = false) final List<Long> manufacturers,

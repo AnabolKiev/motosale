@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate';
 
-export class AggregatedModels extends Component{
+class AggregatedModels extends Component{
     render(){
         var modelRows = this.props.data.map((model, i) => {
             let years = model[2].split(",").map((year, j) => { // build horizontal list of model years
@@ -42,7 +41,7 @@ export class AggregatedModels extends Component{
     }
 }
 
-export class SearchResult extends Component {
+export default class SearchResult extends Component {
     constructor(props) {
         super(props);
         this.state = {data: undefined, offset: 0, sizePerPage: props.sizePerPage, pageCount: Math.ceil(props.models.length/props.sizePerPage)};
@@ -105,19 +104,3 @@ export class SearchResult extends Component {
         }
     }
 }
-
-$(document).ready( function() {
-    $.ajax({  // load all data
-        url      : '/ajax/searchModelsByManufacturer/',
-        data     : {manufacturerId: manufacturerId},
-        traditional: true,
-        dataType : 'JSON',
-        type     : 'GET',
-        success: data => {
-            ReactDOM.render(<SearchResult models={data} sizePerPage={30}/>, document.getElementById('searchResult'))
-        },
-        error: (xhr, status, err) => {
-            console.error(status, err.toString());
-        }
-    });
-});

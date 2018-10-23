@@ -67,7 +67,7 @@ public class BikeModelServiceImpl implements BikeModelService{
         return modelDao.findByManufacturer_IdAndNameAndYearAndManufacturer_ActiveTrue(manufacturerId, modelName, year);
     }
 
-    public Page<BikeModel> findByFilters(List<Long> manufacturers,
+    public Page<BikeModel> findByFilters(List<Long> manufacturers, // not using at the moment
                                          List<Long> categories,
                                          List<Long> engineTypes,
                                          List<Long> finalDriveTypes,

@@ -4,8 +4,8 @@
 
 <html>
 <head>
-    <meta charset="UTF-8" />
     <title>Технические характеристики</title>
+    <meta charset="UTF-8" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/resources/js/lib/jquery.multiselect.js"></script>
     <script src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
