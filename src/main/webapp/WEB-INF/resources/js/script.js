@@ -5538,7 +5538,7 @@ $(document).ready(function () {
         searchModelsByText();
     });
 
-    if (manufacturerId != null) {
+    if (typeof manufacturerId !== "undefined") {
         $.ajax({ // load all data
             url: '/ajax/searchModelsByManufacturer/',
             data: { manufacturerId: manufacturerId },
