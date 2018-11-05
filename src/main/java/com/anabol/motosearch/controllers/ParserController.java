@@ -1,47 +1,40 @@
 package com.anabol.motosearch.controllers;
 
-import com.anabol.motosearch.dao.ParserDao;
+import com.anabol.motosearch.service.ParserService;
 import com.anabol.motosearch.form.CheckedWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.inject.Inject;
-import java.util.logging.Logger;
 
+@Slf4j
 @Controller
 @Transactional
 public class ParserController {
 
     @Inject
-    private ParserDao dao;
-
-    private static Logger log = Logger.getLogger(ParserController.class.getName());
+    private ParserService parserService;
 
     @RequestMapping(value = "/admin/parser", method = RequestMethod.GET)
     public String parse(Model model) {
-        model.addAttribute("manufacturers", dao.getManufacturers());
-        model.addAttribute("models", dao.getModels());
-        //model.addAttribute("bikeModel", dao.getModelAttr());
+        model.addAttribute("manufacturers", parserService.getManufacturers());
+        model.addAttribute("models", parserService.getModels());
+        //model.addAttribute("bikeModel", parserService.getModelAttr());
         return "admin/parser";
     }
 
-    @RequestMapping(value = "/admin/parser/getManufacturerList", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/parser/getManufacturers", method = RequestMethod.GET)
     public String getManufacturers(Model model) {
-        dao.downloadManufacturers();
+        parserService.downloadManufacturers();
         return "redirect:/admin/parser";
     }
 
-    @RequestMapping(value = "/admin/parser/clearManufacturerList", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/parser/clearManufacturers", method = RequestMethod.GET)
     public String clearManufacturers(Model model) {
-        dao.clearManufacturers();
-        return "redirect:/admin/parser";
-    }
-
-    @RequestMapping(value = "/admin/parser/getModelPages", method = RequestMethod.GET)
-    public String getModelsByManufacturer(@RequestParam("manufacturerUrl") String manufacturerUrl, Model model) {
-        dao.downloadModels(manufacturerUrl);
+        parserService.clearManufacturers();
         return "redirect:/admin/parser";
     }
 
@@ -52,46 +45,44 @@ public class ParserController {
             return "error";
         }
         for (String manufacturerUrl: manufacturers.getManufacturersList()) {
-             dao.downloadModels(manufacturerUrl);
+            parserService.downloadModels(manufacturerUrl);
         }
         return "redirect:/admin/parser";
     }
 
-    @RequestMapping(value = "/admin/parser/clearModelList", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/parser/clearModels", method = RequestMethod.GET)
     public String clearModels(Model model) {
-        dao.clearModels();
-        return "redirect:/admin/parser";
-    }
-
-    @RequestMapping(value = "/admin/parser/getModel", method = RequestMethod.GET)
-    public String getModelAttrByUrl(@RequestParam("pageUrl") String url, Model model) {
-        log.info(url);
-        dao.clearModelAttr();
-        dao.downloadModelAttr(url);
+        parserService.clearModels();
         return "redirect:/admin/parser";
     }
 
     @RequestMapping(value = "/admin/parser/saveModels", method = RequestMethod.GET)
     public String saveModels(Model model) {
-        dao.saveModels();
+        parserService.saveModels();
         return "redirect:/admin/parser";
     }
 
-    @RequestMapping(value = "/admin/admin/parser/getModelsAttr", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/parser/getModelsAttr", method = RequestMethod.GET)
     public String getModels(Model model) {
-        dao.downloadModelsAttr();
+        parserService.downloadModelsAttr();
+        return "redirect:/admin/parser";
+    }
+
+    @RequestMapping(value = "/admin/parser/getModelAttr", method = RequestMethod.GET)
+    public String getModelAttrByUrl(@RequestParam("pageUrl") String url, Model model) {
+        parserService.downloadModelAttr(url);
         return "redirect:/admin/parser";
     }
 
     @RequestMapping(value = "/admin/parser/clearModelAttr", method = RequestMethod.GET)
     public String clearModelAttr(Model model) {
-        dao.clearModelAttr();
+        parserService.clearModelAttr();
         return "redirect:/admin/parser";
     }
 
     @RequestMapping(value = "/admin/parser/saveModelAttr", method = RequestMethod.GET)
     public String saveModelAttr(Model model) {
-        dao.saveModelAttr();
+        parserService.saveModelAttr();
         return "redirect:/admin/parser";
     }
 }

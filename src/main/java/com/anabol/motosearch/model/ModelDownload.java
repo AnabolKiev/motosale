@@ -1,6 +1,11 @@
 package com.anabol.motosearch.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import javax.persistence.*;
+
+@Setter
+@Getter
 @Entity
 @Table(name = "model_hold_bikez")
 public class ModelDownload {
@@ -11,48 +16,6 @@ public class ModelDownload {
     private String manufacturer;
     @Column(name = "ModelName")
     private String modelName;
-    @Column(name = "ModelYear")
-    private String modelYear;
     @Column(name = "AttrCount")
     private int attrCount;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
-    public String getModelName() {
-        return modelName;
-    }
-
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    public String getModelYear() {
-        return modelYear;
-    }
-
-    public void setModelYear(String modelYear) {
-        this.modelYear = modelYear;
-    }
-
-    public int getAttrCount() {
-        return attrCount;
-    }
-
-    public void setAttrCount(int attrCount) {
-        this.attrCount = attrCount;
-    }
 }

@@ -22,26 +22,24 @@
 <table>
     <tr>
         <td>Главные страницы производителей</td>
-        <td>Страницы производителей</td>
+        <td>Страницы моделей</td>
     </tr>
     <tr>
         <td>
             <table>
                 <tr>
                     <td>
-                        <form method="GET" action="/admin/parser/getManufacturerList" commandName="getManufacturerList">
-                            <input type="submit" value="Получить"/>
+                        <form method="GET" action="/admin/parser/getManufacturers">
+                            <input type="submit" value="Загрузить производителей"/>
                         </form>
                     </td>
                     <td>
-                        <form method="GET" action="/admin/parser/clearManufacturerList" commandName="clearManufacturerList">
+                        <form method="GET" action="/admin/parser/clearManufacturers">
                             <input type="submit" value="Очистить"/>
                         </form>
                     </td>
                     <td>
-                        <%--<form method="POST" action="/admin/parser/getModelPages">--%>
-                            <input type="submit" value="Загрузить страницы" form="manufacturerForm"/>
-                        <%--</form>--%>
+                        <input type="submit" value="Загрузить модели" form="manufacturerForm"/>
                     </td>
                 </tr>
             </table>
@@ -50,17 +48,17 @@
             <table>
                 <tr>
                     <td>
-                        <form method="GET" action="/admin/parser/clearModelList" commandName="clearModelList">
+                        <form method="GET" action="/admin/parser/clearModels">
                             <input type="submit" value="Очистить"/>
                         </form>
                     </td>
                     <td>
-                        <form method="GET" action="/admin/parser/getModelsAttr" commandName="getModelsAttr">
-                            <input type="submit" value="Загрузить все"/>
+                        <form method="GET" action="/admin/parser/getModelsAttr">
+                            <input type="submit" value="Загрузить аттрибуты"/>
                         </form>
                     </td>
                     <td>
-                    <form method="GET" action="/admin/parser/saveModels" commandName="saveModels">
+                    <form method="GET" action="/admin/parser/saveModels">
                         <input type="submit" value="Сохранить"/>
                     </form>
                     </td>
@@ -104,7 +102,6 @@
                             <th>#</th>
                             <th>Производитель</th>
                             <th>Модель</th>
-                            <th>Год</th>
                             <th>URL</th>
                             <th>Аттр.</th>
                             <th></th>
@@ -115,11 +112,10 @@
                                 <td>${loop.count}</td>
                                 <td>${entry.value.manufacturer}</td>
                                 <td>${entry.value.modelName}</td>
-                                <td>${entry.value.modelYear}</td>
                                 <td>${entry.key}</td>
                                 <td>${entry.value.attrCount}</td>
                                 <td>
-                                    <form method="GET" action="/admin/parser/getModel">
+                                    <form method="GET" action="/admin/parser/getModelAttr">
                                         <input type="hidden" name="pageUrl" value="${entry.key}"/>
                                         <input type="submit" value="Загрузить"/>
                                     </form>
@@ -139,12 +135,12 @@
             <table>
                 <tr>
                     <td>
-                        <form method="GET" action="/admin/parser/clearModelAttr" commandName="clearModelAttr">
+                        <form method="GET" action="/admin/parser/clearModelAttr">
                             <input type="submit" value="Очистить"/>
                         </form>
                     </td>
                     <td>
-                        <form method="GET" action="/admin/parser/saveModelAttr" commandName="saveModelAttr">
+                        <form method="GET" action="/admin/parser/saveModelAttr">
                             <input type="submit" value="Сохранить"/>
                         </form>
                     </td>
